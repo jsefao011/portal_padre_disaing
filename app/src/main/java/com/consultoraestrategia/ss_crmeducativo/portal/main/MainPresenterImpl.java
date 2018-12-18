@@ -1,0 +1,128 @@
+package com.consultoraestrategia.ss_crmeducativo.portal.main;
+
+import android.content.res.Resources;
+import android.util.Log;
+import android.util.SparseBooleanArray;
+
+import com.consultoraestrategia.ss_crmeducativo.portal.base.UseCaseHandler;
+import com.consultoraestrategia.ss_crmeducativo.portal.base.activity.BasePresenterImpl;
+import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.ItemMenuUI;
+import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.TipoMenu;
+import com.consultoraestrategia.ss_crmeducativo.portal.main.view.MainView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainPresenterImpl extends BasePresenterImpl<MainView> implements MainPresenter{
+    private ItemMenuUI itemMenuUI;
+    private ArrayList<ItemMenuUI> configuracionUiList;
+    private ArrayList<ItemMenuUI> configuracionUiListEstudiante;
+
+    public MainPresenterImpl(UseCaseHandler handler, Resources res) {
+        super(handler, res);
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        if(view!=null)view.initFragmentEstudianteTarea();
+
+        configuracionUiList = new ArrayList<>();
+        configuracionUiList.add(new ItemMenuUI(TipoMenu.COLEGIO_EVENTO,"Evento", false));
+        configuracionUiList.add(new ItemMenuUI(TipoMenu.COLEGIO_CALENDARIO,"Calendario", false));
+        configuracionUiList.add(new ItemMenuUI(TipoMenu.COLEGIO_DIRECTORIO,"Directorio", false));
+
+        configuracionUiListEstudiante = new ArrayList<>();
+        itemMenuUI = new ItemMenuUI(TipoMenu.ESTUDIANTE_TAREAS,"Tareas", true);
+        configuracionUiListEstudiante.add(itemMenuUI);
+        configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_ASISTENCIA,"Asistencia", false));
+        configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_CONDUCTA,"Comportamiento", false));
+        configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_ESTADOCUENTA,"Estado de cuenta", false));
+        configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_CURSO,"Cursos", false));
+
+        showListInfoEstudiante();
+    }
+
+    @Override
+    protected String getTag() {
+        return getClass().getSimpleName();
+    }
+
+    @Override
+    public void onSingleItemSelected(Object singleItem, int selectedPosition) {
+
+    }
+
+    @Override
+    public void onMultiItemsSelected(SparseBooleanArray booleanArray) {
+
+    }
+
+    @Override
+    public void onClickBtnInfoColegio() {
+       showListInfoColegio();
+    }
+
+    private void showListInfoColegio() {
+        if(view != null)view.showMenuList(new ArrayList<Object>(configuracionUiList));
+    }
+
+    @Override
+    public void onClickBtnInfoEstudiante() {
+        showListInfoEstudiante();
+    }
+
+    private void showListInfoEstudiante(){
+        if(view != null)view.showMenuList(new ArrayList<Object>(configuracionUiListEstudiante));
+    }
+
+    @Override
+    public void onClickBtnInfoFamilia() {
+        if(view != null)view.showMenuList(new ArrayList<Object>());
+    }
+
+    @Override
+    public void onMenuSelected(Object o) {
+        if(!(o instanceof ItemMenuUI))return;
+        if( this.itemMenuUI != null)itemMenuUI.setSeleccionado(false);
+
+        ItemMenuUI itemMenuUI = (ItemMenuUI)o;
+        itemMenuUI.setSeleccionado(true);
+        this.itemMenuUI = itemMenuUI;
+        if (view != null) {
+            view.MenuViewNotifyDataSetChanged();
+        }
+
+        switch (itemMenuUI.getTipoMenu()){
+            case COLEGIO_EVENTO:
+                if(view!=null)view.initFragmentColegioEvento();
+                break;
+            case COLEGIO_CALENDARIO:
+                if(view!=null)view.initFragmentColegioCalendario();
+                break;
+            case COLEGIO_DIRECTORIO:
+
+                break;
+            case ESTUDIANTE_TAREAS:
+                if(view!=null)view.initFragmentEstudianteTarea();
+                break;
+            case ESTUDIANTE_ASISTENCIA:
+                if(view!=null)view.initFragmentEstudianteAsistencia();
+                break;
+            case ESTUDIANTE_CONDUCTA:
+                if(view!=null)view.initFragmentEstudianteConducta();
+                break;
+            case ESTUDIANTE_ESTADOCUENTA:
+                if(view!=null)view.initFragmentEstudianteEstadoCuenta();
+                break;
+            case ESTUDIANTE_CURSO:
+                if(view!=null)view.initFragmentEstudianteCurso();
+                break;
+        }
+
+
+
+    }
+
+
+}

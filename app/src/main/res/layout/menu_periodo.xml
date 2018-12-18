@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/root"
+        android:layout_width="25dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/border_radius_left"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.consultoraestrategia.ss_crmeducativo.portal.demo.libreria.verticalTextView.VerticalTextView
+            android:id="@+id/textTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:rotation="360"
+            android:text="Bimestre I"
+            android:textAllCaps="true"
+            android:textColor="#6dbaeb"
+            android:textSize="9sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/root2"
+        android:layout_width="25dp"
+        android:layout_height="110dp"
+        android:background="@drawable/border_radius_left2"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/root3">
+
+        <com.consultoraestrategia.ss_crmeducativo.portal.demo.libreria.verticalTextView.VerticalTextView
+            android:id="@+id/textTitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:rotation="360"
+            android:text="Bimestre II"
+            android:textAllCaps="true"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/root3"
+        android:layout_width="25dp"
+        android:layout_height="110dp"
+        android:background="@drawable/border_radius_left2"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/root">
+
+        <com.consultoraestrategia.ss_crmeducativo.portal.demo.libreria.verticalTextView.VerticalTextView
+            android:id="@+id/textTitle3"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:rotation="360"
+            android:text="Bimestre III"
+            android:textAllCaps="true"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/root4"
+        android:layout_width="25dp"
+        android:layout_height="110dp"
+        android:background="@drawable/border_radius_left2"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/root2">
+
+        <com.consultoraestrategia.ss_crmeducativo.portal.demo.libreria.verticalTextView.VerticalTextView
+            android:id="@+id/textTitle4"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:rotation="360"
+            android:text="Final"
+            android:textAllCaps="true"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.constraint.ConstraintLayout>
