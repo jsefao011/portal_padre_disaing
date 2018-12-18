@@ -1,6 +1,12 @@
 package com.consultoraestrategia.ss_crmeducativo.portal.main.view;
 
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.transition.Slide;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -9,10 +15,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import com.consultoraestrategia.ss_crmeducativo.portal.base.UseCaseHandler;
@@ -46,6 +54,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     RecyclerView navBarRcMenu;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
+    private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected String getTag() {
@@ -77,14 +86,19 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        toolbar.setTitle("TAREA");
+        setTitle("TAREA");
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+        drawerToggle = setupDrawerToggle();
+        drawer.addDrawerListener(drawerToggle);
+        //toggle.syncState();
 
         setupAdapter();
+    }
+
+    private ActionBarDrawerToggle setupDrawerToggle() {
+        // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
+        // and will not render the hamburger icon without it.
+        return new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open,  R.string.navigation_drawer_close);
     }
 
     private void setupAdapter() {
@@ -128,10 +142,13 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id){
+            case R.id.action_settings:
+                return true;
+            case android.R.id.home:
+                drawer.openDrawer(GravityCompat.START);
+                return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -167,124 +184,92 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
         menuAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void initFragmentEstudianteTarea() {
-        toolbar.setTitle("TAREA");
+
+
+    public <T extends Fragment> void getSupportFragmentManager(final Class<T> fragmentClass) {
+        drawer.closeDrawers();
         drawer.postDelayed(new Runnable() {
             @Override
             public void run() {
-                EstudianteTareaFragment fragment = new EstudianteTareaFragment();
+                // Create a new fragment and specify the fragment to show based on nav item clicked
 
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.root, fragment, fragment.getTag())
-                        .commitNow();
+                try {
+
+                    Fragment fragment = (Fragment) fragmentClass.newInstance();
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        //setExitTransition(new Slide(Gravity.START));
+                        //setEnterTransition(new Slide(Gravity.START));
+                        fragment.setEnterTransition(new Slide(Gravity.CENTER));
+                    }
+
+                    // Insert the fragment by replacing any existing fragment
+
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.flContent, fragment).commit();
+                    fragmentTransaction.addToBackStack(null);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
             }
         },300);
+
+
+
+
+
+    }
+
+    @Override
+    public void initFragmentEstudianteTarea() {
+        setTitle("TAREA");
+        getSupportFragmentManager(EstudianteTareaFragment.class);
 
 
     }
 
     @Override
     public void initFragmentEstudianteAsistencia() {
-        toolbar.setTitle("ASISTENCIA");
-        drawer.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                EstudianteAsistenciaFragment fragment = new EstudianteAsistenciaFragment();
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.root, fragment, fragment.getTag())
-                        .commitNow();
-
-            }
-        },300);
+        setTitle("ASISTENCIA");
+        getSupportFragmentManager(EstudianteAsistenciaFragment.class);
     }
 
     @Override
     public void initFragmentEstudianteConducta() {
-        toolbar.setTitle("COMPORTAMIENTO");
-        drawer.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                EstudianteConductaFragment fragment = new EstudianteConductaFragment();
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.root, fragment, fragment.getTag())
-                        .commitNow();
-
-            }
-        },300);
+        setTitle("COMPORTAMIENTO");
+        getSupportFragmentManager(EstudianteConductaFragment.class);
     }
 
     @Override
     public void initFragmentEstudianteEstadoCuenta() {
-        toolbar.setTitle("ESTADO DE CUENTA");
-        drawer.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                EstudianteEstadoCuenta fragment = new EstudianteEstadoCuenta();
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.root, fragment, fragment.getTag())
-                        .commitNow();
-
-            }
-        },300);
+        setTitle("ESTADO DE CUENTA");
+        getSupportFragmentManager(EstudianteEstadoCuenta.class);
     }
 
     @Override
     public void initFragmentEstudianteCurso() {
-        toolbar.setTitle("CURSOS");
-        drawer.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                EstudianteCursos fragment = new EstudianteCursos();
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.root, fragment, fragment.getTag())
-                        .commitNow();
-
-            }
-        },300);
+        setTitle("CURSOS");
+        getSupportFragmentManager(EstudianteCursos.class);
     }
 
     @Override
     public void initFragmentColegioEvento() {
-        toolbar.setTitle("EVENTO");
-        drawer.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ColegioEventoFragment fragment = new ColegioEventoFragment();
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.root, fragment, fragment.getTag())
-                        .commitNow();
-
-            }
-        },300);
+        setTitle("EVENTO");
+        getSupportFragmentManager(ColegioEventoFragment.class);
     }
 
     @Override
     public void initFragmentColegioCalendario() {
-        toolbar.setTitle("CALENDARIO");
-        drawer.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                ColegioCalendarioFragment fragment = new ColegioCalendarioFragment();
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.root, fragment, fragment.getTag())
-                        .commitNow();
-
-            }
-        },300);
+        setTitle("CALENDARIO");
+        getSupportFragmentManager(ColegioCalendarioFragment.class);
     }
 
     @Override
     public void onMenuSelected(Object o) {
         presenter.onMenuSelected(o);
-        drawer.closeDrawer(GravityCompat.START);
     }
 
     @OnClick({R.id.btn_info_estudiante, R.id.btn_info_colegio, R.id.btn_info_familia})
@@ -303,4 +288,17 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
         }
     }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Pass any configuration change to the drawer toggles
+        drawerToggle.onConfigurationChanged(newConfig);
+    }
 }
