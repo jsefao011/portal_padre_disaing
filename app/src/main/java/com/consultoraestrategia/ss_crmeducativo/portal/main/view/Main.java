@@ -55,7 +55,6 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
     private ActionBarDrawerToggle drawerToggle;
-
     @Override
     protected String getTag() {
         return getClass().getSimpleName();
