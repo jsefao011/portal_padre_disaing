@@ -89,7 +89,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
 
         drawerToggle = setupDrawerToggle();
         drawer.addDrawerListener(drawerToggle);
-        //toggle.syncState();
+ 
 
         setupAdapter();
     }
