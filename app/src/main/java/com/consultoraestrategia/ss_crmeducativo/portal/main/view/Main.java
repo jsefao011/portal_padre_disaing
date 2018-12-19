@@ -20,14 +20,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
-import com.consultoraestrategia.ss_crmeducativo.portal.base.UseCaseHandler;
-import com.consultoraestrategia.ss_crmeducativo.portal.base.activity.BaseActivity;
+import com.consultoraestrategia.ss_crmeducativo.base.UseCaseHandler;
+import com.consultoraestrategia.ss_crmeducativo.base.UseCaseThreadPoolScheduler;
+import com.consultoraestrategia.ss_crmeducativo.base.activity.BaseActivity;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.colegioCalendario.ColegioCalendarioFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.colegioEvento.ColegioEventoFragment;
-import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteAsistencia.EstudianteAsistenciaFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteCursos.EstudianteCursos;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteEstadoCuenta.EstudianteEstadoCuenta;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteTarea.EstudianteTareaFragment;
@@ -36,6 +35,7 @@ import com.consultoraestrategia.ss_crmeducativo.portal.main.MainPresenter;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.MainPresenterImpl;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.adapter.MenuAdapter;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.listener.MenuListener;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.view.TareasFragment;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
 
 import java.util.ArrayList;
@@ -68,7 +68,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
 
     @Override
     protected MainPresenter getPresenter() {
-        return new MainPresenterImpl(new UseCaseHandler(), getResources());
+        return new MainPresenterImpl(new UseCaseHandler(new UseCaseThreadPoolScheduler()), getResources());
     }
 
     @Override
@@ -162,15 +162,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
 
     }
 
-    @Override
-    public void showListSingleChooser(String title, List<Object> items, int positionSelected) {
 
-    }
-
-    @Override
-    public void showMultiChoiseDialog(String title, CharSequence[] items, boolean[] checkedItems) {
-
-    }
 
     @Override
     public void showMenuList(List<Object> objects) {
@@ -200,7 +192,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         //setExitTransition(new Slide(Gravity.START));
                         //setEnterTransition(new Slide(Gravity.START));
-                        fragment.setEnterTransition(new Slide(Gravity.CENTER));
+                        fragment.setEnterTransition(new Slide(Gravity.LEFT));
                     }
 
                     // Insert the fragment by replacing any existing fragment
@@ -218,15 +210,12 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
         },300);
 
 
-
-
-
     }
 
     @Override
     public void initFragmentEstudianteTarea() {
         setTitle("TAREA");
-        getSupportFragmentManager(EstudianteTareaFragment.class);
+        getSupportFragmentManager(TareasFragment.class);
 
 
     }
@@ -234,7 +223,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     @Override
     public void initFragmentEstudianteAsistencia() {
         setTitle("ASISTENCIA");
-        getSupportFragmentManager(EstudianteAsistenciaFragment.class);
+        getSupportFragmentManager(EstudianteTareaFragment.class);
     }
 
     @Override

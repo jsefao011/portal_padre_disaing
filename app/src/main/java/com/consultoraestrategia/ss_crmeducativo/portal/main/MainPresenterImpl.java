@@ -4,8 +4,8 @@ import android.content.res.Resources;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 
-import com.consultoraestrategia.ss_crmeducativo.portal.base.UseCaseHandler;
-import com.consultoraestrategia.ss_crmeducativo.portal.base.activity.BasePresenterImpl;
+import com.consultoraestrategia.ss_crmeducativo.base.UseCaseHandler;
+import com.consultoraestrategia.ss_crmeducativo.base.activity.BasePresenterImpl;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.ItemMenuUI;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.TipoMenu;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.view.MainView;
@@ -48,15 +48,7 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
         return getClass().getSimpleName();
     }
 
-    @Override
-    public void onSingleItemSelected(Object singleItem, int selectedPosition) {
 
-    }
-
-    @Override
-    public void onMultiItemsSelected(SparseBooleanArray booleanArray) {
-
-    }
 
     @Override
     public void onClickBtnInfoColegio() {
@@ -124,5 +116,8 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
 
     }
 
+    @Override
+    public void onSingleItemSelected(Object singleItem, int selectedPosition) {
 
+    }
 }
