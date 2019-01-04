@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/table_column_tareas_width"
+    android:layout_height="@dimen/table_corner_tareas_height"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/vacioitem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="-"
+        android:textSize="30dp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/icono"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/happy" />
+
+    <TextView
+        android:id="@+id/tiponota"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:text="icono"
+        android:textSize="10dp" />
+</LinearLayout>
