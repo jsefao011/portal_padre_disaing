@@ -1,11 +1,11 @@
 package com.consultoraestrategia.ss_crmeducativo.portal.tareas.presenter;
 
-import android.content.res.Resources;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 
-import com.consultoraestrategia.ss_crmeducativo.portal.base.UseCaseHandler;
-import com.consultoraestrategia.ss_crmeducativo.portal.base.activity.BasePresenterImpl;
+
+
+import android.util.Log;
+
+import com.consultoraestrategia.ss_crmeducativo.base.UseCaseHandler;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.view.TareasFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.view.TareasView;
 
@@ -13,33 +13,28 @@ public class TareasPresenterImpl implements TareasPresenter {
 
     private UseCaseHandler handler;
 
+    TareasView tareasView;
+    private String TAG=TareasPresenterImpl.class.getSimpleName();
+
     public TareasPresenterImpl(UseCaseHandler handler) {
         this.handler = handler;
     }
 
-    private Class<? extends Fragment> fragmentClassVisible;
-
     @Override
-    public void onPageChanged(Class<? extends Fragment> fragmentClass) {
-        if (fragmentClass == null) return;
-        fragmentClassVisible = fragmentClass;
-
-        if (fragmentClass.equals(TareasFragment.class)) {
-
-            return;
-        }
+    public void onPageChanged(int position) {
 
 
     }
 
     @Override
     public void attachView(TareasView view) {
+       this.tareasView=view;
 
     }
 
     @Override
     public void onCreate() {
-
+        Log.d(TAG, "onCreate");
     }
 
     @Override

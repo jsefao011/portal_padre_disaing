@@ -1,24 +1,24 @@
 package com.consultoraestrategia.ss_crmeducativo.portal.tareas.view;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
-import com.consultoraestrategia.ss_crmeducativo.portal.base.UseCaseHandler;
-import com.consultoraestrategia.ss_crmeducativo.portal.base.activity.BaseActivity;
+import com.consultoraestrategia.ss_crmeducativo.base.UseCaseHandler;
+import com.consultoraestrategia.ss_crmeducativo.base.UseCaseThreadPoolScheduler;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters.FragmentAdapter;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.presenter.TareasPresenter;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.presenter.TareasPresenterImpl;
-import com.consultoraestrategia.ss_crmeducativo.portal.tareas.view.TabsTareaLista.TabsTareasLista;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.tareasCurso.view.FragmentTareasCurso;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.tareasGenerales.view.FragmentTareasGenerales;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +30,8 @@ public class TareasFragment extends Fragment implements TareasView{
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private int TAREA_POR_CURSO=0;
+    private int TAREA_GENERALES=1;
     private static final String TAG = TareasFragment.class.getSimpleName();
     Unbinder unbinder;
     TareasPresenter presenter;
@@ -37,7 +39,6 @@ public class TareasFragment extends Fragment implements TareasView{
     TabLayout tabTareas;
     @BindView(R.id.vp_Tareas)
     ViewPager vpTareas;
-
 
 
     public static TareasFragment newInstance(String param1, String param2) {
@@ -54,6 +55,7 @@ public class TareasFragment extends Fragment implements TareasView{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_tareas, container, false);
         unbinder = ButterKnife.bind(this, view);
+
         initPresenter();
         return view;
     }
@@ -62,7 +64,7 @@ public class TareasFragment extends Fragment implements TareasView{
 
     private void initPresenter() {
 
-        presenter= new TareasPresenterImpl(new UseCaseHandler());
+        presenter= new TareasPresenterImpl(new UseCaseHandler(new UseCaseThreadPoolScheduler()));
         setPresenter(presenter);
 
     }
@@ -71,16 +73,15 @@ public class TareasFragment extends Fragment implements TareasView{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setupAdapterViewPager();
-        presenter.onCreate();
+        //presenter.onCreate();
     }
 
 
     private void setupAdapterViewPager() {
 
-       final Bundle args = new Bundle();
         final FragmentAdapter fragmentAdapter = new FragmentAdapter(getFragmentManager());
-        fragmentAdapter.addFragment(TabsTareasLista.newInstance(args), "Tareas por curso");
-        fragmentAdapter.addFragment(TabsTareasLista.newInstance(args), "Tareas General");
+        fragmentAdapter.addFragment(FragmentTareasCurso.newInstance(), "Tareas por curso");
+        fragmentAdapter.addFragment(FragmentTareasGenerales.newInstance(), "Tareas General");
         vpTareas.setOffscreenPageLimit(5);
         vpTareas.setAdapter(fragmentAdapter);
         tabTareas.setupWithViewPager(vpTareas);
@@ -92,9 +93,7 @@ public class TareasFragment extends Fragment implements TareasView{
 
             @Override
             public void onPageSelected(int position) {
-             args.putInt("tipotarea",position );
-
-             //   if (presenter != null)presenter.onPageChanged(fragmentAdapter.getItem(position) != null ? fragmentAdapter.getItem(position).getClass() : null);
+                if (presenter != null)presenter.onPageChanged(position);
 
             }
 
@@ -105,12 +104,24 @@ public class TareasFragment extends Fragment implements TareasView{
         });
 
     }
-
+    private <T extends Fragment> T getFragment(Class<T> tClass) {
+        List<Fragment> fragments = getFragments();
+        for (Fragment fragment :
+                fragments) {
+            if (tClass.isInstance(fragment)) {
+                return (T) fragment;
+            }
+        }
+        return null;
+    }
+    private List<Fragment> getFragments() {
+        return getFragmentManager().getFragments();
+    }
 
     @Override
     public void setPresenter(TareasPresenter presenter) {
         presenter.attachView(this);
-        presenter.onCreate();
+      presenter.onCreate();
     }
 
     @Override
@@ -124,4 +135,11 @@ public class TareasFragment extends Fragment implements TareasView{
         super.onPause();
         presenter.onPause();
     }
+
+    /*@Override
+    public void setTipoTareaCurso(int tipoTarea) {
+        TabsTareasLista tabsTareasLista= getFragment(TabsTareasLista.class);
+        if (tabsTareasLista == null) return;
+        //tabsTareasLista.setTipoNota(tipoTarea);
+    }*/
 }

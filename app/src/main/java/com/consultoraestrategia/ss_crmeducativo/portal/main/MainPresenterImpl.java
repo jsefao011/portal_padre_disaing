@@ -6,9 +6,12 @@ import android.util.SparseBooleanArray;
 
 import com.consultoraestrategia.ss_crmeducativo.base.UseCaseHandler;
 import com.consultoraestrategia.ss_crmeducativo.base.activity.BasePresenterImpl;
+import com.consultoraestrategia.ss_crmeducativo.entities.GlobalSettings;
+import com.consultoraestrategia.ss_crmeducativo.entities.SessionUser;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.ItemMenuUI;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.TipoMenu;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.view.MainView;
+import com.consultoraestrategia.ss_crmeducativo.util.InjectorUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +44,8 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_CURSO,"Cursos", false));
 
         showListInfoEstudiante();
+
+
     }
 
     @Override

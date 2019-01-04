@@ -70,6 +70,8 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
         return new MainPresenterImpl(new UseCaseHandler(new UseCaseThreadPoolScheduler()), getResources());
     }
 
+
+
     @Override
     protected MainView getBaseView() {
         return this;
@@ -89,7 +91,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
 
         drawerToggle = setupDrawerToggle();
         drawer.addDrawerListener(drawerToggle);
- 
+
 
         setupAdapter();
     }
@@ -288,5 +290,12 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
         super.onConfigurationChanged(newConfig);
         // Pass any configuration change to the drawer toggles
         drawerToggle.onConfigurationChanged(newConfig);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
     }
 }
