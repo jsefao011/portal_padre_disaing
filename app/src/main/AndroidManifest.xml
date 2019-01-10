@@ -10,9 +10,13 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+
+
     <application
         android:icon="@drawable/academico_icon"
         android:label="@string/app_name">
+
+
         <activity
             android:name="com.consultoraestrategia.ss_crmeducativo.portal.main.view.Main"
             android:label="@string/app_name"
@@ -26,6 +30,7 @@
         </activity>
         <activity android:name="com.consultoraestrategia.ss_crmeducativo.portal.demo.graficos.DesempenoActivity" />
         <activity android:name="com.consultoraestrategia.ss_crmeducativo.portal.demo.graficos.OthersActivity" />
+
     </application>
 
 </manifest>

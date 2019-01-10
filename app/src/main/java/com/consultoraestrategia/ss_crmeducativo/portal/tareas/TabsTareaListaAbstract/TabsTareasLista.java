@@ -14,7 +14,7 @@ import com.raizlabs.android.dbflow.config.FlowManager;
 public  abstract  class TabsTareasLista extends Fragment implements  View.OnClickListener, TabsTareasListaView{
     static  String TAG = TabsTareasLista.class.getSimpleName();
     private View view;
-
+s
     protected TabsTareasListPresenter presenter;
 
 

@@ -26,8 +26,6 @@ import com.evrencoskun.tableview.adapter.recyclerview.holder.AbstractViewHolder;
 
 public class TareasTableAdapter extends AbstractTableAdapter<TipoTareaUi, TareasUi,Object>{
 
-   // private static final int COLUMNA_CANTIDAD_TAREA=1, COLUMNA_CURSO=2;
-   // private static final int FILA_FECHA_TAREA=3, FILA_TIPO_NOTA=4;
     private static  final int CELL_TAREA = 0, CELL_NOTA=1, CELL_FECHA=2, CELL_RETRASO=3;
     String TAG= TareasTableAdapter.class.getSimpleName();
 
