@@ -11,4 +11,9 @@
     <dimen name="table_corner_tareas_height">60dp</dimen>
     <dimen name="table_column_tareas_width">70dp</dimen>
 
+    <dimen name="table_header_width_eval_session">45dp</dimen>
+    <dimen name="table_firstheader_width_eval_session">120dp</dimen>
+    <dimen name="table_body_height_eval_bidimencional">55dp</dimen>
+    <dimen name="table_body_height_eval_session">45dp</dimen>
+
 </resources>

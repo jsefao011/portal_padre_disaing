@@ -28,6 +28,13 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
     @Override
     public void onCreate() {
         super.onCreate();
+        /*if(SessionUser.getCurrentUser()==null){
+            if(view!=null)view.starLoginActivity();
+            if(view!=null)view.close();
+        }*/
+
+
+
         if(view!=null)view.initFragmentEstudianteTarea();
 
         configuracionUiList = new ArrayList<>();
@@ -38,6 +45,7 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
         configuracionUiListEstudiante = new ArrayList<>();
         itemMenuUI = new ItemMenuUI(TipoMenu.ESTUDIANTE_TAREAS,"Tareas", true);
         configuracionUiListEstudiante.add(itemMenuUI);
+        configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_RUBROS,"Rubros", false));
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_ASISTENCIA,"Asistencia", false));
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_CONDUCTA,"Comportamiento", false));
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_ESTADOCUENTA,"Estado de cuenta", false));
@@ -114,6 +122,9 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
                 break;
             case ESTUDIANTE_CURSO:
                 if(view!=null)view.initFragmentEstudianteCurso();
+                break;
+            case ESTUDIANTE_RUBROS:
+                if(view!=null)view.initFragmentEstudianteRubros();
                 break;
         }
 

@@ -10,18 +10,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TabHost;
 
+import com.consultoraestrategia.ss_crmeducativo.portal.demo.infoRubro.ui.IndoRubroFragment;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class EstudianteTareaFragment extends Fragment {
+public class EstudianteTareaFragment extends Fragment implements View.OnClickListener {
 
     @BindView(R.id.tab_host)
     TabHost tabHost;
+    @BindView(R.id.btn_imagen)
+    ImageView btnImagen;
+    @BindView(R.id.btn_imagen2)
+    ImageView btnImagen2;
+
     Unbinder unbinder;
 
     @Nullable
@@ -29,6 +36,8 @@ public class EstudianteTareaFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_estudiante_tarea, container, false);
         unbinder = ButterKnife.bind(this, view);
+        btnImagen.setOnClickListener(this);
+        btnImagen2.setOnClickListener(this);
         return view;
     }
 
@@ -68,4 +77,232 @@ public class EstudianteTareaFragment extends Fragment {
         unbinder.unbind();
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_imagen:
+                showInfoRubro();
+                break;
+            case R.id.btn_imagen2:
+                showInfoRubro();
+                break;
+        }
+    }
+
+    private void showInfoRubro() {
+        IndoRubroFragment indoRubroFragment = IndoRubroFragment.newInstance("{\n" +
+                "  \"apellido\": \"Sandra\",\n" +
+                "  \"cells\": [\n" +
+                "    {\n" +
+                "      \"itemCellList\": [\n" +
+                "        {\n" +
+                "          \"competenciaId\": 347,\n" +
+                "          \"content\": \"25\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"x\",\n" +
+                "          \"select\": true,\n" +
+                "          \"urlImg\": \"http://192.168.1.151/SistemaAcademico/Images/Expresiones/Muy Contento.png\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"itemCellList\": [\n" +
+                "        {\n" +
+                "          \"competenciaId\": 347,\n" +
+                "          \"content\": \"25\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"x\",\n" +
+                "          \"select\": true,\n" +
+                "          \"urlImg\": \"http://192.168.1.151/SistemaAcademico/Images/Expresiones/Muy Contento.png\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"itemCellList\": [\n" +
+                "        {\n" +
+                "          \"competenciaId\": 347,\n" +
+                "          \"content\": \"25\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"x\",\n" +
+                "          \"select\": true,\n" +
+                "          \"urlImg\": \"http://192.168.1.151/SistemaAcademico/Images/Expresiones/Contento.png\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"itemCellList\": [\n" +
+                "        {\n" +
+                "          \"competenciaId\": 349,\n" +
+                "          \"content\": \"25\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"x\",\n" +
+                "          \"select\": true,\n" +
+                "          \"urlImg\": \"http://192.168.1.151/SistemaAcademico/Images/Expresiones/Contento.png\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        },\n" +
+                "        {\n" +
+                "          \"competenciaId\": 0,\n" +
+                "          \"content\": \"\",\n" +
+                "          \"select\": false,\n" +
+                "          \"urlImg\": \"\"\n" +
+                "        }\n" +
+                "      ]\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"columna\": [\n" +
+                "    {\n" +
+                "      \"nombreComp\": \"COMPRUEBA\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"nombreComp\": \"Comprueba expresiónes\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"nombreComp\": \"comparación de números\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"nombreComp\": \"IT\"\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"desempenio\": \"85%\",\n" +
+                "  \"fila\": [\n" +
+                "    {\n" +
+                "      \"content\": \"NF\",\n" +
+                "      \"img\": \"\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"content\": \"\",\n" +
+                "      \"img\": \"http://192.168.1.151/SistemaAcademico/Images/Expresiones/Muy Contento.png\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"content\": \"\",\n" +
+                "      \"img\": \"http://192.168.1.151/SistemaAcademico/Images/Expresiones/Contento.png\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"content\": \"\",\n" +
+                "      \"img\": \"http://192.168.1.151/SistemaAcademico/Images/Expresiones/Neutral.png\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"content\": \"\",\n" +
+                "      \"img\": \"http://192.168.1.151/SistemaAcademico/Images/Expresiones/Triste.png\"\n" +
+                "    },\n" +
+                "    {\n" +
+                "      \"content\": \"\",\n" +
+                "      \"img\": \"http://192.168.1.151/SistemaAcademico/Images/Expresiones/Muy Triste.png\"\n" +
+                "    }\n" +
+                "  ],\n" +
+                "  \"logro\": \"Muy Contento\",\n" +
+                "  \"nombre\": \"Echevarria Loza\",\n" +
+                "  \"nombreCursoGradoSeccion\": \" MATEMATICA Cuarto : Jacop\",\n" +
+                "  \"nombreRubrica\": \"Desarrollo de ejercicios de Conjuntos\",\n" +
+                "  \"nota\": \"\",\n" +
+                "  \"puntos\": \"68/80\",\n" +
+                "  \"urlImg\": \"http://pruebas.consultoraestrategia.com/FotosCata/184/01102018121442_27-ELIANE.JPG\"\n" +
+                "}");
+        indoRubroFragment.show(getFragmentManager(), IndoRubroFragment.class.getSimpleName());
+    }
 }
