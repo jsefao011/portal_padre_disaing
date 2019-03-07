@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DialogAppTheme">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="CustomProgressBarHorizontal" parent="android:Widget.ProgressBar.Horizontal">
+
+        <item name="android:progressDrawable">@drawable/progress_limit</item>
+        <item name="android:minHeight">10dip</item>
+        <item name="android:maxHeight">20dip</item>
+    </style>
+
+    <declare-styleable name="ParallaxImageView">
+        <attr name="parallax_ratio" format="float" />
+        <attr name="center_crop" format="boolean" />
+    </declare-styleable>
+
+    <style name="RepositorioCircularProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/md_white_1000</item>
+    </style>
+
+    <style name="RepositorioSuccessCircularProgress" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/md_green_A700</item>
+    </style>
+
+    <style name="LibAppThemeLibrary" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@android:color/background_light</item>
+        <item name="android:windowBackground">@android:color/white</item>
+    </style>
+</resources>

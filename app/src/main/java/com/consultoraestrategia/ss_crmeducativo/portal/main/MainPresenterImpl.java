@@ -28,12 +28,10 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
     @Override
     public void onCreate() {
         super.onCreate();
-        /*if(SessionUser.getCurrentUser()==null){
+        if(SessionUser.getCurrentUser()==null){
             if(view!=null)view.starLoginActivity();
             if(view!=null)view.close();
-        }*/
-
-
+        }
 
         if(view!=null)view.initFragmentEstudianteTarea();
 
@@ -134,6 +132,11 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
 
     @Override
     public void onSingleItemSelected(Object singleItem, int selectedPosition) {
+
+    }
+
+    @Override
+    public void onCLickAcceptButtom() {
 
     }
 }

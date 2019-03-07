@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardElevation="3dp"
+        app:cardCornerRadius="3dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/view_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/md_white_1000">
+
+            <ImageView
+                android:id="@+id/img_fondo"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="#FFEDEDEA"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_extencion"
+                android:layout_width="35dp"
+                android:layout_height="45dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/img_fondo"
+                app:layout_constraintEnd_toEndOf="@+id/img_fondo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ext_pdf" />
+
+            <ImageView
+                android:id="@+id/img_fondo_progres"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:alpha="0.2"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/img_fondo"
+                app:layout_constraintEnd_toEndOf="@+id/img_fondo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/border_radius_repositorio" />
+
+            <ImageView
+                android:id="@+id/imgCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/ic_success"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/btn_more"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_file"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="46dp"
+                android:layout_marginRight="46dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/btn_more"
+                app:layout_constraintStart_toEndOf="@+id/img_fondo"
+                app:layout_constraintTop_toBottomOf="@+id/txt_nombre"
+                tools:text="ssmat3.pdf" />
+
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:theme="@style/RepositorioCircularProgress"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/img_fondo_progres"
+                app:layout_constraintEnd_toEndOf="@+id/img_fondo_progres"
+                app:layout_constraintStart_toStartOf="@+id/img_fondo_progres"
+                app:layout_constraintTop_toTopOf="@+id/img_fondo_progres" />
+
+            <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                android:id="@+id/progress_succes"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:indeterminateDrawable="@drawable/progress_success"
+                android:visibility="gone"
+                app:cpb_background_progressbar_width="0dp"
+                app:cpb_progressbar_color="#4CAF50"
+                app:cpb_progressbar_width="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/img_fondo_progres"
+                app:layout_constraintEnd_toEndOf="@+id/img_fondo_progres"
+                app:layout_constraintStart_toStartOf="@+id/img_fondo_progres"
+                app:layout_constraintTop_toTopOf="@+id/img_fondo_progres" />
+
+
+            <ImageView
+                android:id="@+id/img_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/img_fondo_progres"
+                app:layout_constraintEnd_toEndOf="@+id/img_fondo_progres"
+                app:layout_constraintStart_toStartOf="@+id/img_fondo_progres"
+                app:layout_constraintTop_toTopOf="@+id/img_fondo_progres"
+                app:srcCompat="@drawable/ic_close_repositorio"
+                tools:ignore="VectorDrawableCompat" />
+
+            <ImageView
+                android:id="@+id/img_download"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/img_fondo_progres"
+                app:layout_constraintEnd_toEndOf="@+id/img_fondo_progres"
+                app:layout_constraintStart_toStartOf="@+id/img_fondo_progres"
+                app:layout_constraintTop_toTopOf="@+id/img_fondo_progres"
+                app:srcCompat="@drawable/ic_down_arrow"
+                tools:ignore="VectorDrawableCompat" />
+
+            <TextView
+                android:id="@+id/txt_nombre"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/md_black_1000"
+                app:layout_constraintEnd_toStartOf="@+id/btn_more"
+                app:layout_constraintStart_toEndOf="@+id/img_fondo"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Black Milk Letter"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <TextView
+                android:id="@+id/txt_fecha"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="@+id/txt_file"
+                app:layout_constraintStart_toEndOf="@+id/img_fondo"
+                app:layout_constraintTop_toBottomOf="@+id/txt_file"
+                tools:text="Jun 13 del 2017"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+
+            <ImageView
+                android:id="@+id/btn_more"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:paddingRight="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_more_file_library"
+                tools:ignore="VectorDrawableCompat" />
+
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+</android.support.constraint.ConstraintLayout>

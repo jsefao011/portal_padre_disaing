@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">core</string>
+    <string name="dialog_title">Mensaje:</string>
+    <string name="global_btn_positive">Aceptar</string>
+    <string name="global_btn_negative">Cancelar</string>
+    <string name="dialog_title_serverlist">Servidores</string>
+    <string name="global_action_create">Crear</string>
+    <string name="title_activity_rubro_formula">Crear Rubro Fórmula</string>
+    <string name="action_settings">Settings</string>
+</resources>

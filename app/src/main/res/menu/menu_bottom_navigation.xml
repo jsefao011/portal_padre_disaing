@@ -4,14 +4,20 @@
     <item
         android:id="@+id/action_favorites"
         android:icon="@drawable/ic_agenda"
-        android:title="Agenda" />
+        android:title="Rubros" />
     <item
         android:id="@+id/action_schedules"
         android:icon="@drawable/ic_evento"
-        android:title="evento" />
+        android:title="Tarea" />
     <item
         android:id="@+id/action_music"
         android:icon="@drawable/ic_calendario"
-        android:title="Calendario"/>
+        android:title="Curso"/>
+
+    <item
+        android:id="@+id/action_asistencia"
+        android:icon="@drawable/ic_calendario"
+        android:title="Asistencia"/>
+
 
 </menu>
