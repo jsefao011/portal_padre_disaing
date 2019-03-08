@@ -152,7 +152,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view2">
 
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imagenFoto"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -163,6 +163,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/til_nombre"
@@ -176,12 +177,70 @@
             app:layout_constraintTop_toBottomOf="@+id/imagenFoto">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/edittext_username"
+                android:id="@+id/nombreFamilia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/login.hint.usuario"
+                android:hint="Nombre"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_primerApellido"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_nombre">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/primerApellido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Apellido Paterno" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_telefono"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_primerApellido">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/celular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Celular"
+                android:drawableLeft="@drawable/call"
+                android:inputType="number" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_correo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_telefono">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/gmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint=" Mail"
+                android:drawableLeft="@drawable/gmail"
                 android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
+
 
 
     </android.support.constraint.ConstraintLayout>
