@@ -15,6 +15,8 @@ public interface MainView extends BaseView<MainPresenter> {
     void initFragmentEstudianteEstadoCuenta();
     void initFragmentEstudianteCurso();
     void initFragmentColegioEvento();
+    void initFragmentFamiliaActualizarPerfil();
+    void initFragmentFamiliaInfografia();
 
     void initFragmentColegioCalendario();
 

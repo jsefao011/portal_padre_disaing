@@ -14,7 +14,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 @Table(database = AppDatabase.class)
 public class Relaciones extends BaseModel {
 
-    public static int PADRE= 181, MADRE=182;
+    public static final int PADRE= 181, MADRE=182;
     @Unique
     @Column
     @PrimaryKey
@@ -89,5 +89,30 @@ public class Relaciones extends BaseModel {
                 ", tipoId=" + tipoId +
                 ", activo=" + activo +
                 '}';
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Relaciones that = (Relaciones) o;
+
+        if (idRelacion != that.idRelacion) return false;
+        if (personaPrincipalId != that.personaPrincipalId) return false;
+        if (personaVinculadaId != that.personaVinculadaId) return false;
+        if (tipoId != that.tipoId) return false;
+        return activo == that.activo;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = idRelacion;
+        result = 31 * result + personaPrincipalId;
+        result = 31 * result + personaVinculadaId;
+        result = 31 * result + tipoId;
+        result = 31 * result + (activo ? 1 : 0);
+        return result;
     }
 }

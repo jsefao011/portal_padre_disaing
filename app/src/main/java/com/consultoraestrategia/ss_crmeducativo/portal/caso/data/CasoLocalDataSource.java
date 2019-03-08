@@ -41,7 +41,7 @@ public class CasoLocalDataSource implements CasoDataSource {
         Persona alumno= SQLite.select().from(Persona.class)
                 .where(Persona_Table.personaId.withTable().eq(alumnoId)).querySingle();
         alumnoUi.setAlumnoId(alumno.getPersonaId());
-
+        Log.d(TAG, "caso size  " +alumnoId);
 
 //        Calendar calendar = Calendar.getInstance();
 //        long fechaActual= calendar.getTimeInMillis();

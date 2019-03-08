@@ -43,9 +43,11 @@ import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteRubro.Estu
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteTarea.EstudianteTareaFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteconducta.EstudianteConductaFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.fragmentTofragment.cabecera.FragmentCabecera;
+import com.consultoraestrategia.ss_crmeducativo.portal.familia.ui.FamiliaFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.MainPresenter;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.MainPresenterImpl;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.adapter.MenuAdapter;
+import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.InfoFamilia;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.listener.MenuListener;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.login.Login;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.view.TareasFragment;
@@ -236,8 +238,6 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     public void initFragmentEstudianteTarea() {
         setTitle("TAREA");
         getSupportFragmentManager(EstudianteTareaFragment.class);
-
-
     }
 
     @Override
@@ -268,6 +268,17 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     public void initFragmentColegioEvento() {
         setTitle("EVENTO");
         getSupportFragmentManager(ColegioEventoFragment.class);
+    }
+
+    @Override
+    public void initFragmentFamiliaActualizarPerfil() {
+        setTitle("ACTUALIZAR PERFIL");
+        getSupportFragmentManager(FamiliaFragment.class);
+    }
+
+    @Override
+    public void initFragmentFamiliaInfografia() {
+
     }
 
     @Override

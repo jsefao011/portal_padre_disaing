@@ -20,6 +20,7 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
     private ItemMenuUI itemMenuUI;
     private ArrayList<ItemMenuUI> configuracionUiList;
     private ArrayList<ItemMenuUI> configuracionUiListEstudiante;
+    private ArrayList<ItemMenuUI> configuracionUiListFamilia;
 
     public MainPresenterImpl(UseCaseHandler handler, Resources res) {
         super(handler, res);
@@ -48,6 +49,10 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_CONDUCTA,"Comportamiento", false));
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_ESTADOCUENTA,"Estado de cuenta", false));
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_CURSO,"Cursos", false));
+
+        configuracionUiListFamilia = new ArrayList<>();
+        configuracionUiListFamilia.add(new ItemMenuUI(TipoMenu.FAMILIA_ACTUALIZAR_PERFIL, "Actualizar Perfil", false));
+        configuracionUiListFamilia.add(new ItemMenuUI(TipoMenu.FAMILIA_INFOGRAFIA, "Infografia", false));
 
         showListInfoEstudiante();
 
@@ -79,9 +84,13 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
         if(view != null)view.showMenuList(new ArrayList<Object>(configuracionUiListEstudiante));
     }
 
+    private void showListInfoFamilia(){
+        if(view != null)view.showMenuList(new ArrayList<Object>(configuracionUiListFamilia));
+    }
+
     @Override
     public void onClickBtnInfoFamilia() {
-        if(view != null)view.showMenuList(new ArrayList<Object>());
+        showListInfoFamilia();
     }
 
     @Override
@@ -123,6 +132,12 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
                 break;
             case ESTUDIANTE_RUBROS:
                 if(view!=null)view.initFragmentEstudianteRubros();
+                break;
+            case FAMILIA_ACTUALIZAR_PERFIL:
+                if(view!=null)view.initFragmentFamiliaActualizarPerfil();
+                break;
+            case FAMILIA_INFOGRAFIA:
+                if(view!=null)view.initFragmentFamiliaInfografia();
                 break;
         }
 

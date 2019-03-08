@@ -50,6 +50,8 @@ public class Persona extends BaseModel implements Serializable {
     private int estadoId;
     @Column
     private String correo;
+    @Column
+    private String direccion;
 
 
     public Persona() {
@@ -204,6 +206,14 @@ public class Persona extends BaseModel implements Serializable {
     public String getUrlPicture() {
 
         return this.foto;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
     @Override
