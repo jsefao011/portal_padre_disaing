@@ -40,6 +40,7 @@ import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteEstadoCuen
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteRubro.EstudianteRubroFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteTarea.EstudianteTareaFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteconducta.EstudianteConductaFragment;
+import com.consultoraestrategia.ss_crmeducativo.portal.demo.fragmentTofragment.cabecera.FragmentCabecera;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.MainPresenter;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.MainPresenterImpl;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.adapter.MenuAdapter;
@@ -240,7 +241,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     @Override
     public void initFragmentEstudianteAsistencia() {
         setTitle("ASISTENCIA");
-        getSupportFragmentManager(EstudianteAsistenciaFragment.class);
+        getSupportFragmentManager(FragmentCabecera.class);
     }
 
     @Override

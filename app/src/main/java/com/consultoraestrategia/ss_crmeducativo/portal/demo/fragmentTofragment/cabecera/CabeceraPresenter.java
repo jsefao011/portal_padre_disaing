@@ -9,5 +9,5 @@ public interface CabeceraPresenter {
     void onViewCreated();
     void onDestroy();
     void onResumen();
-
+    void onChildsFragmentViewCreated();
 }

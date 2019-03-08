@@ -36,4 +36,9 @@ public class CabeceraPresenterImpl implements CabeceraPresenter {
     public void onResumen() {
 
     }
+
+    @Override
+    public void onChildsFragmentViewCreated() {
+
+    }
 }
