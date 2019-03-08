@@ -32,6 +32,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.consultoraestrategia.ss_crmeducativo.base.UseCaseHandler;
 import com.consultoraestrategia.ss_crmeducativo.base.UseCaseThreadPoolScheduler;
 import com.consultoraestrategia.ss_crmeducativo.base.activity.BaseActivity;
+import com.consultoraestrategia.ss_crmeducativo.base.fragment.BaseFragmentListener;
+import com.consultoraestrategia.ss_crmeducativo.portal.caso.ui.CasoFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.colegioCalendario.ColegioCalendarioFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.colegioEvento.ColegioEventoFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteAsistencia.EstudianteAsistenciaFragment;
@@ -57,7 +59,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Main extends BaseActivity<MainView, MainPresenter> implements MainView, MenuListener {
+public class Main extends BaseActivity<MainView, MainPresenter> implements MainView, MenuListener, BaseFragmentListener {
     //http://pruebas.consultoraestrategia.com/FotosCata/184/01102018121442_27-ELIANE.JPG\"\n" +
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -247,7 +249,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     @Override
     public void initFragmentEstudianteConducta() {
         setTitle("COMPORTAMIENTO");
-        getSupportFragmentManager(EstudianteConductaFragment.class);
+        getSupportFragmentManager(CasoFragment.class);
     }
 
     @Override

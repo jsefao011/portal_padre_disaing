@@ -6,4 +6,6 @@ import com.consultoraestrategia.ss_crmeducativo.portal.tareas.presenter.TareasPr
 
 public interface TareasView  extends BaseView<TareasPresenter> {
 
+
+
 }

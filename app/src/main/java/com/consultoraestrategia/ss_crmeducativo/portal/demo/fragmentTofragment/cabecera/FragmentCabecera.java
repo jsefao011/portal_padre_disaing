@@ -77,8 +77,6 @@ public class FragmentCabecera extends Fragment implements FragmentCabeceraView, 
         presenter.onAttach(this, fragment1,fragment2);
         presenter.onViewCreated();
     }
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
