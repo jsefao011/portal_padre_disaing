@@ -26,18 +26,17 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/background_border"
-        android:padding="5dp"
+        android:background="@color/md_white_1000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView95" />
+        app:layout_constraintTop_toTopOf="@+id/textView95" />
 
     <ImageView
         android:id="@+id/img_tipo1"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView80"
         app:layout_constraintStart_toStartOf="@+id/textView80"
         app:layout_constraintTop_toTopOf="@+id/textView80"
@@ -80,11 +79,8 @@
         android:id="@+id/cant2"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:gravity="center"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView80"
-        app:layout_constraintHorizontal_bias="0.181"
         app:layout_constraintStart_toEndOf="@+id/img_tipo2"
         app:layout_constraintTop_toTopOf="@+id/img_tipo2"
         tools:text="2" />
@@ -125,6 +121,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/background_border"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView80" />
@@ -139,18 +136,20 @@
         android:text="FECHA"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="12dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/textView83"
         app:layout_constraintTop_toTopOf="@+id/textView83" />
 
     <TextView
         android:id="@+id/textView94"
-        android:layout_width="100dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="CONDUCTA"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="12dp"
+        android:visibility="gone"
         app:layout_constraintStart_toEndOf="@+id/textView88"
         app:layout_constraintTop_toTopOf="@+id/textView83" />
 
@@ -160,25 +159,28 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
 
+        android:layout_marginEnd="8dp"
         android:gravity="center"
         android:text="DESCRIPCION"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="12dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/textView96"
         app:layout_constraintStart_toEndOf="@+id/textView94"
         app:layout_constraintTop_toTopOf="@+id/textView83" />
 
     <TextView
         android:id="@+id/textView96"
-        android:layout_width="100dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
 
-        android:text="ORIGEN"
+        android:layout_marginEnd="8dp"
         android:gravity="center"
+        android:text="ORIGEN"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="12dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/textView83"
         app:layout_constraintTop_toTopOf="@+id/textView83" />
 

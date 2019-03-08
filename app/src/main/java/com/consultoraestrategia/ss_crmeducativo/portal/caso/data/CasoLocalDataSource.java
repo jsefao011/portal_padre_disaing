@@ -125,8 +125,8 @@ public class CasoLocalDataSource implements CasoDataSource {
     public  FechaUi f_fecha_letras(long timesTamp) {
 
         FechaUi fechaUi= new FechaUi();
-        String[] vobj_days = {"Dom", "Lun", "Mart", "Mié", "Jue", "Vie", "Sáb"};
-        String[] vobj_Meses = {"Ene.", "Feb.", "Mar.", "Abr.", "May.", "Jun.", "Jul.", "Ago.", "Sept.", "Oct.", "Nov.", "Dic."};
+        String[] vobj_days = {"Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"};
+        String[] vobj_Meses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
 
         Date date = new Date(timesTamp);
         Calendar calendar = Calendar.getInstance();

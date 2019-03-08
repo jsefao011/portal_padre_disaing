@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.consultoraestrategia.ss_crmeducativo.base.UseCaseHandler;
 import com.consultoraestrategia.ss_crmeducativo.base.UseCaseThreadPoolScheduler;
 import com.consultoraestrategia.ss_crmeducativo.base.fragment.BaseFragment;
+import com.consultoraestrategia.ss_crmeducativo.lib.autoColumnGrid.AutoColumnGridLayoutManager;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.data.CasoLocalDataSource;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.data.CasoRepository;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.domain.useCase.GetAlumnoCasos;
@@ -22,6 +24,7 @@ import com.consultoraestrategia.ss_crmeducativo.portal.caso.entities.CasoUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.entities.TipoPadreUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.presenter.CasoPresenter;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.presenter.CasoPresenterImpl;
+import com.consultoraestrategia.ss_crmeducativo.portal.caso.ui.adapter.CasoColumnGridLayoutManager;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.ui.adapter.CasosAdapter;
 import com.consultoraestrategia.ss_crmeducativo.util.InjectorUtils;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
@@ -96,9 +99,10 @@ public class CasoFragment extends BaseFragment<CasoView, CasoPresenter, CasoList
     }
 
     private void initAdapter() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerCaso.setLayoutManager(layoutManager);
+        AutoColumnGridLayoutManager autoColumnGridLayoutManager = new AutoColumnGridLayoutManager(getContext(), OrientationHelper.VERTICAL, false);
+        CasoColumnGridLayoutManager columnCountProvider = new CasoColumnGridLayoutManager(getContext());
+        autoColumnGridLayoutManager.setColumnCountProvider(columnCountProvider);
+        recyclerCaso.setLayoutManager(autoColumnGridLayoutManager);
         casosAdapter = new CasosAdapter(new ArrayList<CasoUi>());
         recyclerCaso.setAdapter(casosAdapter);
         recyclerCaso.setHasFixedSize(true);
