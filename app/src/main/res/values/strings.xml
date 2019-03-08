@@ -10,4 +10,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main2">Main2</string>
+    <string name="menu_colegio">COLEGIO</string>
+    <string name="menu_estudiante">ESTUDIANTE</string>
+    <string name="menu_familia">FAMILIA</string>
 </resources>

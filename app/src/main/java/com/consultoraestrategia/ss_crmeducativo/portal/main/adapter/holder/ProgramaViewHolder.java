@@ -44,6 +44,7 @@ public class ProgramaViewHolder extends RecyclerView.ViewHolder implements View.
         }else {
             itemView.setBackgroundColor(Color.WHITE);
         }
+        imgIcon.setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), itemMenuUI.getIcono()));
     }
 
     @Override

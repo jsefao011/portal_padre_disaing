@@ -27,6 +27,17 @@ public class DetalleContratoAcad extends BaseModel {
     @Column
     private String escala;
 
+    @Column
+    private  int anioAcademicoId;
+    @Column
+    private  int idNivelAcademico;
+    @Column
+    private  int cursoId;
+    @Column
+    private  int grupoId;
+    @Column
+    private  int aulaId;
+
     public DetalleContratoAcad() {
     }
 
@@ -86,6 +97,46 @@ public class DetalleContratoAcad extends BaseModel {
 
     public void setEscala(String escala) {
         this.escala = escala;
+    }
+
+    public int getAnioAcademicoId() {
+        return anioAcademicoId;
+    }
+
+    public void setAnioAcademicoId(int anioAcademicoId) {
+        this.anioAcademicoId = anioAcademicoId;
+    }
+
+    public int getIdNivelAcademico() {
+        return idNivelAcademico;
+    }
+
+    public void setIdNivelAcademico(int idNivelAcademico) {
+        this.idNivelAcademico = idNivelAcademico;
+    }
+
+    public int getCursoId() {
+        return cursoId;
+    }
+
+    public void setCursoId(int cursoId) {
+        this.cursoId = cursoId;
+    }
+
+    public int getGrupoId() {
+        return grupoId;
+    }
+
+    public void setGrupoId(int grupoId) {
+        this.grupoId = grupoId;
+    }
+
+    public int getAulaId() {
+        return aulaId;
+    }
+
+    public void setAulaId(int aulaId) {
+        this.aulaId = aulaId;
     }
 
     @Override

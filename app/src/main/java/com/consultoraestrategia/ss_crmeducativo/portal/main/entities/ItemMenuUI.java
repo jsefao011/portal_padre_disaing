@@ -8,11 +8,13 @@ public class ItemMenuUI {
     private TipoMenu tipoMenu;
     private String nombre;
     private boolean seleccionado;
+    private int icono;
 
-    public ItemMenuUI(TipoMenu tipoMenu, String nombre, boolean seleccionado) {
+    public ItemMenuUI(TipoMenu tipoMenu, String nombre, boolean seleccionado, int icono) {
         this.tipoMenu = tipoMenu;
         this.nombre = nombre;
         this.seleccionado = seleccionado;
+        this.icono = icono;
     }
 
     public TipoMenu getTipoMenu() {
@@ -37,5 +39,13 @@ public class ItemMenuUI {
 
     public void setSeleccionado(boolean seleccionado) {
         this.seleccionado = seleccionado;
+    }
+
+    public int getIcono() {
+        return icono;
+    }
+
+    public void setIcono(int icono) {
+        this.icono = icono;
     }
 }

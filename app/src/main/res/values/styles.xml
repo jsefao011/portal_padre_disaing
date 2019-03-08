@@ -46,4 +46,9 @@
         <item name="android:fromYDelta">400</item>
     </style>
 
+    <style name="MenuCustomTabText" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
 </resources>

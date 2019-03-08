@@ -1,10 +1,13 @@
 package com.consultoraestrategia.ss_crmeducativo.portal.main.view;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.transition.Slide;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,14 +24,17 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.consultoraestrategia.ss_crmeducativo.base.UseCaseHandler;
 import com.consultoraestrategia.ss_crmeducativo.base.UseCaseThreadPoolScheduler;
 import com.consultoraestrategia.ss_crmeducativo.base.activity.BaseActivity;
@@ -47,6 +53,13 @@ import com.consultoraestrategia.ss_crmeducativo.portal.familia.ui.FamiliaFragmen
 import com.consultoraestrategia.ss_crmeducativo.portal.main.MainPresenter;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.MainPresenterImpl;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.adapter.MenuAdapter;
+import com.consultoraestrategia.ss_crmeducativo.portal.main.data.sourse.MainRepository;
+import com.consultoraestrategia.ss_crmeducativo.portal.main.data.sourse.local.MainLocaDataSource;
+import com.consultoraestrategia.ss_crmeducativo.portal.main.dialogAlumnoList.DialogALumnoList;
+import com.consultoraestrategia.ss_crmeducativo.portal.main.dialogAlumnoList.adapter.AdapterAlumnoList;
+import com.consultoraestrategia.ss_crmeducativo.portal.main.domain.usecase.GetPadreMentor;
+import com.consultoraestrategia.ss_crmeducativo.portal.main.domain.usecase.GetProgramaEducativoList;
+import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.HijoUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.InfoFamilia;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.listener.MenuListener;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.login.Login;
@@ -70,9 +83,21 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     RecyclerView navBarRcMenu;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
+    @BindView(R.id.tabLayout)
+    TabLayout tabLayout;
+    @BindView(R.id.nav_bar_letra_profile)
+    TextView navBarLetraProfile;
+    @BindView(R.id.nav_bar_imagen_profile)
+    CircleImageView navBarImagenProfile;
+    @BindView(R.id.nav_bar_letra_profile_hijo)
+    TextView navBarLetraProfileHijo;
     @BindView(R.id.nav_bar_imagen_profile_hijo)
     CircleImageView navBarImagenProfileHijo;
+    @BindView(R.id.txt_programa_educatio)
+    TextView txtProgramaEducatio;
     private ActionBarDrawerToggle drawerToggle;
+    private Dialog dialogAlumnoList;
+
     @Override
     protected String getTag() {
         return getClass().getSimpleName();
@@ -85,7 +110,10 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
 
     @Override
     protected MainPresenter getPresenter() {
-        return new MainPresenterImpl(new UseCaseHandler(new UseCaseThreadPoolScheduler()), getResources());
+        MainRepository mainRepository = new MainRepository(new MainLocaDataSource());
+        return new MainPresenterImpl(new UseCaseHandler(new UseCaseThreadPoolScheduler()), getResources(),
+                new GetPadreMentor(mainRepository),
+                new GetProgramaEducativoList(mainRepository));
     }
 
     @Override
@@ -238,6 +266,8 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     public void initFragmentEstudianteTarea() {
         setTitle("TAREA");
         getSupportFragmentManager(EstudianteTareaFragment.class);
+
+
     }
 
     @Override
@@ -308,25 +338,84 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     }
 
     @Override
+    public void initFragmentFamiliaPerfilFamiliar() {
+        setTitle("P. FAMILIAR");
+        getSupportFragmentManager(EstudianteRubroFragment.class);
+    }
+
+    @Override
+    public void initFragmentColegioDirectorio() {
+        setTitle("AGENDA");
+        getSupportFragmentManager(EstudianteRubroFragment.class);
+    }
+
+    @Override
+    public void setLogoPadre(final char etiqueta, String url_imagen) {
+        Glide.with(this)
+                .load(url_imagen)
+                .apply(new RequestOptions()
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL))
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        navBarLetraProfile.setText(etiqueta);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        navBarLetraProfile.setText("");
+                        return false;
+                    }
+                })
+                .into(navBarImagenProfile);
+    }
+
+    @Override
+    public void setLogoHijo(final char etiqueta, String url_imagen) {
+        Glide.with(this)
+                .load(url_imagen)
+                .apply(new RequestOptions()
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL))
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        navBarLetraProfileHijo.setText(etiqueta);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        navBarLetraProfileHijo.setText("");
+                        return false;
+                    }
+                })
+                .into(navBarImagenProfileHijo);
+    }
+
+    @Override
+    public void setUnknowHijo() {
+        navBarLetraProfileHijo.setText("?");
+    }
+
+    @Override
+    public void showFragmentListHijoSelected(List<HijoUi> hijoUiList) {
+        dialogAlumnoList = DialogALumnoList.showDialog(this, hijoUiList, this);
+        dialogAlumnoList.show();
+    }
+
+    @Override
+    public void setCalendarioPeriodo(String nombre) {
+        txtProgramaEducatio.setText(nombre);
+    }
+
+    @Override
     public void onMenuSelected(Object o) {
         presenter.onMenuSelected(o);
     }
 
-    @OnClick({R.id.btn_info_estudiante, R.id.btn_info_colegio, R.id.btn_info_familia})
-    public void onViewClicked(View view) {
-        Log.d("MainExampĺe", "onViewClicked");
-        switch (view.getId()) {
-            case R.id.btn_info_estudiante:
-                presenter.onClickBtnInfoEstudiante();
-                break;
-            case R.id.btn_info_colegio:
-                presenter.onClickBtnInfoColegio();
-                break;
-            case R.id.btn_info_familia:
-                presenter.onClickBtnInfoFamilia();
-                break;
-        }
-    }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -343,9 +432,19 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     }
 
 
-    @Override
-    protected void onDestroy() {
+    @OnClick(R.id.nav_bar_imagen_profile_hijo)
+    public void onClickedHijo() {
+        presenter.onClickHijo();
+    }
 
-        super.onDestroy();
+    @Override
+    public void onClickSelectedHijo(HijoUi hijoUi) {
+        dialogAlumnoList.hide();
+        presenter.onClickSelectedHijo(hijoUi);
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

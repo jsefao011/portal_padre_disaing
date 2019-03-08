@@ -18,7 +18,7 @@ public class Contrato extends BaseModel {
     @PrimaryKey
     private int idContrato;
     @Column
-    private int personaId;
+    private int personaId;//Alum_Id
     @Column
     private int idAnioAcademico;
     @Column

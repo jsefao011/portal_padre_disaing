@@ -18,7 +18,7 @@ public class AnioAcademico extends BaseModel {
     public static final int ANIO_ACADEMICO_ACTIVO = 193;
     public static final int ANIO_ACADEMICO_CERRADO = 194;
     public static final int ANIO_ACADEMICO_CREADO = 195;
-    public static final int ANIO_ACADEMICO_ELIMINADO = 196;
+    public static final int ANIO_ACADEMICO_ELIMINADO = 196;;
 
     @Unique
     @PrimaryKey
