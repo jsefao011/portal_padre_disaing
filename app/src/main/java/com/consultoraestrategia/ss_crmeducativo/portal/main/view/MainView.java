@@ -3,6 +3,8 @@ package com.consultoraestrategia.ss_crmeducativo.portal.main.view;
 import com.consultoraestrategia.ss_crmeducativo.base.activity.BaseView;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.MainPresenter;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.HijoUi;
+import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.ProgramaEducativoUi;
+import com.consultoraestrategia.ss_crmeducativo.portal.wrapper.MainParametrosGlobales;
 
 import java.util.List;
 
@@ -10,26 +12,26 @@ public interface MainView extends BaseView<MainPresenter> {
     void showMenuList(List<Object> objects);
 
     void MenuViewNotifyDataSetChanged();
-    void initFragmentEstudianteTarea();
-    void initFragmentEstudianteAsistencia();
-    void initFragmentEstudianteConducta();
-    void initFragmentEstudianteEstadoCuenta();
-    void initFragmentEstudianteCurso();
-    void initFragmentColegioEvento();
-    void initFragmentFamiliaActualizarPerfil();
-    void initFragmentFamiliaInfografia();
+    void initFragmentEstudianteTarea(MainParametrosGlobales mainParametrosGlobales);
+    void initFragmentEstudianteAsistencia(MainParametrosGlobales mainParametrosGlobales);
+    void initFragmentEstudianteConducta(MainParametrosGlobales mainParametrosGlobales);
+    void initFragmentEstudianteEstadoCuenta(MainParametrosGlobales mainParametrosGlobales);
+    void initFragmentEstudianteCurso(MainParametrosGlobales mainParametrosGlobales);
+    void initFragmentColegioEvento(MainParametrosGlobales mainParametrosGlobales);
+    void initFragmentFamiliaActualizarPerfil(MainParametrosGlobales mainParametrosGlobales);
+    void initFragmentFamiliaInfografia(MainParametrosGlobales mainParametrosGlobales);
 
-    void initFragmentColegioCalendario();
+    void initFragmentColegioCalendario(MainParametrosGlobales mainParametrosGlobales);
 
     void starLoginActivity();
 
     void close();
 
-    void initFragmentEstudianteRubros();
+    void initFragmentEstudianteRubros(MainParametrosGlobales mainParametrosGlobales);
 
-    void initFragmentFamiliaPerfilFamiliar();
+    void initFragmentFamiliaPerfilFamiliar(MainParametrosGlobales mainParametrosGlobales);
 
-    void initFragmentColegioDirectorio();
+    void initFragmentColegioDirectorio(MainParametrosGlobales mainParametrosGlobales);
 
     void setLogoPadre(char etiqueta, String url_imagen);
 
@@ -40,4 +42,6 @@ public interface MainView extends BaseView<MainPresenter> {
     void showFragmentListHijoSelected(List<HijoUi> hijoUiList);
 
     void setCalendarioPeriodo(String nombre);
+
+    void showPopListProgramaEduc(List<ProgramaEducativoUi> programaEducativoUiList);
 }

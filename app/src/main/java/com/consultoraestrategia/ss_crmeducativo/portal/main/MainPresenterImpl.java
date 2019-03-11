@@ -16,6 +16,7 @@ import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.PadreMentor
 import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.ProgramaEducativoUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.TipoMenu;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.view.MainView;
+import com.consultoraestrategia.ss_crmeducativo.portal.wrapper.MainParametrosGlobales;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
     private GetProgramaEducativoList getProgramaEducativoList;
     private PadreMentorUi padreMentor;
     private ProgramaEducativoUi programaEducativoSelected;
+    private MainParametrosGlobales mainParametrosGlobales = new MainParametrosGlobales();
 
     public MainPresenterImpl(UseCaseHandler handler, Resources res, GetPadreMentor getPadreMentor, GetProgramaEducativoList getProgramaEducativoList) {
         super(handler, res);
@@ -59,9 +61,10 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
     }
 
     private void getProgramaEducativo() {
+        this.programaEducativoUiList.clear();
+        this.programaEducativoSelected = null;
         if(hijoUiSelected!=null){
             List<ProgramaEducativoUi> programaEducativoUiList = getProgramaEducativoList.execute(hijoUiSelected.getPersonaId());
-            this.programaEducativoUiList.clear();
             if(programaEducativoUiList!=null)this.programaEducativoUiList.addAll(programaEducativoUiList);
             for (ProgramaEducativoUi programaEducativoUi: this.programaEducativoUiList){
                 if(programaEducativoUi.isSelected())this.programaEducativoSelected = programaEducativoUi;
@@ -71,6 +74,8 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
     }
 
     private void getHijos() {
+        hijoUiSelected = null;
+        hijoUiList.clear();
         if(padreMentor!=null&&padreMentor.getHijoUiList()!=null){
             hijoUiList.addAll(padreMentor.getHijoUiList());
             for (HijoUi hijoUi : hijoUiList){
@@ -80,15 +85,17 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
     }
 
     private void setupMenu() {
-
         if(padreMentor!=null)if(view!=null)view.setLogoPadre(padreMentor.getEtiqueta(), padreMentor.getUrl_imagen());
+        setupHijo();
+        setupProgramaEducativo();
+    }
+
+    private void setupHijo() {
         if(hijoUiSelected!=null){
             if(view!=null)view.setLogoHijo(hijoUiSelected.getEtiqueta(), hijoUiSelected.getUrl_imagen());
         }else {
             if(view!=null)view.setUnknowHijo();
         }
-        if(programaEducativoSelected!=null)if(view!=null)view.setCalendarioPeriodo(programaEducativoSelected.getNombre());
-
     }
 
     private void getPadre(int userId) {
@@ -114,12 +121,21 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
         configuracionUiListFamilia.add(new ItemMenuUI(TipoMenu.FAMILIA_ACTUALIZAR_PERFIL, "Actualizar Perfil", false, R.drawable.ic_evento));
         configuracionUiListFamilia.add(new ItemMenuUI(TipoMenu.FAMILIA_INFOGRAFIA, "Infografia", false,R.drawable.ic_evento));
         configuracionUiListFamilia.add(new ItemMenuUI(TipoMenu.FAMILIA_PERFIL_FAMILIAR,"Perfil familiar", false, R.drawable.ic_portafolio));
-        showListInfoEstudiante();
-
-
-        if(view!=null)view.initFragmentColegioEvento();
 
         showListInfoColegio();
+
+        List<ItemMenuUI> itemMenuUIList = new ArrayList<>();
+        itemMenuUIList.addAll(configuracionUiList);
+        itemMenuUIList.addAll(configuracionUiListEstudiante);
+        itemMenuUIList.addAll(configuracionUiListFamilia);
+
+        for (ItemMenuUI itemMenuUI: itemMenuUIList){
+            if(itemMenuUI.isSeleccionado()){
+                this.itemMenuUI = itemMenuUI;
+            }
+        }
+
+        changeFrgment();
     }
 
     @Override
@@ -157,58 +173,14 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
     }
 
     @Override
-    public void onMenuSelected(Object o) {
-        if(!(o instanceof ItemMenuUI))return;
-        if( this.itemMenuUI != null)itemMenuUI.setSeleccionado(false);
-
-        ItemMenuUI itemMenuUI = (ItemMenuUI)o;
+    public void onMenuSelected(ItemMenuUI itemMenuUI) {
+        if( this.itemMenuUI != null)this.itemMenuUI.setSeleccionado(false);
         itemMenuUI.setSeleccionado(true);
         this.itemMenuUI = itemMenuUI;
         if (view != null) {
             view.MenuViewNotifyDataSetChanged();
         }
-
-        switch (itemMenuUI.getTipoMenu()){
-            case COLEGIO_EVENTO:
-                if(view!=null)view.initFragmentColegioEvento();
-                break;
-            case COLEGIO_CALENDARIO:
-                if(view!=null)view.initFragmentColegioCalendario();
-                break;
-            case COLEGIO_DIRECTORIO:
-                if(view!=null)view.initFragmentColegioDirectorio();
-                break;
-            case ESTUDIANTE_TAREAS:
-                if(view!=null)view.initFragmentEstudianteTarea();
-                break;
-            case ESTUDIANTE_ASISTENCIA:
-                if(view!=null)view.initFragmentEstudianteAsistencia();
-                break;
-            case ESTUDIANTE_CONDUCTA:
-                if(view!=null)view.initFragmentEstudianteConducta();
-                break;
-            case ESTUDIANTE_ESTADOCUENTA:
-                if(view!=null)view.initFragmentEstudianteEstadoCuenta();
-                break;
-            case ESTUDIANTE_CURSO:
-                if(view!=null)view.initFragmentEstudianteCurso();
-                break;
-            case ESTUDIANTE_RUBROS:
-                if(view!=null)view.initFragmentEstudianteRubros();
-                break;
-            case FAMILIA_ACTUALIZAR_PERFIL:
-                if(view!=null)view.initFragmentFamiliaActualizarPerfil();
-                break;
-            case FAMILIA_INFOGRAFIA:
-                if(view!=null)view.initFragmentFamiliaInfografia();
-                break;
-            case FAMILIA_PERFIL_FAMILIAR:
-                if(view!=null)view.initFragmentFamiliaPerfilFamiliar();
-                break;
-        }
-
-
-
+        changeFrgment();
     }
 
     @Override
@@ -222,10 +194,105 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
 
     @Override
     public void onClickSelectedHijo(HijoUi hijoUi) {
-        if(view!=null)view.setLogoHijo(hijoUi.getEtiqueta(), hijoUi.getUrl_imagen());
-        hijoUiSelected.setSelected(false);
+        if(hijoUiSelected!=null)hijoUiSelected.setSelected(false);
         hijoUi.setSelected(true);
         hijoUiSelected = hijoUi;
+        setupHijo();
+        getProgramaEducativo();
+        setupProgramaEducativo();
+        changeFrgment();
+    }
+
+    private void changeFrgment() {
+
+        if(padreMentor!=null){
+            mainParametrosGlobales.setPadre_mentor_usuarioId(padreMentor.getUsuarioId());
+            mainParametrosGlobales.setPadre_mentor_personaId(padreMentor.getPersonaId());
+            mainParametrosGlobales.setPadre_mentor_nombres(padreMentor.getNombres());
+            mainParametrosGlobales.setPadre_mentor_apellidos(padreMentor.getApellidos());
+            mainParametrosGlobales.setPadre_mentor_imagen(padreMentor.getUrl_imagen());
+            List<Integer> hijoIdList = new ArrayList<>();
+            for (HijoUi hijoUi: hijoUiList)hijoIdList.add(hijoUi.getPersonaId());
+            mainParametrosGlobales.setPadre_mentor_list_hijos_persona_Id(hijoIdList);
+        }
+
+        if(hijoUiSelected!=null){
+            mainParametrosGlobales.setHijo_selected_personaId(hijoUiSelected.getPersonaId());
+            mainParametrosGlobales.setHijo_selected_usuarioId(hijoUiSelected.getUsuarioId());
+            mainParametrosGlobales.setHijo_selected_nombres(hijoUiSelected.getNombres());
+            mainParametrosGlobales.setHijo_selected_apellidos(hijoUiSelected.getApellidos());
+            mainParametrosGlobales.setHijo_selected_imagen(hijoUiSelected.getUrl_imagen());
+            List<Integer> programaEducativoIdList = new ArrayList<>();
+            for (ProgramaEducativoUi programaEducativoUi: programaEducativoUiList)programaEducativoIdList.add(programaEducativoUi.getId());
+            mainParametrosGlobales.setPadre_mentor_list_hijos_persona_Id(programaEducativoIdList);
+        }
+
+        if(programaEducativoSelected!=null){
+            mainParametrosGlobales.setHijo_programa_educativo_Id(programaEducativoSelected.getId());
+        }
+
+        if(itemMenuUI==null)return;
+        switch (itemMenuUI.getTipoMenu()){
+            case COLEGIO_EVENTO:
+                if(view!=null)view.initFragmentColegioEvento(mainParametrosGlobales);
+                break;
+            case COLEGIO_CALENDARIO:
+                if(view!=null)view.initFragmentColegioCalendario(mainParametrosGlobales);
+                break;
+            case COLEGIO_DIRECTORIO:
+                if(view!=null)view.initFragmentColegioDirectorio(mainParametrosGlobales);
+                break;
+            case ESTUDIANTE_TAREAS:
+                if(view!=null)view.initFragmentEstudianteTarea(mainParametrosGlobales);
+                break;
+            case ESTUDIANTE_ASISTENCIA:
+                if(view!=null)view.initFragmentEstudianteAsistencia(mainParametrosGlobales);
+                break;
+            case ESTUDIANTE_CONDUCTA:
+                if(view!=null)view.initFragmentEstudianteConducta(mainParametrosGlobales);
+                break;
+            case ESTUDIANTE_ESTADOCUENTA:
+                if(view!=null)view.initFragmentEstudianteEstadoCuenta(mainParametrosGlobales);
+                break;
+            case ESTUDIANTE_CURSO:
+                if(view!=null)view.initFragmentEstudianteCurso(mainParametrosGlobales);
+                break;
+            case ESTUDIANTE_RUBROS:
+                if(view!=null)view.initFragmentEstudianteRubros(mainParametrosGlobales);
+                break;
+            case FAMILIA_ACTUALIZAR_PERFIL:
+                if(view!=null)view.initFragmentFamiliaActualizarPerfil(mainParametrosGlobales);
+                break;
+            case FAMILIA_INFOGRAFIA:
+                if(view!=null)view.initFragmentFamiliaInfografia(mainParametrosGlobales);
+                break;
+            case FAMILIA_PERFIL_FAMILIAR:
+                if(view!=null)view.initFragmentFamiliaPerfilFamiliar(mainParametrosGlobales);
+                break;
+        }
+    }
+
+    private void setupProgramaEducativo() {
+        if(programaEducativoSelected!=null){
+            if(view!=null)view.setCalendarioPeriodo(programaEducativoSelected.getNombre());
+        }else {
+            if(view!=null)view.setCalendarioPeriodo("");
+        }
+
+
+    }
+
+    @Override
+    public void onClickedProgramaEducativo() {
+        if(view!=null)view.showPopListProgramaEduc(programaEducativoUiList);
+    }
+
+    @Override
+    public void onSelectedProgramaEduca(ProgramaEducativoUi programaEducativoUi) {
+        if(programaEducativoSelected!=null)programaEducativoSelected.setSelected(false);
+        programaEducativoUi.setSelected(true);
+        programaEducativoSelected = programaEducativoUi;
+        setupProgramaEducativo();
     }
 
     @Override

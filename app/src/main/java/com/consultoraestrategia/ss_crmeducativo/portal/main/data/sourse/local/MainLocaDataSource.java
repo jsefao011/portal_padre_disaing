@@ -1,5 +1,7 @@
 package com.consultoraestrategia.ss_crmeducativo.portal.main.data.sourse.local;
 
+import android.util.Log;
+
 import com.consultoraestrategia.ss_crmeducativo.entities.AnioAcademico;
 import com.consultoraestrategia.ss_crmeducativo.entities.AnioAcademico_Table;
 import com.consultoraestrategia.ss_crmeducativo.entities.Contrato;
@@ -20,16 +22,19 @@ import com.consultoraestrategia.ss_crmeducativo.portal.main.data.sourse.MainData
 import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.HijoUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.PadreMentorUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.ProgramaEducativoUi;
+import com.consultoraestrategia.ss_crmeducativo.util.Utils;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainLocaDataSource implements MainDataSource {
+    private String TAG = MainLocaDataSource.class.getSimpleName();
+
     @Override
     public List<ProgramaEducativoUi> onGetProgramaEducativo(int alumnoId) {
-
-        List<ProgramasEducativo> programasEducativos = SQLite.select()
+        Log.d(TAG,"alimnoId: "+ alumnoId);
+        List<ProgramasEducativo> programasEducativos = SQLite.select(Utils.f_allcolumnTable(ProgramasEducativo_Table.ALL_COLUMN_PROPERTIES))
                 .from(ProgramasEducativo.class)
                 .innerJoin(NivelAcademico.class)
                 .on(ProgramasEducativo_Table.nivelAcadId.withTable()
@@ -45,7 +50,10 @@ public class MainLocaDataSource implements MainDataSource {
                         .eq(DetalleContratoAcad_Table.idContrato.withTable()))
                 .where(AnioAcademico_Table.estadoId.withTable().eq(AnioAcademico.ANIO_ACADEMICO_ACTIVO))
                 .and(Contrato_Table.personaId.withTable().eq(alumnoId))
+                .groupBy(Utils.f_allcolumnTable(ProgramasEducativo_Table.ALL_COLUMN_PROPERTIES))
                 .queryList();
+
+
         List<ProgramaEducativoUi> programaEducativoUiList = new ArrayList<>();
         int count = 0;
         for (ProgramasEducativo programasEducativo: programasEducativos){

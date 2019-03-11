@@ -16,7 +16,7 @@ public class MainRepository implements MainDataSource {
 
     @Override
     public List<ProgramaEducativoUi> onGetProgramaEducativo(int usuarioid) {
-        return null;
+        return locaDataSource.onGetProgramaEducativo(usuarioid);
     }
 
     @Override

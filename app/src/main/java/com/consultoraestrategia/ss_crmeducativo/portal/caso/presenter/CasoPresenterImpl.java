@@ -13,6 +13,7 @@ import com.consultoraestrategia.ss_crmeducativo.portal.caso.domain.useCase.GetAl
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.entities.CasoUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.entities.TipoPadreUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.ui.CasoView;
+import com.consultoraestrategia.ss_crmeducativo.portal.wrapper.MainParametrosGlobales;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +63,10 @@ public class CasoPresenterImpl extends BaseFragmentPresenterImpl<CasoView>  impl
     @Override
     public void setExtras(Bundle extras) {
         super.setExtras(extras);
-        this.alumnoId=1590;
+        MainParametrosGlobales mainParametrosGlobales = MainParametrosGlobales.clone(extras);
+        if(mainParametrosGlobales!=null){
+            this.alumnoId=mainParametrosGlobales.getHijo_selected_personaId();
+        }
         getAlumnoCaso();
 
     }

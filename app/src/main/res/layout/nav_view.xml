@@ -157,15 +157,13 @@
         app:layout_constraintTop_toBottomOf="@+id/nav_bar_fondo">
 
         <ImageView
-            android:id="@+id/imageView26"
+            android:id="@+id/btn_programa_edu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/txt_programa_educatio"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/txt_programa_educatio"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.444"
             app:srcCompat="@drawable/ic_keyboard_arrow_down_white" />
 
@@ -175,12 +173,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Educación Primaria"
             android:textColor="@color/md_white_1000"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView26"
+            app:layout_constraintEnd_toStartOf="@+id/btn_programa_edu"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="parent" />
 

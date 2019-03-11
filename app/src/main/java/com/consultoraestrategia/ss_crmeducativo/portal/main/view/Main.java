@@ -24,7 +24,9 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -42,12 +44,10 @@ import com.consultoraestrategia.ss_crmeducativo.base.fragment.BaseFragmentListen
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.ui.CasoFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.colegioCalendario.ColegioCalendarioFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.colegioEvento.ColegioEventoFragment;
-import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteAsistencia.EstudianteAsistenciaFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteCursos.EstudianteCursos;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteEstadoCuenta.EstudianteEstadoCuenta;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteRubro.EstudianteRubroFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteTarea.EstudianteTareaFragment;
-import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteconducta.EstudianteConductaFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.fragmentTofragment.cabecera.FragmentCabecera;
 import com.consultoraestrategia.ss_crmeducativo.portal.familia.ui.FamiliaFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.MainPresenter;
@@ -60,11 +60,15 @@ import com.consultoraestrategia.ss_crmeducativo.portal.main.dialogAlumnoList.ada
 import com.consultoraestrategia.ss_crmeducativo.portal.main.domain.usecase.GetPadreMentor;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.domain.usecase.GetProgramaEducativoList;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.HijoUi;
-import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.InfoFamilia;
+import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.ItemMenuUI;
+import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.ProgramaEducativoUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.listener.MenuListener;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.login.Login;
-import com.consultoraestrategia.ss_crmeducativo.portal.tareas.view.TareasFragment;
+import com.consultoraestrategia.ss_crmeducativo.portal.wrapper.MainParametrosGlobales;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
+import com.shehabic.droppy.DroppyClickCallbackInterface;
+import com.shehabic.droppy.DroppyMenuItem;
+import com.shehabic.droppy.DroppyMenuPopup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,8 +78,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Main extends BaseActivity<MainView, MainPresenter> implements MainView, MenuListener, BaseFragmentListener,AdapterAlumnoList.Listener {
+public class Main extends BaseActivity<MainView, MainPresenter> implements MainView, MenuListener, BaseFragmentListener, AdapterAlumnoList.Listener {
     //http://pruebas.consultoraestrategia.com/FotosCata/184/01102018121442_27-ELIANE.JPG\"\n" +
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     MenuAdapter menuAdapter;
@@ -95,6 +100,8 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     CircleImageView navBarImagenProfileHijo;
     @BindView(R.id.txt_programa_educatio)
     TextView txtProgramaEducatio;
+    @BindView(R.id.btn_programa_edu)
+    ImageView btnProgramaEdu;
     private ActionBarDrawerToggle drawerToggle;
     private Dialog dialogAlumnoList;
 
@@ -132,7 +139,6 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         toolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
-        setTitle("TAREA");
         drawerToggle = setupDrawerToggle();
         drawer.addDrawerListener(drawerToggle);
         setupAdapter();
@@ -172,7 +178,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     private ActionBarDrawerToggle setupDrawerToggle() {
         // NOTE: Make sure you pass in a valid toolbar reference.  ActionBarDrawToggle() does not require it
         // and will not render the hamburger icon without it.
-        return new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open,  R.string.navigation_drawer_close);
+        return new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
     }
 
     private void setupAdapter() {
@@ -216,7 +222,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        switch (id){
+        switch (id) {
             case R.id.action_settings:
                 return true;
             case android.R.id.home:
@@ -237,7 +243,6 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     }
 
 
-
     @Override
     public void showMenuList(List<Object> objects) {
 
@@ -251,94 +256,83 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     }
 
 
-
-    public <T extends Fragment> void getSupportFragmentManager(final Class<T> fragmentClass) {
+    public <T extends Fragment> void getSupportFragmentManager(final Class<T> fragmentClass, Bundle bundle) {
         drawer.closeDrawers();
-        drawer.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Create a new fragment and specify the fragment to show based on nav item clicked
 
-                try {
-
-                    Fragment fragment = (Fragment) fragmentClass.newInstance();
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        //setExitTransition(new Slide(Gravity.START));
-                        //setEnterTransition(new Slide(Gravity.START));
-                        fragment.setEnterTransition(new Slide(Gravity.LEFT));
-                    }
-
-                    // Insert the fragment by replacing any existing fragment
-
-                    FragmentManager fragmentManager = getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.flContent, fragment).commit();
-                    fragmentTransaction.addToBackStack(null);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-
-                }
+        try {
+            Fragment fragment = (Fragment) fragmentClass.newInstance();
+            fragment.setArguments(bundle);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                //setExitTransition(new Slide(Gravity.START));
+                //setEnterTransition(new Slide(Gravity.START));
+                //fragment.setEnterTransition(new Slide(Gravity.LEFT));
             }
-        },300);
+            // Insert the fragment by replacing any existing fragment
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.flContent, fragment).commit();
+            //fragmentTransaction.addToBackStack(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
 
 
     }
 
     @Override
-    public void initFragmentEstudianteTarea() {
+    public void initFragmentEstudianteTarea(MainParametrosGlobales mainParametrosGlobales) {
         setTitle("TAREA");
-        getSupportFragmentManager(EstudianteTareaFragment.class);
+        //getSupportFragmentManager(EstudianteTareaFragment.class);
 
 
     }
 
     @Override
-    public void initFragmentEstudianteAsistencia() {
+    public void initFragmentEstudianteAsistencia(MainParametrosGlobales mainParametrosGlobales) {
         setTitle("ASISTENCIA");
-        getSupportFragmentManager(FragmentCabecera.class);
+        //getSupportFragmentManager(FragmentCabecera.class);
     }
 
     @Override
-    public void initFragmentEstudianteConducta() {
+    public void initFragmentEstudianteConducta(MainParametrosGlobales mainParametrosGlobales) {
         setTitle("COMPORTAMIENTO");
-        getSupportFragmentManager(CasoFragment.class);
+        getSupportFragmentManager(CasoFragment.class, mainParametrosGlobales.getBundle());
     }
 
     @Override
-    public void initFragmentEstudianteEstadoCuenta() {
+    public void initFragmentEstudianteEstadoCuenta(MainParametrosGlobales mainParametrosGlobales) {
         setTitle("ESTADO DE CUENTA");
-        getSupportFragmentManager(EstudianteEstadoCuenta.class);
+        //getSupportFragmentManager(EstudianteEstadoCuenta.class);
     }
 
     @Override
-    public void initFragmentEstudianteCurso() {
+    public void initFragmentEstudianteCurso(MainParametrosGlobales mainParametrosGlobales) {
         setTitle("CURSOS");
-        getSupportFragmentManager(EstudianteCursos.class);
+        //getSupportFragmentManager(EstudianteCursos.class);
     }
 
     @Override
-    public void initFragmentColegioEvento() {
+    public void initFragmentColegioEvento(MainParametrosGlobales mainParametrosGlobales) {
         setTitle("EVENTO");
-        getSupportFragmentManager(ColegioEventoFragment.class);
+        //getSupportFragmentManager(ColegioEventoFragment.class);
     }
 
     @Override
-    public void initFragmentFamiliaActualizarPerfil() {
+    public void initFragmentFamiliaActualizarPerfil(MainParametrosGlobales mainParametrosGlobales) {
         setTitle("ACTUALIZAR PERFIL");
-        getSupportFragmentManager(FamiliaFragment.class);
+        //getSupportFragmentManager(FamiliaFragment.class);
     }
 
     @Override
-    public void initFragmentFamiliaInfografia() {
+    public void initFragmentFamiliaInfografia(MainParametrosGlobales mainParametrosGlobales) {
 
     }
 
     @Override
-    public void initFragmentColegioCalendario() {
+    public void initFragmentColegioCalendario(MainParametrosGlobales mainParametrosGlobales) {
         setTitle("CALENDARIO");
-        getSupportFragmentManager(ColegioCalendarioFragment.class);
+        //getSupportFragmentManager(ColegioCalendarioFragment.class);
     }
 
     @Override
@@ -356,21 +350,21 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     }
 
     @Override
-    public void initFragmentEstudianteRubros() {
+    public void initFragmentEstudianteRubros(MainParametrosGlobales mainParametrosGlobales) {
         setTitle("RUBROS");
-        getSupportFragmentManager(EstudianteRubroFragment.class);
+        //getSupportFragmentManager(EstudianteRubroFragment.class);
     }
 
     @Override
-    public void initFragmentFamiliaPerfilFamiliar() {
+    public void initFragmentFamiliaPerfilFamiliar(MainParametrosGlobales mainParametrosGlobales) {
         setTitle("P. FAMILIAR");
-        getSupportFragmentManager(EstudianteRubroFragment.class);
+        //getSupportFragmentManager(EstudianteRubroFragment.class);
     }
 
     @Override
-    public void initFragmentColegioDirectorio() {
+    public void initFragmentColegioDirectorio(MainParametrosGlobales mainParametrosGlobales) {
         setTitle("AGENDA");
-        getSupportFragmentManager(EstudianteRubroFragment.class);
+        //getSupportFragmentManager(EstudianteRubroFragment.class);
     }
 
     @Override
@@ -436,8 +430,32 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     }
 
     @Override
-    public void onMenuSelected(Object o) {
-        presenter.onMenuSelected(o);
+    public void showPopListProgramaEduc(final List<ProgramaEducativoUi> programaEducativoUiList) {
+        Log.d(getTag(),"cantidad: " + programaEducativoUiList.size());
+        DroppyMenuPopup.Builder droppyBuilder = new DroppyMenuPopup.Builder(btnProgramaEdu.getContext(), btnProgramaEdu);
+        droppyBuilder.triggerOnAnchorClick(false);
+        // Add normal items (text only)
+        for (ProgramaEducativoUi programaEducativoUi : programaEducativoUiList) {
+            droppyBuilder.addMenuItem(new DroppyMenuItem(programaEducativoUi.getNombre(), R.drawable.ic_programa_educativo));
+        }
+        ///droppyBuilder.addMenuItem(new DroppyMenuItem("Secundaria", R.drawable.ic_programa_educativo));
+        // Set Callback handler
+        droppyBuilder.setOnClick(new DroppyClickCallbackInterface() {
+            @Override
+            public void call(View v, int posicion) {
+                try {
+                    presenter.onSelectedProgramaEduca(programaEducativoUiList.get(posicion));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+        droppyBuilder.build().show();
+    }
+
+    @Override
+    public void onMenuSelected(ItemMenuUI itemMenuUI) {
+        presenter.onMenuSelected(itemMenuUI);
     }
 
 
@@ -471,4 +489,10 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
+
+    @OnClick(R.id.btn_programa_edu)
+    public void onViewClickedProgramaEducativo() {
+        presenter.onClickedProgramaEducativo();
+    }
+
 }
