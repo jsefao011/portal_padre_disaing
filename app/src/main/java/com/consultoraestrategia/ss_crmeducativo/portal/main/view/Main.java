@@ -74,7 +74,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Main extends BaseActivity<MainView, MainPresenter> implements MainView, MenuListener, BaseFragmentListener {
+public class Main extends BaseActivity<MainView, MainPresenter> implements MainView, MenuListener, BaseFragmentListener,AdapterAlumnoList.Listener {
     //http://pruebas.consultoraestrategia.com/FotosCata/184/01102018121442_27-ELIANE.JPG\"\n" +
     @BindView(R.id.toolbar)
     Toolbar toolbar;

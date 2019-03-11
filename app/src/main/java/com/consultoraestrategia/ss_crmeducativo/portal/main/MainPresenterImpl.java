@@ -33,7 +33,6 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
     private GetProgramaEducativoList getProgramaEducativoList;
     private PadreMentorUi padreMentor;
     private ProgramaEducativoUi programaEducativoSelected;
-    private ArrayList<ItemMenuUI> configuracionUiListFamilia;
 
     public MainPresenterImpl(UseCaseHandler handler, Resources res, GetPadreMentor getPadreMentor, GetProgramaEducativoList getProgramaEducativoList) {
         super(handler, res);
@@ -112,8 +111,8 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_CURSO,"Cursos", false,R.drawable.ic_cursos));
 
         configuracionUiListFamilia = new ArrayList<>();
-        configuracionUiListFamilia.add(new ItemMenuUI(TipoMenu.FAMILIA_ACTUALIZAR_PERFIL, "Actualizar Perfil", false));
-        configuracionUiListFamilia.add(new ItemMenuUI(TipoMenu.FAMILIA_INFOGRAFIA, "Infografia", false));
+        configuracionUiListFamilia.add(new ItemMenuUI(TipoMenu.FAMILIA_ACTUALIZAR_PERFIL, "Actualizar Perfil", false, R.drawable.ic_evento));
+        configuracionUiListFamilia.add(new ItemMenuUI(TipoMenu.FAMILIA_INFOGRAFIA, "Infografia", false,R.drawable.ic_evento));
         configuracionUiListFamilia.add(new ItemMenuUI(TipoMenu.FAMILIA_PERFIL_FAMILIAR,"Perfil familiar", false, R.drawable.ic_portafolio));
         showListInfoEstudiante();
 
