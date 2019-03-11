@@ -136,13 +136,37 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
         drawerToggle = setupDrawerToggle();
         drawer.addDrawerListener(drawerToggle);
         setupAdapter();
+        setupTabMenu();
+    }
 
-        Glide.with(this)
-                .load("http://pruebas.consultoraestrategia.com/FotosCata/184/01102018121442_27-ELIANE.JPG")
-                .apply(new RequestOptions()
-                        .centerCrop()
-                        .diskCacheStrategy(DiskCacheStrategy.ALL))
-                .into(navBarImagenProfileHijo);
+    private void setupTabMenu() {
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch (tab.getPosition()) {
+                    case 0:
+                        presenter.onClickBtnInfoColegio();
+                        break;
+                    case 1:
+                        presenter.onClickBtnInfoEstudiante();
+                        break;
+                    case 2:
+                        presenter.onClickBtnInfoFamilia();
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
