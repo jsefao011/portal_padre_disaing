@@ -282,6 +282,7 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
 
     }
 
+
     @Override
     public void onClickedProgramaEducativo() {
         if(view!=null)view.showPopListProgramaEduc(programaEducativoUiList);

@@ -10,4 +10,6 @@ public interface FamiliaDataSource {
     }
 
     void getListFamilia(int idPersona, SucessCallback<List<Object>> callback);
+
+    void setListFamilia(List<Object> listFamilia, int idPersona, SucessCallback<List<Object>> callback);
 }

@@ -80,7 +80,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Main extends BaseActivity<MainView, MainPresenter> implements MainView, MenuListener, BaseFragmentListener, AdapterAlumnoList.Listener {
     //http://pruebas.consultoraestrategia.com/FotosCata/184/01102018121442_27-ELIANE.JPG\"\n" +
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     MenuAdapter menuAdapter;
@@ -214,6 +213,22 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
         return true;
     }
 
+    private <T extends Fragment> T getFragment(Class<T> tClass) {
+        List<Fragment> fragments = getFragments();
+        for (Fragment fragment :
+                fragments) {
+            if (tClass.isInstance(fragment)) {
+                return (T) fragment;
+            }
+        }
+        return null;
+    }
+
+    private List<Fragment> getFragments() {
+        return getSupportFragmentManager().getFragments();
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -223,8 +238,6 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
 
         //noinspection SimplifiableIfStatement
         switch (id) {
-            case R.id.action_settings:
-                return true;
             case android.R.id.home:
                 drawer.openDrawer(GravityCompat.START);
                 return true;
@@ -240,6 +253,12 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     @Override
     public void showFinalMessage(CharSequence message) {
 
+    }
+
+    public  void onCLickItemSave(){
+        FamiliaFragment familiaFragment = getFragment(FamiliaFragment.class);
+        if (familiaFragment == null) return;
+        familiaFragment.onCLickSave();
     }
 
 
@@ -321,7 +340,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     @Override
     public void initFragmentFamiliaActualizarPerfil(MainParametrosGlobales mainParametrosGlobales) {
         setTitle("ACTUALIZAR PERFIL");
-        //getSupportFragmentManager(FamiliaFragment.class);
+        getSupportFragmentManager(FamiliaFragment.class, mainParametrosGlobales.getBundle());
     }
 
     @Override

@@ -14,6 +14,7 @@ public class PersonaUi {
     private String apellidoMaterno;
     private String apellidoPaterno;
     private String urlImagen;
+    private int num;
 
     public PersonaUi() {
     }
@@ -104,6 +105,14 @@ public class PersonaUi {
 
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
     @Override

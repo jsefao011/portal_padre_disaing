@@ -1,15 +1,22 @@
 package com.consultoraestrategia.ss_crmeducativo.portal.familia.adaper;
 
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 
+import com.consultoraestrategia.ss_crmeducativo.api.retrofit.ApiRetrofit;
 import com.consultoraestrategia.ss_crmeducativo.entities.Persona;
 import com.consultoraestrategia.ss_crmeducativo.portal.familia.adaper.holder.FamiliaHolder;
 import com.consultoraestrategia.ss_crmeducativo.portal.familia.entities.PersonaUi;
+import com.consultoraestrategia.ss_crmeducativo.portal.familia.listener.FamiliaListener;
+import com.consultoraestrategia.ss_crmeducativo.portal.familia.ui.FamiliaFragment;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
 
 import java.util.List;
@@ -17,10 +24,13 @@ import java.util.List;
 public class FamiliaAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Object> objectList;
+    private RecyclerView recyclerView;
+    private FamiliaListener familiaListener;
+    private boolean state = false;
 
-
-    public FamiliaAdapter(List<Object> contactosList) {
+    public FamiliaAdapter(List<Object> contactosList, FamiliaListener familiaListener) {
         this.objectList = contactosList;
+        this.familiaListener = familiaListener;
     }
 
     @NonNull
@@ -38,7 +48,7 @@ public class FamiliaAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         PersonaUi personaUi = (PersonaUi) objectList.get(position);
         FamiliaHolder itemFamiliaHolder = (FamiliaHolder) holder;
-        itemFamiliaHolder.bind(personaUi);
+        itemFamiliaHolder.bind(personaUi, this, state);
     }
 
     @Override
@@ -50,5 +60,27 @@ public class FamiliaAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.objectList.clear();
         this.objectList.addAll(objects);
         notifyDataSetChanged();
+    }
+
+    public void updateItem(PersonaUi personaUi) {
+        int position = this.objectList.indexOf(personaUi);
+        if (position != -1) {
+            this.objectList.set(position, personaUi);
+            familiaListener.setListFamilia(objectList);
+        }
+    }
+
+    public void setRecyclerView(RecyclerView recyclerView) {
+        this.recyclerView = recyclerView;
+    }
+
+    public void onHideKeyBoard() {
+        this.state = true;
+        notifyDataSetChanged();
+    }
+
+
+    public void onHideKeyBoardTrue(EditText textTelefono, EditText gmail, EditText direccion) {
+        familiaListener.onHideKeyBoardTrue(textTelefono, gmail, direccion);
     }
 }

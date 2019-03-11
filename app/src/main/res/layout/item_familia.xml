@@ -2,33 +2,11 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/md_white_1000">
 
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imagenPersona"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/nombre"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:ellipsize="end"
-        android:gravity="left"
-        android:maxLines="1"
-        android:text="hola"
-        app:layout_constraintEnd_toStartOf="@+id/view"
-        app:layout_constraintStart_toEndOf="@+id/tipo"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/view"
@@ -49,104 +27,33 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:text="Hijo"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintStart_toEndOf="@+id/imagenPersona"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <ImageView
-        android:id="@+id/cell"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_marginStart="8dp"
-        android:padding="3dp"
-        android:src="@drawable/call"
-        app:layout_constraintStart_toEndOf="@+id/imagenPersona"
-        app:layout_constraintTop_toBottomOf="@+id/nombre" />
-
-    <TextView
-        android:id="@+id/telefono"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
+        android:textSize="20dp"
         android:fontFamily="sans-serif-light"
-        android:text="991842839"
-        android:textSize="15dp"
-        app:layout_constraintStart_toEndOf="@+id/cell"
-        app:layout_constraintTop_toBottomOf="@+id/nombre" />
-
-    <ImageView
-        android:id="@+id/mailImagen"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_marginStart="8dp"
-        android:padding="3dp"
-        android:src="@drawable/gmail"
-        app:layout_constraintStart_toEndOf="@+id/telefono"
-        app:layout_constraintTop_toBottomOf="@+id/nombre" />
-
-    <TextView
-        android:id="@+id/mail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="8dp"
-        android:gravity="center_vertical"
-        android:text="marymamani@gmail.com"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/mailImagen"
-        app:layout_constraintTop_toTopOf="@+id/mailImagen" />
-
-    <TextView
-        android:id="@+id/direccion"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:text="Betania - Mz A - Lt. 6"
-        android:textSize="10dp"
-        android:textStyle="italic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/map"
-        app:layout_constraintTop_toBottomOf="@+id/telefono" />
-
-    <ImageView
-        android:id="@+id/map"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_marginStart="8dp"
-        android:padding="3dp"
-        android:src="@drawable/maping"
-        app:layout_constraintStart_toEndOf="@+id/imagenPersona"
-        app:layout_constraintTop_toBottomOf="@+id/cell" />
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/view2"
         android:layout_width="match_parent"
-        android:layout_height="0.01dp"
+        android:layout_height="0.1dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="@color/md_blue_grey_50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/direccion" />
+        app:layout_constraintTop_toBottomOf="@+id/tipo" />
 
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/recept"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2">
@@ -172,6 +79,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
+            android:fontFamily="sans-serif-light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imagenFoto">
@@ -180,7 +88,12 @@
                 android:id="@+id/nombreFamilia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nombre"/>
+                android:hint="Nombre"
+                android:paddingLeft="3dp"
+                android:focusable="false"
+                android:fontFamily="sans-serif-light"
+                android:enabled="false"
+                />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -189,6 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-light"
             android:layout_marginEnd="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -198,6 +112,10 @@
                 android:id="@+id/primerApellido"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
+                android:focusable="false"
+                android:paddingLeft="3dp"
+                android:fontFamily="sans-serif-light"
                 android:hint="Apellido Paterno" />
         </android.support.design.widget.TextInputLayout>
 
@@ -208,6 +126,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
+            android:fontFamily="sans-serif-light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_primerApellido">
@@ -217,6 +136,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Celular"
+                android:paddingLeft="3dp"
+                android:fontFamily="sans-serif-light"
                 android:drawableLeft="@drawable/call"
                 android:inputType="number" />
         </android.support.design.widget.TextInputLayout>
@@ -228,6 +149,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
+            android:fontFamily="sans-serif-light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_telefono">
@@ -237,9 +159,50 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint=" Mail"
+                android:paddingLeft="3dp"
+                android:fontFamily="sans-serif-light"
                 android:drawableLeft="@drawable/gmail"
                 android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/til_direccion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="sans-serif-light"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_correo">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/direcciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/maping"
+                android:hint="Direccion"
+                android:paddingLeft="3dp"
+                android:fontFamily="sans-serif-light"
+                android:inputType="textEmailAddress" />
+        </android.support.design.widget.TextInputLayout>
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/md_blue_grey_50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/til_direccion" />
 
 
 

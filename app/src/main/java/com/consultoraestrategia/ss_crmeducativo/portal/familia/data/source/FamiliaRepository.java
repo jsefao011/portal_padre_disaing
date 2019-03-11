@@ -16,4 +16,9 @@ public class FamiliaRepository implements FamiliaDataSource{
     public void getListFamilia(int idPersona, SucessCallback<List<Object>> callback) {
         familiaLocalDataSource.getListFamilia(idPersona, callback);
     }
+
+    @Override
+    public void setListFamilia(List<Object> listFamilia, int idPersona, SucessCallback<List<Object>> callback) {
+        familiaLocalDataSource.setListFamilia(listFamilia, idPersona, callback);
+    }
 }
