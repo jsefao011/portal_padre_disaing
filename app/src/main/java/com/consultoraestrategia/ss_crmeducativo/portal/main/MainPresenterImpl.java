@@ -105,12 +105,12 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
     private void setupAccesos() {
 
         configuracionUiList = new ArrayList<>();
-        configuracionUiList.add(new ItemMenuUI(TipoMenu.COLEGIO_EVENTO,"Evento", true, R.drawable.ic_evento));
+        configuracionUiList.add(new ItemMenuUI(TipoMenu.COLEGIO_EVENTO,"Evento", false, R.drawable.ic_evento));
         configuracionUiList.add(new ItemMenuUI(TipoMenu.COLEGIO_CALENDARIO,"Calendario", false,R.drawable.ic_calendario));
         configuracionUiList.add(new ItemMenuUI(TipoMenu.COLEGIO_DIRECTORIO,"Agenda", false,R.drawable.ic_agenda));
 
         configuracionUiListEstudiante = new ArrayList<>();
-        configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_TAREAS,"Tareas", false, R.drawable.ic_portafolio));
+        configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_TAREAS,"Tareas", true, R.drawable.ic_portafolio));
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_RUBROS,"Evaluación", false, R.drawable.ic_evaluacion));
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_ASISTENCIA,"Asistencia", false, R.drawable.ic_evento));
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_CONDUCTA,"Comportamiento", false, R.drawable.ic_comportamiento));

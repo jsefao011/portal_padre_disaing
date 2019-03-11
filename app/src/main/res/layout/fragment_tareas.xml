@@ -1,31 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/md_white_1000"
-    android:orientation="vertical"
   >
-
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_tareas"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:background="@color/md_white_1000"
-        android:padding="10dp"
-        app:tabGravity="fill"
-        app:tabMode="fixed" />
 
     <ScrollView
         android:id="@+id/tab_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@color/md_grey_200"
         android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@+id/tab_tareas"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintBottom_toTopOf="@+id/tab_tareas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -48,7 +39,21 @@
 
     </ScrollView>
 
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_tareas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tabSelectedTextColor="@color/md_white_1000"
+        app:tabTextColor="@color/md_white_1000"
+        app:tabGravity="fill"
+        app:tabMode="fixed" />
 
 
 
-</LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -4,24 +4,23 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.consultoraestrategia.ss_crmeducativo.api.retrofit.ApiRetrofit;
 import com.consultoraestrategia.ss_crmeducativo.base.UseCase;
 import com.consultoraestrategia.ss_crmeducativo.base.UseCaseHandler;
 import com.consultoraestrategia.ss_crmeducativo.base.fragment.BaseFragmentPresenterImpl;
-import com.consultoraestrategia.ss_crmeducativo.entities.ValorTipoNotaC;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.domain.useCase.GetAlumnoCasos;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.entities.CasoUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.entities.TipoPadreUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.ui.CasoView;
 import com.consultoraestrategia.ss_crmeducativo.portal.wrapper.MainParametrosGlobales;
+import com.consultoraestrategia.ss_crmeducativo_portal.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CasoPresenterImpl extends BaseFragmentPresenterImpl<CasoView>  implements CasoPresenter{
 
     GetAlumnoCasos getAlumnoCasos;
     private int alumnoId;
+    private int programaEducativoId;
     List<CasoUi>casoUiList;
     List<Object>objectList;
     List<TipoPadreUi>tipoPadreUiList;
@@ -66,6 +65,7 @@ public class CasoPresenterImpl extends BaseFragmentPresenterImpl<CasoView>  impl
         MainParametrosGlobales mainParametrosGlobales = MainParametrosGlobales.clone(extras);
         if(mainParametrosGlobales!=null){
             this.alumnoId=mainParametrosGlobales.getHijo_selected_personaId();
+            this.programaEducativoId= mainParametrosGlobales.getHijo_programa_educativo_Id();
         }
         getAlumnoCaso();
 
@@ -73,21 +73,28 @@ public class CasoPresenterImpl extends BaseFragmentPresenterImpl<CasoView>  impl
 
     private void getAlumnoCaso() {
         if(view!=null)view.showProgress();
-     handler.execute(getAlumnoCasos, new GetAlumnoCasos.RequestValues(alumnoId), new UseCase.UseCaseCallback<GetAlumnoCasos.ResponseValue>() {
-         @Override
-         public void onSuccess(GetAlumnoCasos.ResponseValue response) {
-             Log.d(TAG, "casos  "+ response.getAlumnoUi().getCasoUiList().size());
-             Log.d(TAG, "tipos padres  "+  response.getAlumnoUi().getTipoPadreUiList().size());
-             casoUiList=response.getAlumnoUi().getCasoUiList();
-             tipoPadreUiList= response.getAlumnoUi().getTipoPadreUiList();
-             showList();
-         }
+        if(programaEducativoId!=0){
+            handler.execute(getAlumnoCasos, new GetAlumnoCasos.RequestValues(alumnoId, programaEducativoId), new UseCase.UseCaseCallback<GetAlumnoCasos.ResponseValue>() {
+                @Override
+                public void onSuccess(GetAlumnoCasos.ResponseValue response) {
+                    Log.d(TAG, "casos  "+ response.getAlumnoUi().getCasoUiList().size());
+                    Log.d(TAG, "tipos padres  "+  response.getAlumnoUi().getTipoPadreUiList().size());
+                    casoUiList=response.getAlumnoUi().getCasoUiList();
+                    tipoPadreUiList= response.getAlumnoUi().getTipoPadreUiList();
+                    showList();
+                }
 
-         @Override
-         public void onError() {
-             Log.d(TAG, "Error al listar casos del alumno ");
-         }
-     });
+                @Override
+                public void onError() {
+                    Log.d(TAG, "Error al listar casos del alumno ");
+                }
+            });
+        }else {if(view!=null){
+            view.showTextEmpty(res.getString(R.string.mensaje_programaEduEmpty));
+            view.hideProgress();
+        }}
+
+
     }
 
     private void showList() {
@@ -95,9 +102,8 @@ public class CasoPresenterImpl extends BaseFragmentPresenterImpl<CasoView>  impl
         if(tipoPadreUiList.size()>0){
             if(view!=null) view.showListTipos(tipoPadreUiList.get(0), tipoPadreUiList.get(1));
         }
-        if(casoUiList.size()>0)
-            if(view!=null)view.showListCasos(casoUiList);
-        else {if(view!=null)view.showTextEmpty();}
+        if(casoUiList.size()>0) {if(view!=null)view.showListCasos(casoUiList);}
+        else {if(view!=null)view.showTextEmpty(res.getString(R.string.mensaje_casosEmpty));}
 
     }
 }

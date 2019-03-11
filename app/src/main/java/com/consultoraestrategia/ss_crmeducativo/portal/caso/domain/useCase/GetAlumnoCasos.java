@@ -15,7 +15,7 @@ public class GetAlumnoCasos extends UseCase<GetAlumnoCasos.RequestValues, GetAlu
 
     @Override
     protected void executeUseCase(RequestValues requestValues) {
-        casoRepository.getAlumoCaso(requestValues.getAlumnoId(), new CasoDataSource.SucessCallback<AlumnoUi>() {
+        casoRepository.getAlumoCaso(requestValues.getAlumnoId(), requestValues.getProgramaEducativoId(),new CasoDataSource.SucessCallback<AlumnoUi>() {
             @Override
             public void onLoad(boolean success, AlumnoUi item) {
                 getUseCaseCallback().onSuccess(new ResponseValue(item));
@@ -25,13 +25,19 @@ public class GetAlumnoCasos extends UseCase<GetAlumnoCasos.RequestValues, GetAlu
 
     public static class RequestValues implements UseCase.RequestValues{
         int alumnoId;
+        int programaEducativoId;
 
-        public RequestValues(int alumnoId) {
+        public RequestValues(int alumnoId, int programaEducativoId) {
             this.alumnoId = alumnoId;
+            this.programaEducativoId = programaEducativoId;
         }
 
         public int getAlumnoId() {
             return alumnoId;
+        }
+
+        public int getProgramaEducativoId() {
+            return programaEducativoId;
         }
     }
     public static class ResponseValue implements UseCase.ResponseValue{

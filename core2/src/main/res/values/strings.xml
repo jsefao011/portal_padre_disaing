@@ -72,4 +72,6 @@
     <string name="msg_asistencia">No se asigno un tipo de nota a este periodo</string>
     <string name="cannot_open_file">No se puede abrir el archivo</string>
     <string name="admin_service">http://admin.consultoraestrategia.com/ServiceAdmin/Service/ServiceAdmin.ashx  </string>
+    <string name="mensaje_programaEduEmpty">No se ha registrado programa educativo para este alumno</string>
+    <string name="mensaje_casosEmpty">No se registraron casos</string>
 </resources>

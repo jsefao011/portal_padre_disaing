@@ -1,10 +1,15 @@
 package com.consultoraestrategia.ss_crmeducativo.portal.tareas.presenter;
 
-import android.support.v4.app.Fragment;
-
 import com.consultoraestrategia.ss_crmeducativo.base.BasePresenter;
-import com.consultoraestrategia.ss_crmeducativo.portal.tareas.view.TareasView;
+import com.consultoraestrategia.ss_crmeducativo.base.fragment.BaseFragmentPresenter;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.TareaView;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.TareasFragment;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.tareasCurso.FragmentTareasCurso;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.tareasGenerales.FragmentTareasGenerales;
 
-public interface TareasPresenter extends BasePresenter <TareasView> {
+
+public interface TareasPresenter extends BaseFragmentPresenter<TareaView> {
     void onPageChanged(int position);
+    void onAttach(TareasFragment tareasFragment, FragmentTareasCurso fragmentTareasCurso, FragmentTareasGenerales fragmentTareasGenerales);
+    void onChildsFragmentViewCreated();
 }

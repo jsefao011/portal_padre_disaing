@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView99"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1" />
+
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/diasemana"
+        app:layout_constraintStart_toEndOf="@+id/count"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Desarrollo de jercicios conjuntossssssssssssssssssssssssssssssssssssssssssssss" />
+
+    <TextView
+        android:id="@+id/curso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/titulo"
+        app:layout_constraintTop_toBottomOf="@+id/titulo"
+        tools:text="MATEMATICA" />
+
+    <TextView
+        android:id="@+id/docente"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Guillermo mamani"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/titulo"
+        app:layout_constraintStart_toStartOf="@+id/curso"
+        app:layout_constraintTop_toBottomOf="@+id/curso" />
+
+    <TextView
+        android:id="@+id/diasemana"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/diasemanafin"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Lunes" />
+
+    <TextView
+        android:id="@+id/dia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintEnd_toEndOf="@+id/diasemana"
+        app:layout_constraintStart_toStartOf="@+id/diasemana"
+        app:layout_constraintTop_toBottomOf="@+id/diasemana"
+        tools:text="26" />
+
+    <TextView
+        android:id="@+id/mes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/dia"
+        app:layout_constraintStart_toStartOf="@+id/dia"
+        app:layout_constraintTop_toBottomOf="@+id/dia"
+        tools:text="Sep." />
+
+    <ImageView
+        android:id="@+id/img_tiponota"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/tiponota"
+        app:layout_constraintStart_toStartOf="@+id/tiponota"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/happy" />
+
+    <TextView
+        android:id="@+id/tiponota"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_tiponota"
+        tools:text="Destacado" />
+
+    <TextView
+        android:id="@+id/textView99"
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="80dp"
+        android:background="@color/colorPrimary"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/diasemanafin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/img_tiponota"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Martes" />
+
+    <TextView
+        android:id="@+id/diafin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintEnd_toEndOf="@+id/diasemanafin"
+        app:layout_constraintStart_toStartOf="@+id/diasemanafin"
+        app:layout_constraintTop_toBottomOf="@+id/diasemanafin"
+        tools:text="27" />
+
+    <TextView
+        android:id="@+id/mesfin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/diafin"
+        app:layout_constraintStart_toStartOf="@+id/diafin"
+        app:layout_constraintTop_toBottomOf="@+id/diafin"
+        tools:text="Sep." />
+</android.support.constraint.ConstraintLayout>

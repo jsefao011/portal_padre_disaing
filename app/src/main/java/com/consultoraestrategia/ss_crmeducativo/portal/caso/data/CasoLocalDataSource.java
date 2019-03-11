@@ -35,8 +35,10 @@ public class CasoLocalDataSource implements CasoDataSource {
     }
 
     @Override
-    public void getAlumoCaso(int alumnoId, SucessCallback<AlumnoUi> alumnoUiSucessCallback) {
+    public void getAlumoCaso(int alumnoId,  int programaEducativoId, SucessCallback<AlumnoUi> alumnoUiSucessCallback) {
 
+        Log.d(TAG, "programaEducativoId   " +programaEducativoId);
+        Log.d(TAG, "alumnoId   " +alumnoId);
         AlumnoUi alumnoUi= new AlumnoUi();
         Persona alumno= SQLite.select().from(Persona.class)
                 .where(Persona_Table.personaId.withTable().eq(alumnoId)).querySingle();
@@ -58,8 +60,7 @@ public class CasoLocalDataSource implements CasoDataSource {
 
         List<Caso>casoList= SQLite.select().from(Caso.class)
                 .where(Caso_Table.alumnoId.withTable().eq(alumno.getPersonaId()))
-                .and(Caso_Table.calendarioPeriodoId.withTable().eq(calendarioActualId)).queryList();
-
+                .and(Caso_Table.programaEducativoId.withTable().eq(programaEducativoId)).queryList();
         int cantidadM=0;
         int cantidadD=0;
         List<CasoUi>casoUiList= new ArrayList<>();
@@ -107,16 +108,19 @@ public class CasoLocalDataSource implements CasoDataSource {
         alumnoUi.setCasoUiList(casoUiList);
         //Tipos padres
         List<TipoPadreUi>tipoPadreUiList= new ArrayList<>();
-        TipoPadreUi tipoPadreUiMerito= new TipoPadreUi();
-        tipoPadreUiMerito.setNombre("Merito");
-        tipoPadreUiMerito.setCantidad(cantidadM);
-        tipoPadreUiMerito.setPorcentaje(cantidadM * 100 / casoList.size());
-        tipoPadreUiList.add(tipoPadreUiMerito);
-        TipoPadreUi tipoPadreUiDemerito= new TipoPadreUi();
-        tipoPadreUiDemerito.setNombre("Demerito");
-        tipoPadreUiDemerito.setCantidad(cantidadD);
-        tipoPadreUiDemerito.setPorcentaje(cantidadD * 100 / casoList.size());
-        tipoPadreUiList.add(tipoPadreUiDemerito);
+        if(casoList.size()>0){
+            TipoPadreUi tipoPadreUiMerito= new TipoPadreUi();
+            tipoPadreUiMerito.setNombre("Merito");
+            tipoPadreUiMerito.setCantidad(cantidadM);
+            tipoPadreUiMerito.setPorcentaje(cantidadM * 100 / casoList.size());
+            tipoPadreUiList.add(tipoPadreUiMerito);
+            TipoPadreUi tipoPadreUiDemerito= new TipoPadreUi();
+            tipoPadreUiDemerito.setNombre("Demerito");
+            tipoPadreUiDemerito.setCantidad(cantidadD);
+            tipoPadreUiDemerito.setPorcentaje(cantidadD * 100 / casoList.size());
+            tipoPadreUiList.add(tipoPadreUiDemerito);
+
+        }
         alumnoUi.setTipoPadreUiList(tipoPadreUiList);
         alumnoUiSucessCallback.onLoad(true, alumnoUi);
 

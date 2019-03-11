@@ -17,6 +17,7 @@ public class ItemMenuUI {
         this.icono = icono;
     }
 
+
     public TipoMenu getTipoMenu() {
         return tipoMenu;
     }

@@ -1,5 +1,10 @@
 package com.consultoraestrategia.ss_crmeducativo.portal.tareas.data.source;
 
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.TareaUiCount;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.TareasUi;
+
+import java.util.List;
+
 public class TareasRepository implements  TareasDataSource  {
 
 
@@ -9,8 +14,9 @@ public class TareasRepository implements  TareasDataSource  {
         this.tareasLocalDataSource = tareasLocalDataSource;
     }
 
+
     @Override
-    public void getTareasCursosList(CallbackTareasCursosAlumno callbackTareasCursosAlumno) {
-        tareasLocalDataSource.getTareasCursosList(callbackTareasCursosAlumno);
+    public void getTareasGenerales(int alumnoId, SucessCallback<List<Object>>listSucessCallback) {
+        tareasLocalDataSource.getTareasGenerales(alumnoId, listSucessCallback);
     }
 }

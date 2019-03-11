@@ -6,13 +6,13 @@ public class TareasUi {
 
     private int id;
     private String nombre;
-    private String descripcion;
-    private String dia;
-    private String mes;
-    private int fecha;
     private String curso;
     private String Docente;
     private int estado;
+    private FechaUi fechaUiInicio;
+    private FechaUi fechaUiFin;
+    private ValorTipoNotaUi valorTipoNotaUi;
+
 
     public TareasUi() {
     }
@@ -33,37 +33,6 @@ public class TareasUi {
         this.nombre = nombre;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getDia() {
-        return dia;
-    }
-
-    public void setDia(String dia) {
-        this.dia = dia;
-    }
-
-    public String getMes() {
-        return mes;
-    }
-
-    public void setMes(String mes) {
-        this.mes = mes;
-    }
-
-    public int getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(int fecha) {
-        this.fecha = fecha;
-    }
 
     public String getCurso() {
         return curso;
@@ -89,5 +58,29 @@ public class TareasUi {
         this.estado = estado;
     }
 
+    public FechaUi getFechaUiInicio() {
+        return fechaUiInicio;
+    }
 
+    public void setFechaUiInicio(FechaUi fechaUiInicio) {
+        this.fechaUiInicio = fechaUiInicio;
+    }
+
+    public FechaUi getFechaUiFin() {
+        return fechaUiFin;
+    }
+
+    public void setFechaUiFin(FechaUi fechaUiFin) {
+        this.fechaUiFin = fechaUiFin;
+    }
+
+    public ValorTipoNotaUi getValorTipoNotaUi() {
+        return valorTipoNotaUi;
+    }
+
+    public void setValorTipoNotaUi(ValorTipoNotaUi valorTipoNotaUi) {
+        this.valorTipoNotaUi = valorTipoNotaUi;
+    }
 }
+
+

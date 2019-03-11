@@ -11,7 +11,7 @@ public class CasoRepository implements CasoDataSource {
     }
 
     @Override
-    public void getAlumoCaso(int alumnoId, SucessCallback<AlumnoUi> alumnoUiSucessCallback) {
-        casoLocalDataSource.getAlumoCaso(alumnoId, alumnoUiSucessCallback);
+    public void getAlumoCaso(int alumnoId, int programaEducativoId,  SucessCallback<AlumnoUi> alumnoUiSucessCallback) {
+        casoLocalDataSource.getAlumoCaso(alumnoId, programaEducativoId,alumnoUiSucessCallback);
     }
 }

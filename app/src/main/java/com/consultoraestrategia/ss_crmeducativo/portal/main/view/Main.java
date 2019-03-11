@@ -44,10 +44,12 @@ import com.consultoraestrategia.ss_crmeducativo.base.fragment.BaseFragmentListen
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.ui.CasoFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.colegioCalendario.ColegioCalendarioFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.colegioEvento.ColegioEventoFragment;
+import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteAsistencia.EstudianteAsistenciaFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteCursos.EstudianteCursos;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteEstadoCuenta.EstudianteEstadoCuenta;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteRubro.EstudianteRubroFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteTarea.EstudianteTareaFragment;
+import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteconducta.EstudianteConductaFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.fragmentTofragment.cabecera.FragmentCabecera;
 import com.consultoraestrategia.ss_crmeducativo.portal.familia.ui.FamiliaFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.MainPresenter;
@@ -65,6 +67,7 @@ import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.ProgramaEdu
 import com.consultoraestrategia.ss_crmeducativo.portal.main.listener.MenuListener;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.login.Login;
 import com.consultoraestrategia.ss_crmeducativo.portal.wrapper.MainParametrosGlobales;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.TareasFragment;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
 import com.shehabic.droppy.DroppyClickCallbackInterface;
 import com.shehabic.droppy.DroppyMenuItem;
@@ -262,6 +265,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     }
 
 
+
     @Override
     public void showMenuList(List<Object> objects) {
 
@@ -302,7 +306,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     @Override
     public void initFragmentEstudianteTarea(MainParametrosGlobales mainParametrosGlobales) {
         setTitle("TAREA");
-        //getSupportFragmentManager(EstudianteTareaFragment.class);
+        getSupportFragmentManager(TareasFragment.class, mainParametrosGlobales.getBundle());
 
 
     }
@@ -310,7 +314,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     @Override
     public void initFragmentEstudianteAsistencia(MainParametrosGlobales mainParametrosGlobales) {
         setTitle("ASISTENCIA");
-        //getSupportFragmentManager(FragmentCabecera.class);
+        getSupportFragmentManager(EstudianteTareaFragment.class,mainParametrosGlobales.getBundle());
     }
 
     @Override

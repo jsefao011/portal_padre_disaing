@@ -1,18 +1,12 @@
 package com.consultoraestrategia.ss_crmeducativo.portal.tareas.data.source;
 
-import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.CursoTareasUi;
-
 import java.util.List;
 
 public interface TareasDataSource {
 
-    interface CallbackTareasCursosAlumno{
-        void onListeTareasCursos(List<CursoTareasUi> TareasCursosUiList, int status);
+    interface SucessCallback<T> {
+        void onLoad(boolean success, T item);
     }
-
-     void getTareasCursosList(CallbackTareasCursosAlumno callbackTareasCursosAlumno);
-
-
-
+    void getTareasGenerales(int alumnoId, SucessCallback<List<Object>>listSucessCallback);
 
 }

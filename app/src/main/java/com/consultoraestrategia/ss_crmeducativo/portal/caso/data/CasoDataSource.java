@@ -8,5 +8,5 @@ public interface CasoDataSource {
         void onLoad(boolean success, T item);
     }
 
-    void getAlumoCaso(int alumnoId, SucessCallback<AlumnoUi>alumnoUiSucessCallback);
+    void getAlumoCaso(int alumnoId, int programaEducativoId, SucessCallback<AlumnoUi>alumnoUiSucessCallback);
 }

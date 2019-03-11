@@ -12,5 +12,5 @@ public interface CasoView  extends  BaseView<CasoPresenter> {
     void showListTipos(TipoPadreUi tipoMerito, TipoPadreUi tipoDemerito);
     void showListCasos(List<CasoUi>objectList);
 
-    void showTextEmpty();
+    void showTextEmpty(String string);
 }
