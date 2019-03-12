@@ -4,14 +4,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.consultoraestrategia.ss_crmeducativo.api.retrofit.ApiRetrofit;
 import com.consultoraestrategia.ss_crmeducativo.base.viewpager.ViewPagerItemListener;
 import com.consultoraestrategia.ss_crmeducativo.lib.autoColumnGrid.AutoColumnGridLayoutManager;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters.CabeceraAdapter;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters.TareaAdapter;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters.TareaColumnCountProvider;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.TareaUiCount;
@@ -36,6 +40,7 @@ public class FragmentTareasGenerales extends Fragment implements TareaGeneralesV
     @BindView(R.id.recyclerTareas)
     RecyclerView recyclerTareas;
     private TareaAdapter tareasAdapter;
+    private CabeceraAdapter cabeceraAdapter;
 
     public static FragmentTareasGenerales newInstance() {
         FragmentTareasGenerales fragment = new FragmentTareasGenerales();
@@ -57,6 +62,17 @@ public class FragmentTareasGenerales extends Fragment implements TareaGeneralesV
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initAdapter();
+        initAdapterCabecera();
+    }
+
+    private void initAdapterCabecera() {
+        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerCount.setLayoutManager(linearLayoutManager);
+        cabeceraAdapter = new CabeceraAdapter(new ArrayList<TareaUiCount>());
+        recyclerCount.setAdapter(cabeceraAdapter);
+        recyclerCount.setHasFixedSize(true);
+
     }
 
     private void initAdapter() {
@@ -87,7 +103,8 @@ public class FragmentTareasGenerales extends Fragment implements TareaGeneralesV
 
     @Override
     public void setTareaCountList(List<TareaUiCount> tareasCountUis) {
-
+        Log.d(getClass().getSimpleName(), "CANTIFAF "+ tareasCountUis.size());
+        cabeceraAdapter.setObjectList(tareasCountUis);
     }
 
 

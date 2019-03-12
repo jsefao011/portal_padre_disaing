@@ -22,19 +22,9 @@ public class TareaColumnCountProvider implements AutoColumnGridLayoutManager.Col
 
     public int columnsForWidth(int widthPx) {
         int widthDp = dpFromPx(widthPx);
-        if (widthDp >= 900) {
-            return 3;
-        } else if (widthDp >= 720) {
-            return 3;
-        } else if (widthDp >= 600) {
-            return 2;
-        } else if (widthDp >= 480) {
-            return 2;
-        } else if (widthDp >= 320) {
+
             return 1;
-        } else {
-            return 1;
-        }
+
     }
 
     public int dpFromPx(float px) {

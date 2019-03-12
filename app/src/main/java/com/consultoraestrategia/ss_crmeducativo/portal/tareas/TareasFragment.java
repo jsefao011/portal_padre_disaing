@@ -24,6 +24,7 @@ import com.consultoraestrategia.ss_crmeducativo.portal.tareas.presenter.TareasPr
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.tareasCurso.FragmentTareasCurso;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.tareasGenerales.FragmentTareasGenerales;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.useCase.GetTareasGeneralesAlumno;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.useCase.GetTareasPorCurso;
 import com.consultoraestrategia.ss_crmeducativo.util.InjectorUtils;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
 
@@ -64,7 +65,8 @@ public class TareasFragment extends BaseFragment<TareaView,TareasPresenter, Tare
     protected TareasPresenter getPresenter() {
         TareasRepository tareasRepository= new TareasRepository(new TareasLocalDataSource(InjectorUtils.provideCursoDao()));
         presenter= new TareasPresenterImpl(new UseCaseHandler(new UseCaseThreadPoolScheduler()), getResources(),
-        new GetTareasGeneralesAlumno(tareasRepository));
+        new GetTareasGeneralesAlumno(tareasRepository),
+                new GetTareasPorCurso( tareasRepository));
         return presenter;
     }
 

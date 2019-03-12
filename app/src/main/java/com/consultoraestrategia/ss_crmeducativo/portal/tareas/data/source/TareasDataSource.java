@@ -1,5 +1,7 @@
 package com.consultoraestrategia.ss_crmeducativo.portal.tareas.data.source;
 
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.CursoUi;
+
 import java.util.List;
 
 public interface TareasDataSource {
@@ -9,4 +11,5 @@ public interface TareasDataSource {
     }
     void getTareasGenerales(int alumnoId, SucessCallback<List<Object>>listSucessCallback);
 
+    void getTareasPorCurso(int alumnoId, SucessCallback<List<CursoUi>>listSucessCallback);
 }

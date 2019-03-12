@@ -12,6 +12,7 @@ import com.consultoraestrategia.ss_crmeducativo.base.UseCaseHandler;
 import com.consultoraestrategia.ss_crmeducativo.base.fragment.BaseFragmentPresenterImpl;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.TareaView;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.TareasFragment;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.CursoUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.TareaUiCount;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.TareasUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.tareasCurso.FragmentTareasCurso;
@@ -19,6 +20,7 @@ import com.consultoraestrategia.ss_crmeducativo.portal.tareas.tareasCurso.TareaC
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.tareasGenerales.FragmentTareasGenerales;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.tareasGenerales.TareaGeneralesView;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.useCase.GetTareasGeneralesAlumno;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.useCase.GetTareasPorCurso;
 import com.consultoraestrategia.ss_crmeducativo.portal.wrapper.MainParametrosGlobales;
 
 import java.util.ArrayList;
@@ -31,13 +33,15 @@ public class TareasPresenterImpl extends BaseFragmentPresenterImpl<TareaView > i
     TareaCursoView tareaCursoView;
     TareaGeneralesView tareaGeneralesView;
     GetTareasGeneralesAlumno getTareasGeneralesAlumno;
+    GetTareasPorCurso getTareasPorCurso;
     private int idAlumno;
 
     private String TAG=TareasPresenterImpl.class.getSimpleName();
 
-    public TareasPresenterImpl(UseCaseHandler handler, Resources res, GetTareasGeneralesAlumno getTareasGeneralesAlumno) {
+    public TareasPresenterImpl(UseCaseHandler handler, Resources res, GetTareasGeneralesAlumno getTareasGeneralesAlumno, GetTareasPorCurso getTareasPorCurso) {
         super(handler, res);
         this.getTareasGeneralesAlumno=getTareasGeneralesAlumno;
+        this.getTareasPorCurso=getTareasPorCurso;
     }
 
 
@@ -57,7 +61,28 @@ public class TareasPresenterImpl extends BaseFragmentPresenterImpl<TareaView > i
 
     @Override
     public void onChildsFragmentViewCreated() {
-         getTareasGenerales();
+        getcursos();
+        getTareasGenerales();
+    }
+
+    private void getcursos() {
+        handler.execute(getTareasPorCurso, new GetTareasPorCurso.RequestValues(idAlumno), new UseCase.UseCaseCallback<GetTareasPorCurso.ResponseValue>() {
+            @Override
+            public void onSuccess(GetTareasPorCurso.ResponseValue response) {
+                Log.d(TAG, "getTareasPorCurso onSuccess"+ response.getCursoUiList().size());
+                showListCursoTareas(response.getCursoUiList());
+            }
+
+            @Override
+            public void onError() {
+                Log.d(TAG, "getTareasGenerales onError");
+            }
+        });
+    }
+
+    private void showListCursoTareas(List<CursoUi> cursoUiList) {
+         if(tareaCursoView!=null)tareaCursoView.setTareasCurso(cursoUiList);
+
     }
 
     private void getTareasGenerales() {
@@ -86,6 +111,7 @@ public class TareasPresenterImpl extends BaseFragmentPresenterImpl<TareaView > i
         }
         if(tareaGeneralesView!=null){
             tareaGeneralesView.setListTareasList(tareasUis);
+            Log.d(TAG, "tareasCountUis "+ tareasCountUis.size());
             tareaGeneralesView.setTareaCountList(tareasCountUis);
         }
     }
