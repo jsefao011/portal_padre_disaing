@@ -45,7 +45,7 @@ public class LifecycleImpl extends FragmentManager.FragmentLifecycleCallbacks {
     @Override
     public void onFragmentPreAttached(FragmentManager fm, Fragment f, Context context) {
         super.onFragmentPreAttached(fm, f, context);
-        Log.d(getClass().getSimpleName(), "onFragmentPreAttached: " +f.getClass());
+        Log.d(getClass().getSimpleName(), "onFragmentPreAttached: " +f.getClass().getSimpleName());
     }
 
     @Override
@@ -57,13 +57,13 @@ public class LifecycleImpl extends FragmentManager.FragmentLifecycleCallbacks {
     @Override
     public void onFragmentPreCreated(FragmentManager fm, Fragment f, Bundle savedInstanceState) {
         super.onFragmentPreCreated(fm, f, savedInstanceState);
-        Log.d(getClass().getSimpleName(), "onFragmentPreCreated: " +f.getClass());
+        Log.d(getClass().getSimpleName(), "onFragmentPreCreated: " +f.getClass().getSimpleName());
     }
 
     @Override
     public void onFragmentCreated(FragmentManager fm, Fragment f, Bundle savedInstanceState) {
         super.onFragmentCreated(fm, f, savedInstanceState);
-        Log.d(getClass().getSimpleName(), "onFragmentCreated: " +f.getClass());
+        Log.d(getClass().getSimpleName(), "onFragmentCreated: " +f.getClass().getSimpleName());
         Log.d(getClass().getSimpleName(), "offscreenPageLimit: " + offscreenPageLimit);
     }
 
@@ -71,13 +71,13 @@ public class LifecycleImpl extends FragmentManager.FragmentLifecycleCallbacks {
     public void onFragmentActivityCreated(FragmentManager fm, Fragment f, Bundle savedInstanceState) {
         super.onFragmentActivityCreated(fm, f, savedInstanceState);
         if(listener!=null)listener.onFragmentActivityCreated(f,savedInstanceState);
-        Log.d(getClass().getSimpleName(), "onFragmentActivityCreated: " +f.getClass());
+        Log.d(getClass().getSimpleName(), "onFragmentActivityCreated: " +f.getClass().getSimpleName());
     }
 
     @Override
     public void onFragmentViewCreated(FragmentManager fm, Fragment f, View v, Bundle savedInstanceState) {
         super.onFragmentViewCreated(fm, f, v, savedInstanceState);
-        Log.d(getClass().getSimpleName(), "onFragmentViewCreated: " +f.getClass());
+        Log.d(getClass().getSimpleName(), "onFragmentViewCreated: " +f.getClass().getSimpleName());
         if(offscreenPageLimit==0&&listener!=null)listener.onChildsFragmentViewCreated();
         offscreenPageLimit--;
         if(listener!=null)listener.onFragmentViewCreated(f,v,savedInstanceState );
@@ -92,45 +92,45 @@ public class LifecycleImpl extends FragmentManager.FragmentLifecycleCallbacks {
     @Override
     public void onFragmentResumed(FragmentManager fm, Fragment f) {
         super.onFragmentResumed(fm, f);
-        Log.d(getClass().getSimpleName(), "onFragmentResumed: " +f.getClass());
+        Log.d(getClass().getSimpleName(), "onFragmentResumed: " +f.getClass().getSimpleName());
         if(listener!=null)listener.onFragmentResumed(f );
     }
 
     @Override
     public void onFragmentPaused(FragmentManager fm, Fragment f) {
         super.onFragmentPaused(fm, f);
-        Log.d(getClass().getSimpleName(), "onFragmentPaused: " +f.getClass());
+        Log.d(getClass().getSimpleName(), "onFragmentPaused: " +f.getClass().getSimpleName());
     }
 
     @Override
     public void onFragmentStopped(FragmentManager fm, Fragment f) {
         super.onFragmentStopped(fm, f);
-        Log.d(getClass().getSimpleName(), "onFragmentStopped: " +f.getClass());
+        Log.d(getClass().getSimpleName(), "onFragmentStopped: " +f.getClass().getSimpleName());
     }
 
     @Override
     public void onFragmentSaveInstanceState(FragmentManager fm, Fragment f, Bundle outState) {
         super.onFragmentSaveInstanceState(fm, f, outState);
-        Log.d(getClass().getSimpleName(), "onFragmentSaveInstanceState: " +f.getClass());
+        Log.d(getClass().getSimpleName(), "onFragmentSaveInstanceState: " +f.getClass().getSimpleName());
     }
 
     @Override
     public void onFragmentViewDestroyed(FragmentManager fm, Fragment f) {
         super.onFragmentViewDestroyed(fm, f);
-        Log.d(getClass().getSimpleName(), "onFragmentViewDestroyed: " +f.getClass());
+        Log.d(getClass().getSimpleName(), "onFragmentViewDestroyed: " +f.getClass().getSimpleName());
         if(listener!=null)listener.onFragmentViewDestroyed(f );
     }
 
     @Override
     public void onFragmentDestroyed(FragmentManager fm, Fragment f) {
         super.onFragmentDestroyed(fm, f);
-        Log.d(getClass().getSimpleName(), "onFragmentDestroyed: " +f.getClass());
+        Log.d(getClass().getSimpleName(), "onFragmentDestroyed: " +f.getClass().getSimpleName());
     }
 
     @Override
     public void onFragmentDetached(FragmentManager fm, Fragment f) {
         super.onFragmentDetached(fm, f);
-        Log.d(getClass().getSimpleName(), "onFragmentDetached: " +f.getClass());
+        Log.d(getClass().getSimpleName(), "onFragmentDetached: " +f.getClass().getSimpleName());
     }
 
 }

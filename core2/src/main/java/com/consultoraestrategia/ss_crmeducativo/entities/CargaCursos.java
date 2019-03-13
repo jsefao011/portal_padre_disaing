@@ -246,18 +246,7 @@ public class CargaCursos extends BaseModel {
                 ", evaluable=" + evaluable +
                 ", idempleado=" + idempleado +
                 ", idTipoHora=" + idTipoHora +
-                ", descripcion='" + descripcion + '\'' +
-                ", fechaInicio=" + fechaInicio +
-                ", fechafin=" + fechafin +
-                ", modo='" + modo + '\'' +
-                ", estado=" + estado +
-                ", anioAcademicoId=" + anioAcademicoId +
-                ", aulaId=" + aulaId +
-                ", grupoId=" + grupoId +
-                ", idPlanEstudio=" + idPlanEstudio +
-                ", idPlanEstudioVersion=" + idPlanEstudioVersion +
-                ", CapacidadVacanteP=" + CapacidadVacanteP +
-                ", CapacidadVacanteD=" + CapacidadVacanteD +
+                ", descripcion='" + descripcion +
                 '}';
     }
 }

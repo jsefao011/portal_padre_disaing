@@ -47,6 +47,7 @@ import com.consultoraestrategia.ss_crmeducativo.base.fragment.BaseFragmentListen
 import com.consultoraestrategia.ss_crmeducativo.entities.SessionUser;
 import com.consultoraestrategia.ss_crmeducativo.lib.AppDatabase;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.ui.CasoFragment;
+import com.consultoraestrategia.ss_crmeducativo.portal.contactos.cabecera.ContactosFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.colegioCalendario.ColegioCalendarioFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.colegioEvento.ColegioEventoFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteAsistencia.EstudianteAsistenciaFragment;
@@ -399,7 +400,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     @Override
     public void initFragmentColegioDirectorio(MainParametrosGlobales mainParametrosGlobales) {
         setTitle("AGENDA");
-        //getSupportFragmentManager(EstudianteRubroFragment.class);
+        getSupportFragmentManager(ContactosFragment.class, mainParametrosGlobales.getBundle());
     }
 
     @Override

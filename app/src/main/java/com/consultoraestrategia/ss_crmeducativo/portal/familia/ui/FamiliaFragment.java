@@ -36,8 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public class FamiliaFragment extends BaseFragment<FamiliaView, FamiliaPresenter, FamiliaListener> implements FamiliaView, FamiliaListener {
 

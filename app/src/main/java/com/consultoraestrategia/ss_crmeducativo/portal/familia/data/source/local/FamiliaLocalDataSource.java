@@ -2,11 +2,18 @@ package com.consultoraestrategia.ss_crmeducativo.portal.familia.data.source.loca
 
 import android.util.Log;
 
+import com.consultoraestrategia.ss_crmeducativo.api.retrofit.ApiRetrofit;
 import com.consultoraestrategia.ss_crmeducativo.dao.personaDao.PersonaDao;
 import com.consultoraestrategia.ss_crmeducativo.entities.BaseEntity;
+import com.consultoraestrategia.ss_crmeducativo.entities.CargaCursos;
+import com.consultoraestrategia.ss_crmeducativo.entities.CargaCursos_Table;
 import com.consultoraestrategia.ss_crmeducativo.entities.CasoReporte_Table;
 import com.consultoraestrategia.ss_crmeducativo.entities.Contrato;
 import com.consultoraestrategia.ss_crmeducativo.entities.Contrato_Table;
+import com.consultoraestrategia.ss_crmeducativo.entities.DetalleContratoAcad;
+import com.consultoraestrategia.ss_crmeducativo.entities.DetalleContratoAcad_Table;
+import com.consultoraestrategia.ss_crmeducativo.entities.Empleado;
+import com.consultoraestrategia.ss_crmeducativo.entities.Empleado_Table;
 import com.consultoraestrategia.ss_crmeducativo.entities.Persona;
 import com.consultoraestrategia.ss_crmeducativo.entities.Persona_Table;
 import com.consultoraestrategia.ss_crmeducativo.entities.Relaciones;
@@ -14,11 +21,13 @@ import com.consultoraestrategia.ss_crmeducativo.entities.Relaciones_Table;
 import com.consultoraestrategia.ss_crmeducativo.lib.AppDatabase;
 import com.consultoraestrategia.ss_crmeducativo.portal.familia.data.source.FamiliaDataSource;
 import com.consultoraestrategia.ss_crmeducativo.portal.familia.entities.PersonaUi;
+import com.consultoraestrategia.ss_crmeducativo.util.Utils;
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.converter.SqlDateConverter;
 import com.raizlabs.android.dbflow.sql.language.Operator;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.raizlabs.android.dbflow.sql.language.Where;
 import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
 
 import java.util.ArrayList;
@@ -61,7 +70,6 @@ public class FamiliaLocalDataSource implements FamiliaDataSource {
                     if (o instanceof PersonaUi){
                         PersonaUi personaUi = (PersonaUi) o;
                         Persona persona = personaDao.get(personaUi.getIdPersona());
-                        Log.d("trayecoper", persona.toString());
                         if (persona!=null){
                             persona.setCelular(personaUi.getTelefono());
                             persona.setDireccion(personaUi.getDireccion());
@@ -81,17 +89,23 @@ public class FamiliaLocalDataSource implements FamiliaDataSource {
     }
 
     private List<Object> getListFamilias(int idPersona){
+
         HashSet<PersonaUi> objectSet = new HashSet<>();
 
         List<Integer> listIdHijos = new ArrayList<>();
-        List<Relaciones> listRelacionesHijos = SQLite.select()
-                .from(Relaciones.class)
+        List<Persona> listRelacionesHijos = SQLite.select()
+                .from(Persona.class)
+                .innerJoin(Relaciones.class)
+                .on(Persona_Table.personaId.withTable()
+                .eq(Relaciones_Table.personaPrincipalId.withTable()))
                 .where(Relaciones_Table.personaVinculadaId.withTable().eq(idPersona))
                 .queryList();
 
-        for (Relaciones relaciones : listRelacionesHijos) {
 
-            Persona persona = personaDao.get(relaciones.getPersonaPrincipalId());
+
+        for (Persona persona: listRelacionesHijos) {
+
+            //Persona persona = personaDao.get(relaciones.getPersonaPrincipalId());
             if (persona != null) {
                 PersonaUi personaUi = new PersonaUi();
                 personaUi.setIdPersona(persona.getPersonaId());
@@ -108,7 +122,7 @@ public class FamiliaLocalDataSource implements FamiliaDataSource {
                 personaUi.setApoderado(false);
                 objectSet.add(personaUi);
             }
-            listIdHijos.add(relaciones.getPersonaPrincipalId());
+            listIdHijos.add(persona.getPersonaId());
         }
 
 
