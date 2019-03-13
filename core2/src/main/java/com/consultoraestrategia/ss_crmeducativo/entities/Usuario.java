@@ -36,7 +36,12 @@ public class Usuario extends BaseModel {
     private List<UsuarioRolGeoreferencia> usuarioRolGeoreferencias;
 
     private List<PersonaGeoreferencia> personaGeoreferencias;
+
     private List<UsuarioAcceso> accesos;
+
+    private String fotoPersona;
+
+    private String fotoEntidad;
 
 
     public Usuario() {
@@ -144,19 +149,21 @@ public class Usuario extends BaseModel {
         this.personaGeoreferencias = personaGeoreferencias;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" +
-                "usuarioId=" + usuarioId +
-                ", personaId=" + personaId +
-                ", usuario='" + usuario + '\'' +
-                ", password='" + password + '\'' +
-                ", estado=" + estado +
-                ", entidades=" + entidades +
-                ", georeferencias=" + georeferencias +
-                ", roles=" + roles +
-                ", usuarioRolGeoreferencias=" + usuarioRolGeoreferencias +
-                ", personaGeoreferencias=" + personaGeoreferencias +
-                '}';
+    public String getFotoPersona() {
+        return fotoPersona;
     }
+
+    public void setFotoPersona(String fotoPersona) {
+        this.fotoPersona = fotoPersona;
+    }
+
+    public String getFotoEntidad() {
+        return fotoEntidad;
+    }
+
+    public void setFotoEntidad(String fotoEntidad) {
+        this.fotoEntidad = fotoEntidad;
+    }
+
+
 }

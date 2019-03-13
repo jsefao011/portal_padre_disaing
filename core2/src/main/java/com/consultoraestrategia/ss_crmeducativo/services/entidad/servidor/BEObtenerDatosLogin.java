@@ -13,6 +13,7 @@ import com.consultoraestrategia.ss_crmeducativo.entities.PlanCursosAlumno;
 import com.consultoraestrategia.ss_crmeducativo.entities.Relaciones;
 import com.consultoraestrategia.ss_crmeducativo.entities.Rutas;
 import com.consultoraestrategia.ss_crmeducativo.entities.Tipos;
+import com.consultoraestrategia.ss_crmeducativo.entities.Ubicaciones;
 import com.consultoraestrategia.ss_crmeducativo.entities.Usuario;
 import com.consultoraestrategia.ss_crmeducativo.services.entidad.BEDatosServidor;
 
@@ -43,6 +44,7 @@ public class BEObtenerDatosLogin  extends BEDatosServidor {
     private List<ParametrosDisenio> obtener_parametros_disenio;
     private List<Rutas> rutas;
     private List<ParametroConfiguracion> parametroConfiguracion;
+    private List<Ubicaciones> ubicaciones;
 
     public BEObtenerDatosLogin() {
     }
@@ -103,6 +105,10 @@ public class BEObtenerDatosLogin  extends BEDatosServidor {
 
     public List<ParametroConfiguracion> getParametroConfiguracions() {
         return parametroConfiguracion;
+    }
+
+    public List<Ubicaciones> getUbicaciones() {
+        return ubicaciones;
     }
 
     @Override

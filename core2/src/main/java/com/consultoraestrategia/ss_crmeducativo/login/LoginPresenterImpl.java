@@ -145,48 +145,50 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginView> implements 
 
     private void setGetAdminService(final int opcion, final String usuario, final String password, final String correo, final String numeroDocumento, final String urlServidor, final boolean states){
         Log.d(TAG, "asd" + opcion + " " + usuario + " " + password + " " + correo + " " + numeroDocumento + " ");
-        view.showProgress();
+        if(view!=null)view.showProgress();
+        if(view!=null)view.disabledOnClick();
         handler.execute(getAdminService,
                 new GetAdminService.RequestValues(opcion, usuario, password, correo, numeroDocumento, urlServidor),
                 new UseCase.UseCaseCallback<GetAdminService.ResponseValue>() {
                     @Override
                     public void onSuccess(GetAdminService.ResponseValue response) {
                             hideProgress();
+                        if(view!=null)view.enableOnClick();
                         Log.d("recogiendodato", response.getAdminService().toString());
                             switch (response.getAdminService().getTipo()){
                                 case USUARIO:
-                                    view.showLoginCorreo();
+                                    hideLoginPageUser();
                                     hideLoginPageListUser();
                                     hideLoginPagePassword();
-                                    view.hideLoginPasswordUser();
-                                    hideLoginPageUser();
+                                   // if(view!=null)view.hideLoginPasswordUser()
+                                    if(view!=null)view.showLoginCorreo();
                                     break;
                                 case CORREO:
-                                    view.showLoginDNI();
+                                    if(view!=null)view.showLoginDNI();
                                     hideLoginPageListUser();
                                     hideLoginPagePassword();
                                     hideLoginPageUser();
                                     hideLoginCorreo();
                                     break;
                                 case USUARIO_UNICO:
-                                    loginNewUser(response.getAdminService().getUsuarioExternoId(), response.getAdminService().getUrlServiceMovil(), opcion, correo, numeroDocumento, states);
+                                    loginNewUser(usuario,response.getAdminService().getUsuarioExternoId(), response.getAdminService().getUrlServiceMovil(), opcion, correo, numeroDocumento, states);
                                     break;
                                 case CORREO_UNICO:
-                                    loginNewUser(response.getAdminService().getUsuarioExternoId(), response.getAdminService().getUrlServiceMovil(), opcion, correo, numeroDocumento, states);
+                                    loginNewUser(usuario, response.getAdminService().getUsuarioExternoId(), response.getAdminService().getUrlServiceMovil(), opcion, correo, numeroDocumento, states);
                                     break;
                                 case CORREO_NO_VALIDO:
-                                    view.showLoginCorreo();
-                                    view.onInvalitedCorreo(res.getString(R.string.login_correo_invilite));
+                                    if(view!=null)view.showLoginCorreo();
+                                    if(view!=null)view.onInvalitedCorreo(res.getString(R.string.login_correo_invilite));
                                     hideLoginPageListUser();
                                     hideLoginPagePassword();
                                     hideLoginPageUser();
                                     break;
                                 case DNI:
-                                    loginNewUser(response.getAdminService().getUsuarioExternoId(), response.getAdminService().getUrlServiceMovil(), opcion, correo, numeroDocumento, states);
+                                    loginNewUser(usuario, response.getAdminService().getUsuarioExternoId(), response.getAdminService().getUrlServiceMovil(), opcion, correo, numeroDocumento, states);
                                     break;
                                 case DNI_NO_VALIDO:
-                                    view.showLoginDNI();
-                                    view.onInvalitedDni(res.getString(R.string.login_dni_invilite));
+                                    if(view!=null)view.showLoginDNI();
+                                    if(view!=null)view.onInvalitedDni(res.getString(R.string.login_dni_invilite));
                                     hideLoginPageListUser();
                                     hideLoginPagePassword();
                                     hideLoginPageUser();
@@ -194,14 +196,14 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginView> implements 
                                     break;
                                 case USUARIO_NO_VALIDO:
                                     if (states){
-                                        view.showLoginPageUser();
-                                        view.onCredencialesIncorrectos(res.getString(R.string.login_credentiales_invilite));
-                                        view.clearFocusPassword();
+                                        showLoginPageUser();
+                                        if(view!=null)view.onCredencialesIncorrectos(res.getString(R.string.login_credentiales_invilite));
+                                        if(view!=null)view.clearFocusPassword();
                                         hideLoginPageListUser();
                                         hideLoginCorreo();
                                         hideLoginDni();
-                                        view.hideLoginPagePassword();
-                                        view.hideLoginPasswordUser();
+                                        if(view!=null)view.hideLoginPagePassword();
+                                        //if(view!=null)view.hideLoginPasswordUser();
                                         hideLoginPagePassword();
                                     }else {
                                         showLoginPassword();
@@ -221,6 +223,7 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginView> implements 
                     public void onError() {
                         showImportantMessage(res.getString(R.string.unknown_error));
                         if (view!=null)view.hideProgressBar();
+                        if(view!=null)view.enableOnClick();
                     }
                 });
 
@@ -249,7 +252,7 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginView> implements 
         setGetAdminService(3, userName, userPassword, correo,dni, res.getString(R.string.admin_service), true);
     }
 
-    @Override
+    /*@Override
     public void onClickedBtnAtrasPassword() {
         showLoginPageUser();
         hideLoginPagePassword();
@@ -257,18 +260,18 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginView> implements 
         hideLoginDni();
         hideLoginPageListUser();
         hideProgressPage();
-        view.hideLoginPasswordUser();
+       // view.hideLoginPasswordUser();
         clearFocusPassword();
-    }
+    }*/
 
     @Override
     public void onClickedBtnAtrasCorreo() {
         view.hideLoginPagePassword();
-        view.showLoginPasswordUser();
+        //view.showLoginPasswordUser();
         hideLoginCorreo();
         hideLoginPageListUser();
         hideLoginDni();
-        hideLoginPageUser();
+        showLoginPageUser();
         hideProgressPage();
         clearFocusCorreo();
     }
@@ -294,7 +297,7 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginView> implements 
             if(view!=null)view.onErrorPassword(res.getString(R.string.login_password_empty));
             return;
         }
-        loginNewUser(22 ,"http://192.168.1.151/portalmovil/PortalAcadMovil.ashx", 1, "", "", true);
+        loginNewUser(userName,22 ,"http://192.168.1.151/portalmovil/PortalAcadMovil.ashx", 1, "", "", true);
         //setGetAdminService(1, userName, userPassword, "","", res.getString(R.string.admin_service), true);
 
     }
@@ -477,17 +480,33 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginView> implements 
         loginPreferentRepository = null;
     }
 
-    private void loginNewUser(int userExternoId, final String urlServiceMovil, final int opcion, final String correo, final String dni, final boolean states) {
+    private void loginNewUser(final String usuario, int userExternoId, final String urlServiceMovil, final int opcion, final String correo, final String dni, final boolean states) {
         Log.d("urlSerices", urlServiceMovil + " " );
         setGlobalSettings(urlServiceMovil);
         onPrePasswordValidado();
+        if(view!=null)view.disabledOnClick();
         getUsuarioSimple.execute(new GetUsuarioSimple.RequestValues(userExternoId),
                 new UseCaseSincrono.Callback<GetUsuarioSimple.ResponseValue>() {
                     @Override
                     public void onResponse(boolean success, GetUsuarioSimple.ResponseValue value) {
+                        if(view!=null)view.enableOnClick();
                         if(success){
                             onSuccessPasswordValidado(value.getUsuarioUi());
-                            if (states)getPersonaServidor(value.getUsuarioUi().getUserName(), urlServiceMovil, opcion, correo, dni);
+                            if (states)getPersonaServidor(value.getUsuarioUi().getUserName(), urlServiceMovil, opcion, correo, dni,value.getUsuarioUi().getInstitucionUrl());
+                            /*
+                            if (states){
+                                PersonaUi personaUi = new PersonaUi();
+                                personaUi.setUsuario(usuario);
+                                personaUi.setUrlServiceMovil(urlServiceMovil);
+                                personaUi.setCorreo(correo);
+                                personaUi.setDni(dni);
+                                personaUi.setOpcion(opcion);
+                                personaUi.setNombres();
+                                personaUi.setApellidos();
+                                personaUi.setImagenUrl(value.getUsuarioUi().getPersonaImagenUrl());
+                                personaUi.setInstitucionUrl(value.getUsuarioUi().getInstitucionUrl());
+                                saveUsuarioPreferents(personaUi);
+                            }*/
                         }else {
                             onErrorPasswordValidado();
                         }
@@ -705,9 +724,10 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginView> implements 
         if(countErrorDatosComLogin == 1){
 
             hideProgressPage();
+            hideProgress();
             showLoginPage();
-            showLoginPassword();
-            hideLoginPageUser();
+            //showLoginPassword();
+            //hideLoginPageUser();
 
             handleImportantError(res.getString(R.string.login_msg_red_error));
             if(view!=null)view.onCancelarTodosLlamadasHTTPS();
@@ -911,18 +931,22 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginView> implements 
     }
 
     @Override
-    public void onBtnSiguienteUser(String usuario) {
-        comprobarUserEmpty(usuario);
+    public void onBtnSiguienteUser(String usuario,  String password) {
+        comprobarUserEmpty(usuario, password);
     }
 
-    private void comprobarUserEmpty(String usuario) {
+    private void comprobarUserEmpty(String usuario, String password) {
         if (TextUtils.isEmpty(usuario)) {
-            view.onErroUsuario(res.getString(R.string.login_username_empty));
+            if(view!=null)view.onErroUsuario(res.getString(R.string.login_username_empty));
             return;
-        }else {
-            view.hideLoginPageUser();
-            view.showLoginPasswordUser();
-            view.validadoUser(usuario);
+        }else if(TextUtils.isEmpty(password)){
+            if(view!=null)view.onErrorPasswordUsuario(res.getString(R.string.login_password_empty));
+            return;
+        } else {
+            //if(view!=null)view.hideLoginPageUser();
+            //view.showLoginPasswordUser();
+            //view.validadoUser(usuario);
+            onBtnIngresarClickedAll(usuario, password);
         }
     }
 
@@ -1021,6 +1045,7 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginView> implements 
         hideLoginPageListUser();
         showLoginPassword();
         if(view!=null)view.setUrlImgenPassword(personaUi.getImagenUrl());
+        if(view!=null)view.setUrlImgenInstitucion(personaUi.getInstitucionUrl());
         if(view!=null)view.setNombrePersona(personaUi.getNombres());
         if(view!=null)view.setUserName(personaUi.getUsuario());
     }
@@ -1052,6 +1077,7 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginView> implements 
     @Override
     public void onClickedBtnAtrasListUsua() {
         clearFocus();
+        clearFocusPassword();
         getListUsuarioPreferents(false);
     }
 
@@ -1061,10 +1087,10 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginView> implements 
         if(view!=null)view.showFinalMessageAceptCancel("¿Desea que le enviemos la contraseña a su correo?", res.getString(R.string.msg_confirmacionTitlle));
     }
 
-    @Override
+    /*@Override
     public void onBtnSiguientePasswordUsuario(String usuario, String password) {
         onBtnIngresarClickedAll(usuario, password);
-    }
+    }*/
 
     @Override
     public void onBtnSiguienteCorreo(String usuario, String password, String correo) {
@@ -1098,7 +1124,7 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginView> implements 
         if(view!=null)view.onSetTextoBtnQuitarUsuario(texto);
     }
 
-    private void getPersonaServidor(final String usuario, final String urlServidorMovil, final int opcion, final String correo, final String dni){
+    private void getPersonaServidor(final String usuario, final String urlServidorMovil, final int opcion, final String correo, final String dni, final String imagenEntidad){
         onPreUsuarioValidado();
         handler.execute(getPersonaServidor,
                 new GetPersonaServidor.RequestValues(usuario),
@@ -1113,9 +1139,11 @@ public class LoginPresenterImpl extends BasePresenterImpl<LoginView> implements 
                             response.getPersonaUi().setCorreo(correo);
                             response.getPersonaUi().setDni(dni);
                             response.getPersonaUi().setOpcion(opcion);
+                            response.getPersonaUi().setInstitucionUrl(imagenEntidad);
                             saveUsuarioPreferents(response.getPersonaUi());
                         }
                     }
+
                     @Override
                     public void onError() {
                         onErrorPersonaServidor();

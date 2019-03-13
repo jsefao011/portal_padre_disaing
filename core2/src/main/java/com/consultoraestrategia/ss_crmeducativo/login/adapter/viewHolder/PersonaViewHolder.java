@@ -45,7 +45,7 @@ public class PersonaViewHolder extends RecyclerView.ViewHolder implements View.O
     public void bind(PersonaUi personaUi, boolean elimiarUsuario, PersonaListener usuarioListener) {
         this.personaUi = personaUi;
         this.usuarioListener = usuarioListener;
-        setUrlImgenPassword(personaUi.getUrlImagen());
+        setUrlImgenPassword(personaUi.getImagenUrl());
         String nombre = personaUi.getNombres() + " " + personaUi.getApellidos();
         txtNombres.setText(nombre);
         txtUsuario.setText(personaUi.getUsuario());
@@ -77,7 +77,6 @@ public class PersonaViewHolder extends RecyclerView.ViewHolder implements View.O
     }
 
     private void setUrlImgenPassword(String urlImgenPassword) {
-
                 Glide.with(imgUsuario.getContext())
                         .load(urlImgenPassword)
                         .apply(Utils.getGlideRequestOptions(R.drawable.ic_account_circle))

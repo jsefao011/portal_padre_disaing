@@ -211,7 +211,6 @@ public class Utils {
         return mstr_fecha;
     }
 
-
     public static String f_dia_semana(long timesTamp) {
 
         String mstr_fecha = "";
@@ -602,30 +601,45 @@ public class Utils {
         return vobj_days[dia];
     }
 
-    public static String f_intervaloSemana(Double doubles) {
-
-        String fecha = doubles + "";
-
-        String part1 = fecha.substring(0, fecha.indexOf("."));
-        String part2 = fecha.substring(fecha.indexOf(".") + 1);
-        int p1 = Integer.valueOf(part1);
-        int p2 = Integer.valueOf(part2);
+    public static String f_intervaloSemana(int semanas , int anio) {
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, p2);
-        calendar.set(Calendar.WEEK_OF_YEAR, p1);
+        calendar.set(Calendar.YEAR, anio);
+        calendar.set(Calendar.WEEK_OF_YEAR, semanas);
 
+        String[] vobj_Meses = {"ene.", "feb.", "mar.", "abr.", "may.", "jun.", "jul.", "ago.", "sept.", "oct.", "nov.", "dic."};
         int dia =0;
         int diaF=0;
+
         while (calendar.get(Calendar.DAY_OF_WEEK) > calendar.getFirstDayOfWeek()) {
             calendar.add(Calendar.DATE, -1);
             dia = calendar.get(Calendar.DAY_OF_MONTH);
             diaF=dia+6;
         }
-        String[] vobj_Meses = {"ene.", "feb.", "mar.", "abr.", "may.", "jun.", "jul.", "ago.", "sept.", "oct.", "nov.", "dic."};
 
+        int numDiasMes= 0;
+        switch (calendar.get(Calendar.MONTH)){
+            case 0: case 2: case 4: case 6: case 7: case 9: case 11:
+                numDiasMes = 31;
+                break;
+            case 3: case 5: case 8: case 10:
+                numDiasMes = 30;
+                break;
+            case 1:
+                if((anio%4==0 && anio%100!=0) || anio%400==0){
+                    numDiasMes = 29;
+                }
+                else numDiasMes = 28;
+                break;
+        }
+        if(diaF>numDiasMes){
+            diaF= diaF-numDiasMes;
+            int mes= calendar.get(Calendar.MONTH)+1;
+            if(mes>11)mes=0;
+            return "semana del " + dia+ " al " + diaF + " de "+vobj_Meses[mes];
+        }else  return "semana del " + dia+ " al " + diaF + " de "+vobj_Meses[calendar.get(Calendar.MONTH)];
         //int start = calendar.get(Calendar.)
-        return "semana del " + dia+ " al " + diaF + " de "+vobj_Meses[calendar.get(Calendar.MONTH)];
+
     }
 
     /**

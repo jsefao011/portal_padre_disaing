@@ -99,6 +99,7 @@ public interface LoginView extends BaseView<LoginPresenter> , LoginPreferentRepo
 
     void onInvalitedDni(String error);
 
+
     void clearFocusPassword();
 
     void clearFocusDni();
@@ -107,11 +108,19 @@ public interface LoginView extends BaseView<LoginPresenter> , LoginPreferentRepo
 
     void setUserName(String usuario);
 
-    void showLoginPasswordUser();
+    /*void showLoginPasswordUser();
 
-    void hideLoginPasswordUser();
+    void hideLoginPasswordUser();*/
 
     void hideKeyBoard();
 
     void onCredencialesIncorrectos(String string);
+
+    void onErrorPasswordUsuario(String string);
+
+    void disabledOnClick();
+
+    void enableOnClick();
+
+    void setUrlImgenInstitucion(String imagenUrl);
 }

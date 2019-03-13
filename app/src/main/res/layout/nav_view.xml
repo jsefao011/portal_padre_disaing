@@ -115,7 +115,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"/>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
@@ -145,6 +145,12 @@
             android:layout_height="wrap_content"
             android:icon="@drawable/ic_familia"
             android:text="@string/menu_familia" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_configuracion"
+            android:text="@string/menu_config" />
     </android.support.design.widget.TabLayout>
 
     <android.support.constraint.ConstraintLayout

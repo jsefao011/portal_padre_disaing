@@ -16,7 +16,7 @@ public interface LoginPresenter extends BasePresenter<LoginView> {
 
     void onCustomUrlOk(String s);
 
-    void onBtnSiguienteUser(String usuario);
+    void onBtnSiguienteUser(String usuario, String password);
 
     void onBtnSiguientePassword(String password);
 
@@ -31,15 +31,13 @@ public interface LoginPresenter extends BasePresenter<LoginView> {
     void onConfirmacionPassword();
 
 
-    void onBtnSiguientePasswordUsuario(String usuario, String password);
+    /*void onBtnSiguientePasswordUsuario(String usuario, String password);*/
 
     void onBtnSiguienteCorreo(String usuario, String password, String correo);
 
     void onBtnSiguienteDni(String usuario, String password, String correo, String dni);
 
     void onBtnIngresarClickedDni(String usuario, String password, String correo, String dni);
-
-    void onClickedBtnAtrasPassword();
 
     void onClickedBtnAtrasDni();
 

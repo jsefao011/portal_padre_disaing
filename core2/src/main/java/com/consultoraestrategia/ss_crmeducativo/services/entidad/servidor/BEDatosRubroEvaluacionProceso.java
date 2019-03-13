@@ -1,11 +1,14 @@
 package com.consultoraestrategia.ss_crmeducativo.services.entidad.servidor;
 
+import com.consultoraestrategia.ss_crmeducativo.entities.ArchivosRubroProceso;
+import com.consultoraestrategia.ss_crmeducativo.entities.ComentarioPredeterminado;
 import com.consultoraestrategia.ss_crmeducativo.entities.CriterioRubroEvaluacionC;
 import com.consultoraestrategia.ss_crmeducativo.entities.EquipoEvaluacionProcesoC;
 import com.consultoraestrategia.ss_crmeducativo.entities.EvaluacionProcesoC;
 import com.consultoraestrategia.ss_crmeducativo.entities.RubroEvalRNPFormulaC;
 import com.consultoraestrategia.ss_crmeducativo.entities.RubroEvaluacionProcesoC;
 import com.consultoraestrategia.ss_crmeducativo.entities.RubroEvaluacionProcesoCampotematicoC;
+import com.consultoraestrategia.ss_crmeducativo.entities.RubroEvaluacionProcesoComentario;
 import com.consultoraestrategia.ss_crmeducativo.entities.T_RN_MAE_RUBRO_EVALUACION_PROCESO_EQUIPOC;
 import com.consultoraestrategia.ss_crmeducativo.entities.T_RN_MAE_RUBRO_EVALUACION_PROCESO_INTEGRANTEC;
 import com.consultoraestrategia.ss_crmeducativo.services.entidad.BEDatosServidor;
@@ -27,6 +30,9 @@ public class BEDatosRubroEvaluacionProceso  extends BEDatosServidor {
     private List<EquipoEvaluacionProcesoC> obtenerEquipoEvaluacionProceso;
     private List<RubroEvaluacionProcesoCampotematicoC> rubro_evaluacion_proceso_campotematico;
     private List<CriterioRubroEvaluacionC> obtenerCriterioRubroEvaluacionProceso;
+    private List<ComentarioPredeterminado> comentarioPredeterminado;
+    private List<RubroEvaluacionProcesoComentario> rubroEvaluacionProcesoComentario;
+    private List<ArchivosRubroProceso> archivoRubroProceso;
 
     public BEDatosRubroEvaluacionProceso() {
     }
@@ -96,4 +102,27 @@ public class BEDatosRubroEvaluacionProceso  extends BEDatosServidor {
         this.obtenerCriterioRubroEvaluacionProceso = obtenerCriterioRubroEvaluacionProceso;
     }
 
+    public List<ComentarioPredeterminado> getComentarioPredeterminado() {
+        return comentarioPredeterminado;
+    }
+
+    public void setComentarioPredeterminado(List<ComentarioPredeterminado> comentarioPredeterminado) {
+        this.comentarioPredeterminado = comentarioPredeterminado;
+    }
+
+    public List<RubroEvaluacionProcesoComentario> getRubroEvaluacionProcesoComentario() {
+        return rubroEvaluacionProcesoComentario;
+    }
+
+    public void setRubroEvaluacionProcesoComentario(List<RubroEvaluacionProcesoComentario> rubroEvaluacionProcesoComentario) {
+        this.rubroEvaluacionProcesoComentario = rubroEvaluacionProcesoComentario;
+    }
+
+    public List<ArchivosRubroProceso> getArchivoRubroProceso() {
+        return archivoRubroProceso;
+    }
+
+    public void setArchivoRubroProceso(List<ArchivosRubroProceso> archivoRubroProceso) {
+        this.archivoRubroProceso = archivoRubroProceso;
+    }
 }

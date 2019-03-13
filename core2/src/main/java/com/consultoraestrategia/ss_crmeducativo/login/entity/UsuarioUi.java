@@ -5,6 +5,8 @@ public class UsuarioUi {
     private  int personaId;
     private  String userName;
     private  String passwordEncrypted;
+    private String personaImagenUrl;
+    private String institucionUrl;
 
 
     public int getUsuarioId() {
@@ -47,5 +49,21 @@ public class UsuarioUi {
                 ", userName='" + userName + '\'' +
                 ", passwordEncrypted='" + passwordEncrypted + '\'' +
                 '}';
+    }
+
+    public void setPersonaImagenUrl(String personaImagenUrl) {
+        this.personaImagenUrl = personaImagenUrl;
+    }
+
+    public String getPersonaImagenUrl() {
+        return personaImagenUrl;
+    }
+
+    public void setInstitucionUrl(String institucionUrl) {
+        this.institucionUrl = institucionUrl;
+    }
+
+    public String getInstitucionUrl() {
+        return institucionUrl;
     }
 }

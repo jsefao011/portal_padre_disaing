@@ -1,11 +1,13 @@
 package com.consultoraestrategia.ss_crmeducativo.portal.main.view;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Process;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.transition.Slide;
@@ -16,6 +18,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,6 +44,8 @@ import com.consultoraestrategia.ss_crmeducativo.base.UseCaseHandler;
 import com.consultoraestrategia.ss_crmeducativo.base.UseCaseThreadPoolScheduler;
 import com.consultoraestrategia.ss_crmeducativo.base.activity.BaseActivity;
 import com.consultoraestrategia.ss_crmeducativo.base.fragment.BaseFragmentListener;
+import com.consultoraestrategia.ss_crmeducativo.entities.SessionUser;
+import com.consultoraestrategia.ss_crmeducativo.lib.AppDatabase;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.ui.CasoFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.colegioCalendario.ColegioCalendarioFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.colegioEvento.ColegioEventoFragment;
@@ -66,9 +71,12 @@ import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.ItemMenuUI;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.entities.ProgramaEducativoUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.listener.MenuListener;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.login.Login;
+import com.consultoraestrategia.ss_crmeducativo.portal.programahorario.complejo.ui.ProgramaHorarioComplejoActivity;
 import com.consultoraestrategia.ss_crmeducativo.portal.wrapper.MainParametrosGlobales;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.TareasFragment;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowManager;
 import com.shehabic.droppy.DroppyClickCallbackInterface;
 import com.shehabic.droppy.DroppyMenuItem;
 import com.shehabic.droppy.DroppyMenuPopup;
@@ -148,7 +156,8 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     }
 
     private void setupTabMenu() {
-
+        //tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        //tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -161,6 +170,9 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
                         break;
                     case 2:
                         presenter.onClickBtnInfoFamilia();
+                        break;
+                    case 3:
+                        presenter.onClickBtnInfoConfiguracion();
                         break;
                 }
             }
@@ -314,7 +326,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     @Override
     public void initFragmentEstudianteAsistencia(MainParametrosGlobales mainParametrosGlobales) {
         setTitle("ASISTENCIA");
-        getSupportFragmentManager(EstudianteTareaFragment.class,mainParametrosGlobales.getBundle());
+        //getSupportFragmentManager(EstudianteTareaFragment.class,mainParametrosGlobales.getBundle());
     }
 
     @Override
@@ -474,6 +486,61 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
             }
         });
         droppyBuilder.build().show();
+    }
+
+    @Override
+    public void mostrarDialogoCerrarSesion() {
+        showDialogoDesicion(R.string.msg_dilogo_cerrar_sesion_titulo,
+                R.string.msg_dilogo_cerrar_sesion_descripcion,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.onClickDialogoCerrarSesion();
+                        dialog.cancel();
+                    }
+                },
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+    }
+
+    @Override
+    public void cerrarSesion() {
+        try {
+            //SessionUser.getCurrentUser().delete();
+            FlowManager.getDatabase(AppDatabase.class).reset(getApplicationContext());
+            FlowManager.init(new FlowConfig.Builder(getApplicationContext()).build());
+
+            //Process.killProcess(Process.myPid());
+            finishAffinity();
+
+            Intent intent = new Intent(this, Main.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        } catch (Exception ignored) {
+        }
+    }
+
+    @Override
+    public void initFragmentEstudianteHorario(MainParametrosGlobales mainParametrosGlobales) {
+        setTitle("HORARIO");
+        getSupportFragmentManager(ProgramaHorarioComplejoActivity.class, mainParametrosGlobales.getBundle());
+    }
+
+    public void showDialogoDesicion(int titulo, int mensaje, final DialogInterface.OnClickListener positivelistener, final DialogInterface.OnClickListener negativevelistener) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setCancelable(false);
+        builder.setTitle(titulo);
+        builder.setMessage(mensaje);
+        builder.setPositiveButton("Aceptar", positivelistener).
+                setNegativeButton("Cancelar", negativevelistener);
+        //Create AdapterExample
+        builder.create().show();
     }
 
     @Override

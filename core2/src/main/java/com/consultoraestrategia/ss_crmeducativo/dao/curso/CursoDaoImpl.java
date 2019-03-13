@@ -9,8 +9,12 @@ import com.consultoraestrategia.ss_crmeducativo.entities.CargaCursoDocente;
 import com.consultoraestrategia.ss_crmeducativo.entities.CargaCursoDocente_Table;
 import com.consultoraestrategia.ss_crmeducativo.entities.CargaCursos;
 import com.consultoraestrategia.ss_crmeducativo.entities.CargaCursos_Table;
+import com.consultoraestrategia.ss_crmeducativo.entities.Contrato;
+import com.consultoraestrategia.ss_crmeducativo.entities.Contrato_Table;
 import com.consultoraestrategia.ss_crmeducativo.entities.Cursos;
 import com.consultoraestrategia.ss_crmeducativo.entities.Cursos_Table;
+import com.consultoraestrategia.ss_crmeducativo.entities.DetalleContratoAcad;
+import com.consultoraestrategia.ss_crmeducativo.entities.DetalleContratoAcad_Table;
 import com.consultoraestrategia.ss_crmeducativo.entities.Empleado;
 import com.consultoraestrategia.ss_crmeducativo.entities.Empleado_Table;
 import com.consultoraestrategia.ss_crmeducativo.entities.Periodo;
@@ -171,6 +175,72 @@ public class CursoDaoImpl extends BaseIntegerDaoImpl<Cursos, Cursos_Table> imple
                 .where(PlanEstudios_Table.planEstudiosId.withTable()
                         .eq(CargaAcademica_Table.idPlanEstudio.withTable()))
                 .and(CargaCursos_Table.cargaCursoId.withTable().in(cargacursoIdList))
+                .and(ProgramasEducativo_Table.programaEduId.withTable().eq(programaEducativoId))
+                //7: Creado, 11 = eliminado, 33: actyalizado, 78 = autorizado, 109 : termindado
+                .queryCustomList(CursoCustom.class);
+    }
+
+
+    @Override
+    public List<CursoCustom> obtenerCursoHijoPorProgramaEducativo(int programaEducativoId, int hijoPersonaId) {
+
+        return SQLite.select(
+                Cursos_Table.cursoId.withTable(),
+                Cursos_Table.alias.withTable(),
+                Cursos_Table.color.withTable(),
+                Cursos_Table.descripcion.withTable(),
+                Cursos_Table.entidadId.withTable(),
+                Cursos_Table.estadoId.withTable(),
+                Cursos_Table.nivelAcadId.withTable(),
+                Cursos_Table.nombre.withTable(),
+                Cursos_Table.tipoCursoId.withTable(),
+                CargaCursos_Table.cargaCursoId.withTable(),
+                CargaAcademica_Table.cargaAcademicaId.withTable(),
+                CargaAcademica_Table.seccionId.withTable(),
+                CargaAcademica_Table.periodoId.withTable(),
+                CargaAcademica_Table.aulaId.withTable(),
+                CargaAcademica_Table.idPlanEstudio.withTable(),
+                CargaAcademica_Table.idPlanEstudioVersion.withTable(),
+                CargaAcademica_Table.idAnioAcademico.withTable(),
+                Seccion_Table.nombre.withTable().as("seccion"),
+                Periodo_Table.alias.withTable().as("periodo"))
+                .from(Cursos.class)
+                .innerJoin(DetalleContratoAcad.class)
+                .on(Cursos_Table.cursoId.withTable()
+                        .eq(DetalleContratoAcad_Table.cursoId.withTable()))
+                .innerJoin(CargaCursos.class)
+                .on(DetalleContratoAcad_Table.cargaCursoId.withTable()
+                        .eq(CargaCursos_Table.cargaCursoId.withTable()))
+                //#region Detalle Curso
+                .innerJoin(CargaAcademica.class)
+                .on(DetalleContratoAcad_Table.cargaAcademicaId.withTable()
+                        .eq(CargaAcademica_Table.cargaAcademicaId.withTable()))
+                .innerJoin(Seccion.class)
+                .on(Seccion_Table.seccionId.withTable()
+                        .eq(CargaAcademica_Table.seccionId.withTable()))
+                .innerJoin(Periodo.class)
+                .on(Periodo_Table.periodoId.withTable()
+                        .eq(CargaAcademica_Table.periodoId.withTable()))
+                //#endregion Detalle
+
+                .innerJoin(Contrato.class)
+                .on(DetalleContratoAcad_Table.idContrato.withTable()
+                        .eq(Contrato_Table.idContrato.withTable()))
+
+                .innerJoin(PlanCursos.class)
+                .on(Cursos_Table.cursoId.withTable()
+                        .eq(PlanCursos_Table.cursoId.withTable()))
+                .innerJoin(PlanEstudios.class)
+                .on(PlanCursos_Table.planEstudiosId.withTable()
+                        .eq(PlanEstudios_Table.planEstudiosId.withTable()))
+                .innerJoin(ProgramasEducativo.class)
+                .on(PlanEstudios_Table.programaEduId.withTable()
+                        .eq(ProgramasEducativo_Table.programaEduId.withTable()))
+
+
+                .where(PlanEstudios_Table.planEstudiosId.withTable()
+                        .eq(CargaAcademica_Table.idPlanEstudio.withTable()))
+                .and(Contrato_Table.personaId.withTable().eq(hijoPersonaId))
                 .and(ProgramasEducativo_Table.programaEduId.withTable().eq(programaEducativoId))
                 //7: Creado, 11 = eliminado, 33: actyalizado, 78 = autorizado, 109 : termindado
                 .queryCustomList(CursoCustom.class);

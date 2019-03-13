@@ -22,4 +22,8 @@ public interface MainPresenter extends BasePresenter<MainView> {
     void onClickedProgramaEducativo();
 
     void onSelectedProgramaEduca(ProgramaEducativoUi programaEducativoUi);
+
+    void onClickBtnInfoConfiguracion();
+
+    void onClickDialogoCerrarSesion();
 }

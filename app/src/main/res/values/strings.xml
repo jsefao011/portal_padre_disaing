@@ -13,4 +13,9 @@
     <string name="menu_colegio">COLEGIO</string>
     <string name="menu_estudiante">ESTUDIANTE</string>
     <string name="menu_familia">FAMILIA</string>
+    <string name="menu_config">configuración</string>
+
+    <string name="msg_dilogo_cerrar_sesion_titulo">Cerrar Sesión</string>
+    <string name="msg_dilogo_cerrar_sesion_descripcion">¿Estás seguro de cerrar sesión, recuerde que si cierra la sesión los datos no exportados se perderan?</string>
+    <string name="spinner_calendario_periodo_empty">Sin Calendario Periodo</string>
 </resources>

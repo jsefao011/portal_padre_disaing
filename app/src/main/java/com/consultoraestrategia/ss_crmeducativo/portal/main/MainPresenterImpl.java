@@ -1,12 +1,9 @@
 package com.consultoraestrategia.ss_crmeducativo.portal.main;
 
 import android.content.res.Resources;
-import android.util.Log;
-import android.util.SparseBooleanArray;
 
 import com.consultoraestrategia.ss_crmeducativo.base.UseCaseHandler;
 import com.consultoraestrategia.ss_crmeducativo.base.activity.BasePresenterImpl;
-import com.consultoraestrategia.ss_crmeducativo.entities.GlobalSettings;
 import com.consultoraestrategia.ss_crmeducativo.entities.SessionUser;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.domain.usecase.GetPadreMentor;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.domain.usecase.GetProgramaEducativoList;
@@ -24,9 +21,10 @@ import java.util.List;
 
 public class MainPresenterImpl extends BasePresenterImpl<MainView> implements MainPresenter{
     private ItemMenuUI itemMenuUI;
-    private ArrayList<ItemMenuUI> configuracionUiList;
-    private ArrayList<ItemMenuUI> configuracionUiListEstudiante;
-    private ArrayList<ItemMenuUI> configuracionUiListFamilia;
+    private ArrayList<ItemMenuUI> configuracionUiListColegio = new ArrayList<>();
+    private ArrayList<ItemMenuUI> configuracionUiListEstudiante = new ArrayList<>();
+    private ArrayList<ItemMenuUI> configuracionUiListFamilia = new ArrayList<>();
+    private ArrayList<ItemMenuUI> configuracionUiList = new ArrayList<>();
     private List<HijoUi> hijoUiList =  new ArrayList<>();
     private HijoUi hijoUiSelected;
     private List<ProgramaEducativoUi> programaEducativoUiList = new ArrayList<>();
@@ -104,30 +102,36 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
 
     private void setupAccesos() {
 
-        configuracionUiList = new ArrayList<>();
-        configuracionUiList.add(new ItemMenuUI(TipoMenu.COLEGIO_EVENTO,"Evento", false, R.drawable.ic_evento));
-        configuracionUiList.add(new ItemMenuUI(TipoMenu.COLEGIO_CALENDARIO,"Calendario", false,R.drawable.ic_calendario));
-        configuracionUiList.add(new ItemMenuUI(TipoMenu.COLEGIO_DIRECTORIO,"Agenda", false,R.drawable.ic_agenda));
+        configuracionUiListColegio.clear();
+        configuracionUiListColegio.add(new ItemMenuUI(TipoMenu.COLEGIO_EVENTO,"Evento", true, R.drawable.ic_evento));
+        configuracionUiListColegio.add(new ItemMenuUI(TipoMenu.COLEGIO_CALENDARIO,"Calendario", false,R.drawable.ic_calendario));
+        configuracionUiListColegio.add(new ItemMenuUI(TipoMenu.COLEGIO_DIRECTORIO,"Agenda", false,R.drawable.ic_agenda));
 
-        configuracionUiListEstudiante = new ArrayList<>();
-        configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_TAREAS,"Tareas", true, R.drawable.ic_portafolio));
+        configuracionUiListFamilia.clear();
+        configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_TAREAS,"Tareas", false, R.drawable.ic_portafolio));
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_RUBROS,"Evaluación", false, R.drawable.ic_evaluacion));
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_ASISTENCIA,"Asistencia", false, R.drawable.ic_evento));
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_CONDUCTA,"Comportamiento", false, R.drawable.ic_comportamiento));
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_ESTADOCUENTA,"Estado de cuenta", false, R.drawable.ic_estodo_cuenta));
+        configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_HORARIO,"Horario", false,R.drawable.ic_cursos));
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_CURSO,"Cursos", false,R.drawable.ic_cursos));
 
-        configuracionUiListFamilia = new ArrayList<>();
+        configuracionUiListFamilia.clear();
         configuracionUiListFamilia.add(new ItemMenuUI(TipoMenu.FAMILIA_ACTUALIZAR_PERFIL, "Actualizar Perfil", false, R.drawable.ic_evento));
         configuracionUiListFamilia.add(new ItemMenuUI(TipoMenu.FAMILIA_INFOGRAFIA, "Infografia", false,R.drawable.ic_evento));
         configuracionUiListFamilia.add(new ItemMenuUI(TipoMenu.FAMILIA_PERFIL_FAMILIAR,"Perfil familiar", false, R.drawable.ic_portafolio));
 
+        configuracionUiList.clear();
+        configuracionUiList.add(new ItemMenuUI(TipoMenu.CONFIGURACION_CERRAR_SESION, "Cerrar Sessión", false, R.drawable.ic_logout));
+
+
         showListInfoColegio();
 
         List<ItemMenuUI> itemMenuUIList = new ArrayList<>();
-        itemMenuUIList.addAll(configuracionUiList);
+        itemMenuUIList.addAll(configuracionUiListColegio);
         itemMenuUIList.addAll(configuracionUiListEstudiante);
         itemMenuUIList.addAll(configuracionUiListFamilia);
+        itemMenuUIList.addAll(configuracionUiList);
 
         for (ItemMenuUI itemMenuUI: itemMenuUIList){
             if(itemMenuUI.isSeleccionado()){
@@ -151,7 +155,7 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
     }
 
     private void showListInfoColegio() {
-        if(view != null)view.showMenuList(new ArrayList<Object>(configuracionUiList));
+        if(view != null)view.showMenuList(new ArrayList<Object>(configuracionUiListColegio));
     }
 
     @Override
@@ -169,11 +173,18 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
 
     @Override
     public void onClickBtnInfoFamilia() {
-        if(view != null)view.showMenuList(new ArrayList<Object>(configuracionUiListFamilia));
+        showListInfoFamilia();
     }
 
     @Override
     public void onMenuSelected(ItemMenuUI itemMenuUI) {
+
+        if(itemMenuUI.getTipoMenu()==TipoMenu.CONFIGURACION_CERRAR_SESION)
+        {
+            if(view!=null)view.mostrarDialogoCerrarSesion();
+            return;
+        }
+
         if( this.itemMenuUI != null)this.itemMenuUI.setSeleccionado(false);
         itemMenuUI.setSeleccionado(true);
         this.itemMenuUI = itemMenuUI;
@@ -204,7 +215,7 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
     }
 
     private void changeFrgment() {
-
+        mainParametrosGlobales = new MainParametrosGlobales();
         if(padreMentor!=null){
             mainParametrosGlobales.setPadre_mentor_usuarioId(padreMentor.getUsuarioId());
             mainParametrosGlobales.setPadre_mentor_personaId(padreMentor.getPersonaId());
@@ -269,6 +280,11 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
             case FAMILIA_PERFIL_FAMILIAR:
                 if(view!=null)view.initFragmentFamiliaPerfilFamiliar(mainParametrosGlobales);
                 break;
+            case CONFIGURACION_CERRAR_SESION:
+                break;
+            case ESTUDIANTE_HORARIO:
+                if(view!=null)view.initFragmentEstudianteHorario(mainParametrosGlobales);
+                break;
         }
     }
 
@@ -276,7 +292,7 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
         if(programaEducativoSelected!=null){
             if(view!=null)view.setCalendarioPeriodo(programaEducativoSelected.getNombre());
         }else {
-            if(view!=null)view.setCalendarioPeriodo("");
+            if(view!=null)view.setCalendarioPeriodo(res.getString(R.string.spinner_calendario_periodo_empty));
         }
 
 
@@ -294,6 +310,20 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
         programaEducativoUi.setSelected(true);
         programaEducativoSelected = programaEducativoUi;
         setupProgramaEducativo();
+    }
+
+    @Override
+    public void onClickBtnInfoConfiguracion() {
+        showListInfoConfiguracion();
+    }
+
+    @Override
+    public void onClickDialogoCerrarSesion() {
+        if(view!=null)view.cerrarSesion();
+    }
+
+    private void showListInfoConfiguracion(){
+        if(view != null)view.showMenuList(new ArrayList<Object>(configuracionUiList));
     }
 
     @Override

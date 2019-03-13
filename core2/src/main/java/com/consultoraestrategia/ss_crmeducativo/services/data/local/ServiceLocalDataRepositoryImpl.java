@@ -99,6 +99,7 @@ public class ServiceLocalDataRepositoryImpl implements ServiceLocalDataRepositor
             databaseWrapper.setTransactionSuccessful();
             callBack.onResponse(true);
         } catch (Exception e){
+            e.printStackTrace();
             callBack.onResponse(false);
         }finally {
             databaseWrapper.endTransaction();
@@ -159,6 +160,10 @@ public class ServiceLocalDataRepositoryImpl implements ServiceLocalDataRepositor
         TransaccionUtils.fastStoreListSyncFlagUpdateRel(RubroEvaluacionProcesoCampotematicoC.class, beDatosRubroEvaluacionProceso.getRubro_evaluacion_proceso_campotematico(), syncFlag, databaseWrapper, false);
         TransaccionUtils.fastStoreListSyncFlagUpdate(CriterioRubroEvaluacionC.class, beDatosRubroEvaluacionProceso.getObtenerCriterioRubroEvaluacionProceso(), syncFlag, databaseWrapper, false);
         TransaccionUtils.fastStoreListSyncFlagUpdate(EvaluacionProcesoC.class, beDatosRubroEvaluacionProceso.getEvaluacionProceso(), syncFlag,databaseWrapper, true);
+
+        //TransaccionUtils.fastStoreListSyncFlagUpdate(ComentarioPredeterminado.class, beDatosRubroEvaluacionProceso.getComentarioPredeterminado(), syncFlag,databaseWrapper, false);
+        //TransaccionUtils.fastStoreListSyncFlagUpdateRel(RubroEvaluacionProcesoComentario.class, beDatosRubroEvaluacionProceso.getRubroEvaluacionProcesoComentario(), syncFlag,databaseWrapper, false);
+        //TransaccionUtils.fastStoreListSyncFlagUpdate(ArchivosRubroProceso.class, beDatosRubroEvaluacionProceso.getArchivoRubroProceso(), syncFlag,databaseWrapper, false);
 
         GEDatosTareasRecursos beDatosTareaRecursos = geDatosRubroEvaluacionProceso.getBeDatosTareaRecursos();
 
@@ -380,6 +385,18 @@ public class ServiceLocalDataRepositoryImpl implements ServiceLocalDataRepositor
         TransaccionUtils.fastStoreListInsert(RubroEvaluacionProcesoCampotematicoC.class, beDatosRubroEvaluacionProceso.getRubro_evaluacion_proceso_campotematico(), databaseWrapper, true);
         TransaccionUtils.fastStoreListInsert(CriterioRubroEvaluacionC.class, beDatosRubroEvaluacionProceso.getObtenerCriterioRubroEvaluacionProceso(), databaseWrapper, true);
         TransaccionUtils.fastStoreListInsert(EvaluacionProcesoC.class, beDatosRubroEvaluacionProceso.getEvaluacionProceso(), databaseWrapper, true);
+
+        //region ComentarioPredeterminado
+        /*TransaccionUtils.fastStoreListInsert(ComentarioPredeterminado.class, beDatosRubroEvaluacionProceso.getComentarioPredeterminado(), databaseWrapper, true);
+
+        List<RubroEvaluacionProcesoC> rubroEvaluacionProcesoCList = beDatosRubroEvaluacionProceso.getRubroEvaluacionProceso();
+        List<String> rubroEvalProcesoIdList = new ArrayList<>();
+        if(rubroEvaluacionProcesoCList!=null)for(RubroEvaluacionProcesoC rubroEvaluacionProcesoC: rubroEvaluacionProcesoCList)rubroEvalProcesoIdList.add(rubroEvaluacionProcesoC.getKey());
+        TransaccionUtils.deleteTable(RubroEvaluacionProcesoComentario.class, RubroEvaluacionProcesoComentario_Table.rubroEvalProcesoId.in(rubroEvalProcesoIdList));
+        TransaccionUtils.deleteTable(ArchivosRubroProceso.class, ArchivosRubroProceso_Table.rubroEvalProcesoId.in(rubroEvalProcesoIdList));
+        TransaccionUtils.fastStoreListInsert(RubroEvaluacionProcesoComentario.class, beDatosRubroEvaluacionProceso.getRubroEvaluacionProcesoComentario(), databaseWrapper, true);
+        TransaccionUtils.fastStoreListInsert(ArchivosRubroProceso.class, beDatosRubroEvaluacionProceso.getArchivoRubroProceso(), databaseWrapper, true);*/
+        //endregion ComentarioPredeterminado
     }
     //#endregion saveDatosGlobal BEDatosRubroEvaluacionProceso
 
@@ -514,6 +531,7 @@ public class ServiceLocalDataRepositoryImpl implements ServiceLocalDataRepositor
         TransaccionUtils.fastStoreListInsert(ParametrosDisenio.class, beObtenerDatosLogin.getObtener_parametros_disenio(), databaseWrapper, true);
         TransaccionUtils.fastStoreListSave(Rutas.class, beObtenerDatosLogin.getRutas(), databaseWrapper, true);
         TransaccionUtils.fastStoreListSave(ParametroConfiguracion.class, beObtenerDatosLogin.getParametroConfiguracions(), databaseWrapper, true);
+        TransaccionUtils.fastStoreListInsert(Ubicaciones.class, beObtenerDatosLogin.getUbicaciones(), databaseWrapper, true);
     }
     //#endregion saveDatosGlobal BEObtenerDatosLogin
     //#endregion

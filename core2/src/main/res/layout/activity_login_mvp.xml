@@ -96,6 +96,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
             <include
                 android:id="@+id/conten_login_mvp_dni"
                 layout="@layout/login_mvp_dni"
@@ -131,7 +132,7 @@
                 app:layout_constraintVertical_bias="0.0" />
 
 
-            <include
+            <!--<include
                 android:id="@+id/conten_login_mvp_password_user"
                 layout="@layout/login_mvp_password_user"
                 android:layout_width="0dp"
@@ -142,7 +143,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.0" />-->
 
             <include
                 android:id="@+id/conten_login_lista_usuario"

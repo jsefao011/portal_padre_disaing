@@ -323,6 +323,7 @@ public class RemoteDataSource implements LoginDataSource {
                         Log.d(TAG,"isSuccessful true  null");
                         return;
                     }
+
                     if (correo.isEmpty() && numeroDocumento.isEmpty()){
                         if(adminService.getUsuarioId()==-1)
                             adminService.setTipo(AdminService.Tipo.USUARIO_NO_VALIDO);

@@ -135,7 +135,7 @@ public class SEDatosCompletosLoginLocalDataSource extends ServiceLocalDataSource
 
     @Override
     public void saveImportar(final SEDatosCompletosLogin seDatosCompletosLogin, final SuccessCallBack callBack) {
-        Log.d(TAG, "manipulateInTransaction init time: " + new Date().getTime());
+        /*Log.d(TAG, "manipulateInTransaction init time: " + new Date().getTime());
         DatabaseDefinition appDatabase = FlowManager.getDatabase(AppDatabase.class);
         DatabaseWrapper databaseWrapper = appDatabase.getWritableDatabase();
         try {
@@ -224,7 +224,7 @@ public class SEDatosCompletosLoginLocalDataSource extends ServiceLocalDataSource
             TransaccionUtils.fastStoreListInsert(TareasC.class, geDatosTareasRecursos.getTareas(), databaseWrapper, true);
             TransaccionUtils.fastStoreListInsert(TareaRubroEvaluacionProceso.class, geDatosTareasRecursos.getTareaRubroEvaluacionProceso(), databaseWrapper, true);
             TransaccionUtils.fastStoreListInsert(RecursoDidacticoEventoC.class, geDatosTareasRecursos.getRecursoDidactico(), databaseWrapper, true);*/
-
+/*
             SessionUser user = SessionUser.getCurrentUser();
             if (user != null) {
                 user.setDataImported(true);
@@ -240,7 +240,7 @@ public class SEDatosCompletosLoginLocalDataSource extends ServiceLocalDataSource
             callBack.onResponse(false);
         } finally {
             databaseWrapper.endTransaction();
-        }
+        }}*/
     }
 
     @Override
@@ -377,6 +377,10 @@ public class SEDatosCompletosLoginLocalDataSource extends ServiceLocalDataSource
                 TransaccionUtils.fastStoreListInsert(RubroEvaluacionProcesoCampotematicoC.class, beDatosRubroEvaluacionProceso.getRubro_evaluacion_proceso_campotematico(), databaseWrapper, true);
                 TransaccionUtils.fastStoreListInsert(CriterioRubroEvaluacionC.class, beDatosRubroEvaluacionProceso.getObtenerCriterioRubroEvaluacionProceso(), databaseWrapper, true);
                 TransaccionUtils.fastStoreListInsert(EvaluacionProcesoC.class, beDatosRubroEvaluacionProceso.getEvaluacionProceso(), databaseWrapper, true);
+                TransaccionUtils.fastStoreListInsert(EvaluacionProcesoC.class, beDatosRubroEvaluacionProceso.getEvaluacionProceso(), databaseWrapper, true);
+                //TransaccionUtils.fastStoreListInsert(ComentarioPredeterminado.class, beDatosRubroEvaluacionProceso.getComentarioPredeterminado(), databaseWrapper, true);
+                //TransaccionUtils.fastStoreListInsert(RubroEvaluacionProcesoComentario.class, beDatosRubroEvaluacionProceso.getRubroEvaluacionProcesoComentario(), databaseWrapper, true);
+                //TransaccionUtils.fastStoreListInsert(ArchivosRubroProceso.class, beDatosRubroEvaluacionProceso.getArchivoRubroProceso(), databaseWrapper, true);
 
                 GEDatosSilaboEventoEnvio beDatosSilaboEventoEnvio = seDatosCompletosLogin.getBeDatosSilaboEventoEnvio();
                 TransaccionUtils.fastStoreListInsert(ActividadAprendizaje.class, beDatosSilaboEventoEnvio.getActividad(), databaseWrapper, true);
@@ -434,6 +438,7 @@ public class SEDatosCompletosLoginLocalDataSource extends ServiceLocalDataSource
                 TransaccionUtils.fastStoreListInsert(ParametrosDisenio.class, beObtenerDatosLogin.getObtener_parametros_disenio(), databaseWrapper, true);
                 TransaccionUtils.fastStoreListInsert(Rutas.class, beObtenerDatosLogin.getRutas(), databaseWrapper, true);
                 TransaccionUtils.fastStoreListInsert(ParametroConfiguracion.class, beObtenerDatosLogin.getParametroConfiguracions(), databaseWrapper, true);
+                TransaccionUtils.fastStoreListInsert(Ubicaciones.class, beObtenerDatosLogin.getUbicaciones(), databaseWrapper, true);
                 SessionUser user = SessionUser.getCurrentUser();
                 if (user != null) {
                     user.setDataImported(true);

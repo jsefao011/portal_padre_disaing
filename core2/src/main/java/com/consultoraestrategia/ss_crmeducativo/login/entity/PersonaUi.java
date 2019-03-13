@@ -6,13 +6,13 @@ public class PersonaUi {
     private String apellidos;
     private String imagenUrl;
     private String usuario;
-    private String urlImagen;
     private boolean usarOtraCuenta;
     private boolean eliminar;
     private String urlServiceMovil;
     private String correo;
     private String dni;
     private int opcion;
+    private String institucionUrl;
 
     public void setId(int id) {
         this.id = id;
@@ -52,14 +52,6 @@ public class PersonaUi {
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
-    }
-
-    public String getUrlImagen() {
-        return urlImagen;
-    }
-
-    public void setUrlImagen(String urlImagen) {
-        this.urlImagen = urlImagen;
     }
 
     public boolean isUsarOtraCuenta() {
@@ -134,7 +126,6 @@ public class PersonaUi {
                 ", apellidos='" + apellidos + '\'' +
                 ", imagenUrl='" + imagenUrl + '\'' +
                 ", usuario='" + usuario + '\'' +
-                ", urlImagen='" + urlImagen + '\'' +
                 ", usarOtraCuenta=" + usarOtraCuenta +
                 ", eliminar=" + eliminar +
                 ", urlServiceMovil='" + urlServiceMovil + '\'' +
@@ -142,5 +133,13 @@ public class PersonaUi {
                 ", dni='" + dni + '\'' +
                 ", opcion=" + opcion +
                 '}';
+    }
+
+    public void setInstitucionUrl(String institucionUrl) {
+        this.institucionUrl = institucionUrl;
+    }
+
+    public String getInstitucionUrl() {
+        return institucionUrl;
     }
 }

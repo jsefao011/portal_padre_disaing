@@ -42,6 +42,8 @@ public class GetUsuarioSimple extends UseCaseSincrono<GetUsuarioSimple.RequestVa
                         usuarioUi.setUserName(item.getUsuario());
                         usuarioUi.setPasswordEncrypted(item.getPassword());
                         usuarioUi.setPersonaId(item.getPersonaId());
+                        usuarioUi.setPersonaImagenUrl(item.getFotoPersona());
+                        usuarioUi.setInstitucionUrl(item.getFotoEntidad());
                         callback.onResponse(true, new ResponseValue(usuarioUi));
                     }
                 }else {

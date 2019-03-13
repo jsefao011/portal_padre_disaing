@@ -44,4 +44,10 @@ public interface MainView extends BaseView<MainPresenter> {
     void setCalendarioPeriodo(String nombre);
 
     void showPopListProgramaEduc(List<ProgramaEducativoUi> programaEducativoUiList);
+
+    void mostrarDialogoCerrarSesion();
+
+    void cerrarSesion();
+
+    void initFragmentEstudianteHorario(MainParametrosGlobales mainParametrosGlobales);
 }

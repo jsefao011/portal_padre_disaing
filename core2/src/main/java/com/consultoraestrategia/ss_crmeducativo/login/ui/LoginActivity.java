@@ -32,6 +32,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.consultoraestrategia.ss_crmeducativo.core2.R;
 import com.consultoraestrategia.ss_crmeducativo.api.retrofit.ApiRetrofit;
 import com.consultoraestrategia.ss_crmeducativo.base.UseCaseHandler;
@@ -131,7 +133,6 @@ public abstract class LoginActivity extends BaseActivity<LoginView, LoginPresent
     TextView textProgress;
     View viewPageProgress;
     Button btnSiguienteUser;
-    Button btnSiguientePasswordUser;
     TextView txtNombreUsuario;
     TextInputLayout textInputLayout5;
     Button btnSiguientePassword;
@@ -145,7 +146,7 @@ public abstract class LoginActivity extends BaseActivity<LoginView, LoginPresent
     View contenLoginListaUsuario;
     View contentLoginCorreo;
     View contentLoginDni;
-    View contentLoginPasswordUser;
+    //View contentLoginPasswordUser;
     TextInputEditText editttextDni;
     Button btnSiguienteDni;
     RecyclerView rcContactos;
@@ -153,7 +154,6 @@ public abstract class LoginActivity extends BaseActivity<LoginView, LoginPresent
     ImageView btnAtrasLstUsu;
     TextView txtrecPassw;
     TextInputEditText edittextCorreo;
-    ImageView btnAtrasPassword;
     ImageView btnAtrasCorreo;
     ImageView btnAtrasDni;
     ImageView btnBtnAtrasLstUsuPass;
@@ -161,6 +161,7 @@ public abstract class LoginActivity extends BaseActivity<LoginView, LoginPresent
     private ApiRetrofit apiRetrofit;
     private LoginPreferentRepository loginPreferentRepository;
     private PersonaAdapter usuarioAdapter;
+    private ImageView imgInstitucion;
 
     @Override
     protected void setContentView() {
@@ -205,18 +206,15 @@ public abstract class LoginActivity extends BaseActivity<LoginView, LoginPresent
         btnSiguienteDni.setOnClickListener(this);
         editttextDni = findViewById(R.id.edittext_dni);
         contentLoginDni = findViewById(R.id.conten_login_mvp_dni);
-        btnAtrasPassword = findViewById(R.id.btn_atras_password_user);
-        btnAtrasPassword.setOnClickListener(this);
         btnAtrasDni = findViewById(R.id.btn_atras_dni);
         btnAtrasDni.setOnClickListener(this);
         btnAtrasCorreo = findViewById(R.id.btn_atras_correo);
         btnAtrasCorreo.setOnClickListener(this);
-        btnSiguientePasswordUser = findViewById(R.id.btn_siguiente_password_user);
-        btnSiguientePasswordUser.setOnClickListener(this);
         edittextPasswordUser = findViewById(R.id.edittext_password_user);
-        contentLoginPasswordUser = findViewById(R.id.conten_login_mvp_password_user);
+        //contentLoginPasswordUser = findViewById(R.id.conten_login_mvp_password_user);
         btnBtnAtrasLstUsuPass = findViewById(R.id.btn_atras_lst_usu_pass);
         btnBtnAtrasLstUsuPass.setOnClickListener(this);
+        imgInstitucion = findViewById(R.id.img_institucion);
 
         setSupportActionBar(toolbar);
         setupLogoAnim();
@@ -501,15 +499,15 @@ public abstract class LoginActivity extends BaseActivity<LoginView, LoginPresent
         contentLoginDni.setVisibility(View.GONE);
     }
 
-    @Override
+    /*@Override
     public void showLoginPasswordUser() {
         contentLoginPasswordUser.setVisibility(View.VISIBLE);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void hideLoginPasswordUser() {
         contentLoginPasswordUser.setVisibility(View.GONE);
-    }
+    }*/
 
     @Override
     public void hideLoginCorreo() {
@@ -730,9 +728,9 @@ public abstract class LoginActivity extends BaseActivity<LoginView, LoginPresent
                 onBtnSiguienteCorreo();
             }else if (i == R.id.edittext_dni){
                 onBtnSiguienteDni();
-            }else if (i == R.id.edittext_password_user){
+            }/*else if (i == R.id.edittext_password_user){
                 onBtnSiguientePasswordUsuario();
-            }
+            }*/
             handled = true;
         }
         return handled;
@@ -804,7 +802,7 @@ public abstract class LoginActivity extends BaseActivity<LoginView, LoginPresent
         } catch (Exception e) {
             e.printStackTrace();
         }
-        presenter.onBtnSiguienteUser(edittextUsername.getText().toString());
+        presenter.onBtnSiguienteUser(edittextUsername.getText().toString(), edittextPasswordUser.getText().toString());
     }
 
     public void onBtnSiguienteDni(){
@@ -815,16 +813,6 @@ public abstract class LoginActivity extends BaseActivity<LoginView, LoginPresent
             e.printStackTrace();
         }
         presenter.onBtnSiguienteDni(edittextUsername.getText().toString(), edittextPasswordUser.getText().toString(), edittextCorreo.getText().toString(), editttextDni.getText().toString());
-    }
-
-    public void onBtnAtrasPassword(){
-        try {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(edittextPasswordUser.getWindowToken(), 0);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        presenter.onClickedBtnAtrasPassword();
     }
 
     public void onBtnAtrasCorreo(){
@@ -847,7 +835,7 @@ public abstract class LoginActivity extends BaseActivity<LoginView, LoginPresent
         presenter.onClickedBtnAtrasDni();
     }
 
-    public void onBtnSiguientePasswordUsuario(){
+    /*public void onBtnSiguientePasswordUsuario(){
         try {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(edittextPasswordUser.getWindowToken(), 0);
@@ -855,7 +843,7 @@ public abstract class LoginActivity extends BaseActivity<LoginView, LoginPresent
             e.printStackTrace();
         }
         presenter.onBtnSiguientePasswordUsuario(edittextUsername.getText().toString(), edittextPasswordUser.getText().toString());
-    }
+    }*/
 
     public void onBtnSiguientePassword(){
         presenter.onBtnSiguientePassword(edittextPassword.getText().toString());
@@ -882,20 +870,52 @@ public abstract class LoginActivity extends BaseActivity<LoginView, LoginPresent
         if(v.getId()==R.id.btn_atras_lst_usu)onClickedBtnAtrasListUsua();
         if(v.getId()==R.id.txtrecPassw)onclickedrecPasswd();
         if(v.getId()==R.id.btn_close_password)onClickedBtnClosePassword();
-        if(v.getId()==R.id.btn_siguiente_password_user)onBtnSiguientePasswordUsuario();
+        //if(v.getId()==R.id.btn_siguiente_password_user)onBtnSiguientePasswordUsuario();
         if(v.getId()==R.id.btn_siguiente_password)onBtnSiguientePassword();
         if(v.getId()==R.id.btn_siguiente_user)onBtnSiguienteUser();
         if (v.getId()==R.id.btn_siguiente_correo)onBtnSiguienteCorreo();
         if (v.getId()==R.id.btn_siguiente_dni)onBtnSiguienteDni();
-        if (v.getId()==R.id.btn_atras_password_user)onBtnAtrasPassword();
         if (v.getId()==R.id.btn_atras_correo)onBtnAtrasCorreo();
         if (v.getId()==R.id.btn_atras_dni)onBtnAtrasDni();
         if (v.getId()==R.id.btn_atras_lst_usu_pass)onClickedBtnAtrasListUsua();
     }
 
 
+    @Override
+    public void onErrorPasswordUsuario(String string) {
+        edittextPasswordUser.setError(string);
+        editttextDni.requestFocus();
+        editttextDni.setSelected(true);
+    }
 
+    public static void enableDisableView(View view, boolean enabled) {
+        view.setEnabled(enabled);
+        if ( view instanceof ViewGroup ) {
+            ViewGroup group = (ViewGroup)view;
 
+            for ( int idx = 0 ; idx < group.getChildCount() ; idx++ ) {
+                enableDisableView(group.getChildAt(idx), enabled);
+            }
+        }
+    }
 
+    @Override
+    public void disabledOnClick() {
+        enableDisableView(groupPageUser, false);
+    }
 
+    @Override
+    public void enableOnClick() {
+        enableDisableView(groupPageUser, true);
+    }
+
+    @Override
+    public void setUrlImgenInstitucion(String imagenUrl) {
+        Glide.with(this)
+                .load(imagenUrl)
+                .apply(new RequestOptions()
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL))
+                .into(imgInstitucion);
+    }
 }

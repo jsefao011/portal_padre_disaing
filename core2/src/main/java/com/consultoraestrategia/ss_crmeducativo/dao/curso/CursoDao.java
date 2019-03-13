@@ -11,4 +11,5 @@ public interface CursoDao extends BaseIntegerDao<Cursos> {
     List<CursoCustom> obtenerPorCargaCurso(List<Integer> cargacursoIdList, int programaEducativoId);
     List<CursoCustom> obtenerPorCargaCursos(List<Integer> integerList);
     List<CursoCustom> obtenerPorCargaAcademicaDocente( int idProgramaEducativo,List<Integer> integerList);
+    List<CursoCustom> obtenerCursoHijoPorProgramaEducativo(int programaEducativoId, int hijoPersonaId);
 }
