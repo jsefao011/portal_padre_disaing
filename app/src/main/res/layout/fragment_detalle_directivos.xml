@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
+    <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
         android:id="@+id/rv_directivos"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -18,6 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </android.support.v7.widget.RecyclerView>
+    </com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView>
 
 </android.support.constraint.ConstraintLayout>

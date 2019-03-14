@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
+    <com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView
         android:id="@+id/rv_companeros"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -14,10 +14,17 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:orientation="vertical"
+        app:fastScrollThumbColor="@color/colorPrimary"
+        app:fastScrollPopupBgColor="@color/colorPrimary"
+        app:fastScrollTrackColor="@color/md_white_1000"
+        android:scrollbarSize="3dp"
+        app:fastScrollPopupTextColor="@android:color/primary_text_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </android.support.v7.widget.RecyclerView>
+    </com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView>
+
+
 
 </android.support.constraint.ConstraintLayout>

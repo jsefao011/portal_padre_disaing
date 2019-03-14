@@ -15,6 +15,7 @@ import com.consultoraestrategia.ss_crmeducativo.entities.Empleado_Table;
 import com.consultoraestrategia.ss_crmeducativo.entities.Persona;
 import com.consultoraestrategia.ss_crmeducativo.entities.Persona_Table;
 import com.consultoraestrategia.ss_crmeducativo.portal.contactos.data.source.ContactosDataSource;
+import com.consultoraestrategia.ss_crmeducativo.portal.contactos.entities.ApoderadoUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.contactos.entities.PersonaUi;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
@@ -58,6 +59,7 @@ public class ContactosLocalDataSource implements ContactosDataSource {
                     .on(Contrato_Table.idContrato.withTable().eq(DetalleContratoAcad_Table.idContrato.withTable()))
                     .where(DetalleContratoAcad_Table.cargaAcademicaId.withTable().in(integerList))
                     .and(Contrato_Table.vigente.withTable().eq(1))
+                    .orderBy(Persona_Table.nombres.withTable().asc())
                     .queryList();
 
 
@@ -105,8 +107,11 @@ public class ContactosLocalDataSource implements ContactosDataSource {
                     .and(Contrato_Table.vigente.withTable().eq(1))
                     .queryList();
 
-            for (CargaCursos cargaCurso : cargaCursos)
+            for (CargaCursos cargaCurso : cargaCursos){
                 integerList.add(cargaCurso.getEmpleadoId());
+                Log.d("onEmpleadoId", "true"+ cargaCurso.getEmpleadoId());
+            }
+
 
 
             List<Persona> personasList = SQLite.select()
@@ -130,6 +135,23 @@ public class ContactosLocalDataSource implements ContactosDataSource {
                 personaUi.setGenero(persona.getGenero());
                 personaUi.setEstadoCivil(persona.getEstadoCivil());
                 personaUi.setNumDoc(persona.getNumDoc());
+
+                Persona apoderado = SQLite.select()
+                        .from(Persona.class)
+                        .innerJoin(Contrato.class)
+                        .on(Persona_Table.personaId.withTable().eq(Contrato_Table.personaId.withTable()))
+                        .where(Contrato_Table.personaId.withTable().eq(personaUi.getPersonaId()))
+                        .querySingle();
+
+                if (apoderado!=null){
+                    ApoderadoUi apoderadoUi = new ApoderadoUi();
+                    apoderadoUi.setId(apoderado.getPersonaId());
+                    apoderadoUi.setNombre(personaUi.getNombres());
+                    apoderadoUi.setApellido(personaUi.getApellidoMaterno() + " " + personaUi.getApellidoPaterno());
+                    apoderadoUi.setCelular(personaUi.getCelular());
+                    apoderadoUi.setCorreo(personaUi.getCelular());
+                    personaUi.setApoderadoUi(apoderadoUi);
+                }
                 objectList.add(personaUi);
             }
 

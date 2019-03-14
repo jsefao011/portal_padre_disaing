@@ -14,6 +14,7 @@ import com.consultoraestrategia.ss_crmeducativo.base.viewpager.ViewPagerItemList
 import com.consultoraestrategia.ss_crmeducativo.portal.contactos.adapter.ContactosAdapter;
 import com.consultoraestrategia.ss_crmeducativo.portal.contactos.cabecera.ContactosPresenter;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class DetalleProfesoresFragment extends Fragment implements DetalleProfes
 
     private Unbinder unbinder;
     @BindView(R.id.rv_profesores)
-    RecyclerView rv_profesores;
+    FastScrollRecyclerView rv_profesores;
     ContactosAdapter contactosAdapter;
 
 
@@ -55,8 +56,6 @@ public class DetalleProfesoresFragment extends Fragment implements DetalleProfes
         contactosAdapter.setRecyclerView(rv_profesores);
         rv_profesores.setAdapter(contactosAdapter);
         rv_profesores.setHasFixedSize(true);
-
-
     }
 
     @Override

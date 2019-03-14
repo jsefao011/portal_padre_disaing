@@ -14,6 +14,7 @@ import com.consultoraestrategia.ss_crmeducativo.base.viewpager.ViewPagerItemList
 import com.consultoraestrategia.ss_crmeducativo.portal.contactos.adapter.ContactosAdapter;
 import com.consultoraestrategia.ss_crmeducativo.portal.contactos.cabecera.ContactosPresenter;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
+import com.simplecityapps.recyclerview_fastscroll.views.FastScrollRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class DetalleCompanerosFragment extends Fragment implements DetalleCompan
 
     private Unbinder unbinder;
     @BindView(R.id.rv_companeros)
-    RecyclerView rv_companeros;
+    FastScrollRecyclerView rv_companeros;
     ContactosAdapter contactosAdapter;
 
 

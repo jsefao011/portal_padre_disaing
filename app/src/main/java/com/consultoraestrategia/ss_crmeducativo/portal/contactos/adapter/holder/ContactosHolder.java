@@ -19,12 +19,8 @@ public class ContactosHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.nombre)
     TextView textNombre;
-    @BindView(R.id.direccion)
-    TextView textDireccion;
     @BindView(R.id.telefono)
     TextView textTelefono;
-    @BindView(R.id.ciudad)
-    TextView ciudad;
     @BindView(R.id.imagenPersona)
     CircleImageView imgContacto;
 
@@ -38,8 +34,8 @@ public class ContactosHolder extends RecyclerView.ViewHolder {
 
         textNombre.setText(personaUi.getNombres());
         textTelefono.setText(personaUi.getCelular());
-        ciudad.setText(personaUi.getNumDoc());
-        textDireccion.setText("Av. Los Girasoles 456");
+        //ciudad.setText(personaUi.getNumDoc());
+
 
         Glide.with(itemView.getContext())
                 .load(personaUi.getFoto())

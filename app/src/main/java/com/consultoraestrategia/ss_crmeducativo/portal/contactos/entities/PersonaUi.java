@@ -20,6 +20,7 @@ public class PersonaUi {
     private String correo;
     private String direccion;
     private Tipo tipo=Tipo.DOCENTE;
+    private ApoderadoUi apoderadoUi;
 
     public PersonaUi() {
     }
@@ -152,6 +153,14 @@ public class PersonaUi {
         this.tipo = tipo;
     }
 
+    public ApoderadoUi getApoderadoUi() {
+        return apoderadoUi;
+    }
+
+    public void setApoderadoUi(ApoderadoUi apoderadoUi) {
+        this.apoderadoUi = apoderadoUi;
+    }
+
     @Override
     public String toString() {
         return "PersonaUi{" +
@@ -173,15 +182,15 @@ public class PersonaUi {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        PersonaUi personaUi = (PersonaUi) o;
-
-        return personaId == personaUi.personaId;
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//
+//        PersonaUi personaUi = (PersonaUi) o;
+//
+//        return personaId == personaUi.personaId;
+//    }
 
     @Override
     public int hashCode() {
