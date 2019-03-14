@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters.holders.CursoHolder;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.CursoUi;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
 
@@ -30,8 +31,8 @@ public class CursoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-     CursoUi cursoUi= cursoUiList.get(position);
-        ((CursoHolder)holder).bind(cursoUi);
+        CursoUi cursoUi = cursoUiList.get(position);
+        ((CursoHolder) holder).bind(cursoUi);
     }
 
     @Override

@@ -7,12 +7,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import com.consultoraestrategia.ss_crmeducativo.api.retrofit.ApiRetrofit;
 import com.consultoraestrategia.ss_crmeducativo.base.viewpager.ViewPagerItemListener;
 import com.consultoraestrategia.ss_crmeducativo.lib.autoColumnGrid.AutoColumnGridLayoutManager;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters.CabeceraAdapter;
@@ -39,6 +39,14 @@ public class FragmentTareasGenerales extends Fragment implements TareaGeneralesV
     RecyclerView recyclerCount;
     @BindView(R.id.recyclerTareas)
     RecyclerView recyclerTareas;
+    @BindView(R.id.content)
+    TextView content;
+    @BindView(R.id.txtempty)
+    TextView txtempty;
+    @BindView(R.id.linea)
+    TextView linea;
+    @BindView(R.id.progress)
+    ProgressBar progress;
     private TareaAdapter tareasAdapter;
     private CabeceraAdapter cabeceraAdapter;
 
@@ -61,12 +69,12 @@ public class FragmentTareasGenerales extends Fragment implements TareaGeneralesV
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initAdapter();
+       initAdapter();
         initAdapterCabecera();
     }
 
     private void initAdapterCabecera() {
-        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerCount.setLayoutManager(linearLayoutManager);
         cabeceraAdapter = new CabeceraAdapter(new ArrayList<TareaUiCount>());
@@ -80,9 +88,9 @@ public class FragmentTareasGenerales extends Fragment implements TareaGeneralesV
         TareaColumnCountProvider columnCountProvider = new TareaColumnCountProvider(getContext());
         autoColumnGridLayoutManager.setColumnCountProvider(columnCountProvider);
         recyclerTareas.setLayoutManager(autoColumnGridLayoutManager);
-        tareasAdapter = new TareaAdapter(new ArrayList<TareasUi>());
+        tareasAdapter = new TareaAdapter(new ArrayList<TareasUi>(), "");
         recyclerTareas.setAdapter(tareasAdapter);
-        recyclerTareas.setHasFixedSize(true);
+        recyclerCount.setHasFixedSize(true);
 
     }
 
@@ -92,8 +100,13 @@ public class FragmentTareasGenerales extends Fragment implements TareaGeneralesV
     }
 
     @Override
-    public void showText(String text) {
+    public void showText() {
+        txtempty.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void hideProgressBar() {
+        progress.setVisibility(View.GONE);
     }
 
     @Override
@@ -103,7 +116,9 @@ public class FragmentTareasGenerales extends Fragment implements TareaGeneralesV
 
     @Override
     public void setTareaCountList(List<TareaUiCount> tareasCountUis) {
-        Log.d(getClass().getSimpleName(), "CANTIFAF "+ tareasCountUis.size());
+        content.setVisibility(View.VISIBLE);
+        linea.setVisibility(View.VISIBLE);
+        txtempty.setVisibility(View.GONE);
         cabeceraAdapter.setObjectList(tareasCountUis);
     }
 

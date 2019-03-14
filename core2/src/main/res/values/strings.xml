@@ -74,4 +74,6 @@
     <string name="admin_service">http://admin.consultoraestrategia.com/ServiceAdmin/Service/ServiceAdmin.ashx  </string>
     <string name="mensaje_programaEduEmpty">No se ha registrado programa educativo para este alumno</string>
     <string name="mensaje_casosEmpty">No se registraron casos</string>
+    <string name="mensaje_tareasEmpty">No se registraron tareas</string>
+    <string name="archivos_casosEmpty">No hay archivos anclados a este caso</string>
 </resources>

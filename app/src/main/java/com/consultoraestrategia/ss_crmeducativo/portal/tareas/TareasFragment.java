@@ -5,12 +5,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-
 import com.consultoraestrategia.ss_crmeducativo.base.UseCaseHandler;
 import com.consultoraestrategia.ss_crmeducativo.base.UseCaseThreadPoolScheduler;
 import com.consultoraestrategia.ss_crmeducativo.base.fragment.BaseFragment;
@@ -27,6 +27,7 @@ import com.consultoraestrategia.ss_crmeducativo.portal.tareas.useCase.GetTareasG
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.useCase.GetTareasPorCurso;
 import com.consultoraestrategia.ss_crmeducativo.util.InjectorUtils;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
+import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import butterknife.BindView;
 import butterknife.Unbinder;
@@ -42,7 +43,7 @@ public class TareasFragment extends BaseFragment<TareaView,TareasPresenter, Tare
     Unbinder unbinder;
     TareasPresenter presenter;
     @BindView(R.id.tab_tareas)
-    TabLayout tabTareas;
+    BottomNavigationViewEx tabTareas;
     @BindView(R.id.vp_Tareas)
     ViewPager vpTareas;
 
@@ -63,7 +64,7 @@ public class TareasFragment extends BaseFragment<TareaView,TareasPresenter, Tare
 
     @Override
     protected TareasPresenter getPresenter() {
-        TareasRepository tareasRepository= new TareasRepository(new TareasLocalDataSource(InjectorUtils.provideCursoDao()));
+        TareasRepository tareasRepository= new TareasRepository(new TareasLocalDataSource(InjectorUtils.provideCursoDao(), InjectorUtils.provideParametrosDisenioDao()));
         presenter= new TareasPresenterImpl(new UseCaseHandler(new UseCaseThreadPoolScheduler()), getResources(),
         new GetTareasGeneralesAlumno(tareasRepository),
                 new GetTareasPorCurso( tareasRepository));
@@ -115,11 +116,10 @@ public class TareasFragment extends BaseFragment<TareaView,TareasPresenter, Tare
         ViewpagerAdapter fragmentAdapter = new ViewpagerAdapter(getChildFragmentManager(),1  ,this);
         fragmentAdapter.addFragment(fragmentTareasCurso, "Curso");
         fragmentAdapter.addFragment(fragmentTareasGenerales, "General");
-        vpTareas.setOffscreenPageLimit(5);
+        vpTareas.setOffscreenPageLimit(2);
         vpTareas.setAdapter(fragmentAdapter);
         tabTareas.setupWithViewPager(vpTareas);
-        tabTareas.getTabAt(0).setIcon(R.drawable.booksstack);
-        tabTareas.getTabAt(1).setIcon(R.drawable.listonwindow);
+
         presenter.onAttach(this, fragmentTareasCurso,fragmentTareasGenerales);
        // presenter.onViewCreated();
 

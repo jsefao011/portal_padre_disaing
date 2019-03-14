@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface TareaGeneralesView{
 
-    void showText(String hol);
+    void showText();
+    void hideProgressBar();
     void setListTareasList(List<TareasUi> tareasUiList);
 
     void setTareaCountList(List<TareaUiCount> tareasCountUis);

@@ -4,6 +4,7 @@ import java.util.List;
 
 public class TareasUi {
 
+    public enum Tipo{NORMAL, RUBRO}
     private int id;
     private String nombre;
     private String curso;
@@ -11,7 +12,10 @@ public class TareasUi {
     private int estado;
     private FechaUi fechaUiInicio;
     private FechaUi fechaUiFin;
-    private ValorTipoNotaUi valorTipoNotaUi;
+    private String descripcion;
+    private TipoNotaUi tipoNotaUi;
+    private Tipo tipo;
+    private int count;
 
 
     public TareasUi() {
@@ -74,12 +78,36 @@ public class TareasUi {
         this.fechaUiFin = fechaUiFin;
     }
 
-    public ValorTipoNotaUi getValorTipoNotaUi() {
-        return valorTipoNotaUi;
+    public TipoNotaUi getTipoNotaUi() {
+        return tipoNotaUi;
     }
 
-    public void setValorTipoNotaUi(ValorTipoNotaUi valorTipoNotaUi) {
-        this.valorTipoNotaUi = valorTipoNotaUi;
+    public void setTipoNotaUi(TipoNotaUi tipoNotaUi) {
+        this.tipoNotaUi = tipoNotaUi;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }
 

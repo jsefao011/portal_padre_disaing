@@ -1,5 +1,6 @@
 package com.consultoraestrategia.ss_crmeducativo.portal.caso.ui.adapter;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -28,6 +29,8 @@ public class CasoCuerpoHolder extends RecyclerView.ViewHolder {
     TextView descripcion;
     @BindView(R.id.curso)
     TextView curso;
+    @BindView(R.id.linea)
+    TextView linea;
 
     public CasoCuerpoHolder(View itemView)
     {
@@ -44,9 +47,17 @@ public class CasoCuerpoHolder extends RecyclerView.ViewHolder {
         descripcion.setText(casoUi.getDescripcion());
         subtipo.setText(casoUi.getTipoHijoUi().getNombre());
         int url=0;
-        if(casoUi.getTipoHijoUi().getTipoPadre()== TipoHijoUi.TipoPadre.MERITO)
+        if(casoUi.getTipoHijoUi().getTipoPadre()== TipoHijoUi.TipoPadre.MERITO){
+            linea.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_blue_900));
+          //  subtipo.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.colorPrimaryDark));
             url= R.drawable.medal;
-        else url= R.drawable.policeman;
+        }
+
+        else {
+            linea.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.md_red_600));
+           // subtipo.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.md_red_600));
+            url= R.drawable.policeman;
+        }
         imgTipo.setImageResource(url);
 
     }

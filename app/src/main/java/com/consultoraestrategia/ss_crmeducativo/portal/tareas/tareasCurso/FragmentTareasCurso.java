@@ -6,14 +6,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.consultoraestrategia.ss_crmeducativo.base.viewpager.ViewPagerItemListener;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters.CursoAdapter;
-import com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters.CursoHolder;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.CursoUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.presenter.TareasPresenter;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
@@ -25,9 +25,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class FragmentTareasCurso extends Fragment implements TareaCursoView , ViewPagerItemListener<TareasPresenter> {
+public class FragmentTareasCurso extends Fragment implements TareaCursoView, ViewPagerItemListener<TareasPresenter> {
 
-    private String TAG= FragmentTareasCurso.class.getSimpleName();
+    @BindView(R.id.textEmpty)
+    TextView textEmpty;
+    @BindView(R.id.progress)
+    ProgressBar progress;
+    private String TAG = FragmentTareasCurso.class.getSimpleName();
     private TareasPresenter tareasPresenter;
 
     private Unbinder unbinder;
@@ -58,7 +62,7 @@ public class FragmentTareasCurso extends Fragment implements TareaCursoView , Vi
     }
 
     private void initAdapter() {
-        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(getContext());
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rc_tablesTareas.setLayoutManager(linearLayoutManager);
         cursoAdapter = new CursoAdapter(new ArrayList<CursoUi>());
@@ -70,11 +74,29 @@ public class FragmentTareasCurso extends Fragment implements TareaCursoView , Vi
 
     @Override
     public void onAttach(TareasPresenter presenter) {
-    this.tareasPresenter=tareasPresenter;
+        this.tareasPresenter = tareasPresenter;
     }
 
     @Override
     public void setTareasCurso(List<CursoUi> cursoUiList) {
+
+        textEmpty.setVisibility(View.GONE);
         cursoAdapter.setObjectList(cursoUiList);
+    }
+
+    @Override
+    public void showTextEmpty() {
+        textEmpty.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        progress.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

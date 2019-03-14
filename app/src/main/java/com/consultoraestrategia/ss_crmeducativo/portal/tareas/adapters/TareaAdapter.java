@@ -2,10 +2,13 @@ package com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.consultoraestrategia.ss_crmeducativo.api.retrofit.ApiRetrofit;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters.holders.TareaHolder;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.TareasUi;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
 
@@ -16,10 +19,11 @@ import butterknife.BindView;
 public class TareaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     List<TareasUi> tareasUiList;
+    String parametroDisenio;
 
-
-    public TareaAdapter(List<TareasUi> tareasUiList) {
+    public TareaAdapter(List<TareasUi> tareasUiList, String parametroDisenio) {
         this.tareasUiList = tareasUiList;
+        this.parametroDisenio = parametroDisenio;
     }
 
     @NonNull
@@ -30,8 +34,9 @@ public class TareaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        Log.d(getClass().getSimpleName(), "item tarea ");
         TareasUi tareasUi = tareasUiList.get(position);
-        ((TareaHolder) holder).bind(tareasUi, position);
+        ((TareaHolder) holder).bind(tareasUi, position, parametroDisenio);
 
     }
 
@@ -45,5 +50,9 @@ public class TareaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         this.tareasUiList.clear();
         this.tareasUiList.addAll(tareasUis);
         notifyDataSetChanged();
+    }
+
+    public void setparametroDisenio(String parametroDisenio) {
+        this.parametroDisenio = parametroDisenio;
     }
 }

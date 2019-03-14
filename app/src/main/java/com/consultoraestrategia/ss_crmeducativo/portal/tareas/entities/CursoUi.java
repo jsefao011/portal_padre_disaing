@@ -8,6 +8,7 @@ public class CursoUi {
     private String docente;
     List<TareasUi> tareasUiList;
     List<TareaUiCount>tareaUiCountList;
+    private String coloCurso;
 
 
     public String getCurso() {
@@ -40,5 +41,13 @@ public class CursoUi {
 
     public void setTareaUiCountList(List<TareaUiCount> tareaUiCountList) {
         this.tareaUiCountList = tareaUiCountList;
+    }
+
+    public String getColoCurso() {
+        return coloCurso;
+    }
+
+    public void setColoCurso(String coloCurso) {
+        this.coloCurso = coloCurso;
     }
 }

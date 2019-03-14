@@ -4,19 +4,107 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/md_white_1000"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/contentTipos"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/background_border"
+        android:background="@drawable/border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/img_tipo1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/cant1"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/medal" />
+
+        <ImageView
+            android:id="@+id/img_tipo2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/cant2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/cant1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/policeman" />
+
+        <TextView
+            android:id="@+id/cant1"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/md_blue_900"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/img_tipo2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/img_tipo1"
+            app:layout_constraintTop_toTopOf="@+id/img_tipo1" />
+
+        <TextView
+            android:id="@+id/porcentaje1"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_radius"
+            android:gravity="center"
+            android:text="0%"
+            android:textColor="@color/md_blue_900"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_tipo1"
+            app:layout_constraintStart_toEndOf="@+id/img_tipo1"
+            app:layout_constraintStart_toStartOf="@+id/cant1"
+            app:layout_constraintTop_toBottomOf="@+id/cant1" />
+
+        <TextView
+            android:id="@+id/cant2"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/md_red_400"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/img_tipo2"
+            app:layout_constraintTop_toTopOf="@+id/img_tipo2" />
+
+        <TextView
+            android:id="@+id/porcentaje2"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_radius"
+            android:gravity="center"
+            android:text="0%"
+            android:textColor="@color/md_red_400"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_tipo2"
+            app:layout_constraintStart_toEndOf="@+id/img_tipo2"
+            app:layout_constraintStart_toStartOf="@+id/cant2"
+            app:layout_constraintTop_toBottomOf="@+id/cant2" />
+
+    </android.support.constraint.ConstraintLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerCaso"
@@ -24,79 +112,14 @@
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@color/md_white_1000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contentTipos" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
-    <ImageView
-        android:id="@+id/img_tipo1"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/contentTipos"
-        app:layout_constraintStart_toStartOf="@+id/contentTipos"
-        app:layout_constraintTop_toTopOf="@+id/contentTipos"
-        app:srcCompat="@drawable/medal" />
-
-    <ImageView
-        android:id="@+id/img_tipo2"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/contentTipos"
-        app:layout_constraintStart_toEndOf="@+id/cant1"
-        app:layout_constraintTop_toTopOf="@+id/contentTipos"
-        app:srcCompat="@drawable/policeman" />
-
-    <TextView
-        android:id="@+id/cant1"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:gravity="center"
-        android:text="0"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/img_tipo1"
-        app:layout_constraintTop_toTopOf="@+id/img_tipo1" />
-
-    <TextView
-        android:id="@+id/porcentaje1"
-        android:layout_width="100dp"
-        android:layout_height="25dp"
-        android:background="@drawable/border_radius"
-        android:gravity="center"
-        android:text="0%"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/img_tipo1"
-        app:layout_constraintStart_toStartOf="@+id/cant1"
-        app:layout_constraintTop_toBottomOf="@+id/cant1" />
-
-    <TextView
-        android:id="@+id/cant2"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="0"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/img_tipo2"
-        app:layout_constraintTop_toTopOf="@+id/img_tipo2" />
-
-    <TextView
-        android:id="@+id/porcentaje2"
-        android:layout_width="100dp"
-        android:layout_height="25dp"
-        android:background="@drawable/border_radius"
-        android:gravity="center"
-        android:text="0%"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/img_tipo2"
-        app:layout_constraintEnd_toEndOf="@+id/cant2"
-        app:layout_constraintStart_toStartOf="@+id/cant2"
-        app:layout_constraintTop_toBottomOf="@+id/cant2" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -118,14 +141,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="8dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contentTipos" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

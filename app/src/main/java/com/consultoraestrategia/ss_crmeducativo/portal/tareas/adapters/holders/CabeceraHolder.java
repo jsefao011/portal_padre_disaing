@@ -1,5 +1,6 @@
-package com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters;
+package com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters.holders;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -30,11 +31,14 @@ public class CabeceraHolder  extends RecyclerView.ViewHolder {
         switch (tareaUiCount.getTipoTarea()){
             case ASIGANADAS:
                 tipo.setText("Asignadas");
+                cantidad.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.md_black_1000));
                 break;
             case CALIFICADAS:
                 tipo.setText("Calificadas");
+                cantidad.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.md_black_1000));
                 break;
              default:
+                 cantidad.setTextColor(ContextCompat.getColor(itemView.getContext(), R.color.md_red_600));
                  tipo.setText("Por entregar");
                  break;
         }

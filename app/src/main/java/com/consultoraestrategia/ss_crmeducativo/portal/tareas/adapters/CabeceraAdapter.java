@@ -2,18 +2,14 @@ package com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.consultoraestrategia.ss_crmeducativo.api.retrofit.ApiRetrofit;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters.holders.CabeceraHolder;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.TareaUiCount;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
 
 import java.util.List;
-
-import butterknife.BindView;
 
 public class CabeceraAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

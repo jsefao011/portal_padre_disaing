@@ -3,107 +3,136 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/border"
+    android:layout_margin="3dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/diaSemana"
-        android:layout_width="70dp"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:gravity="center"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Lunes" />
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/diaSemana"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Lunes" />
+
+        <TextView
+            android:id="@+id/dia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/diaSemana"
+            app:layout_constraintStart_toStartOf="@+id/diaSemana"
+            app:layout_constraintTop_toBottomOf="@+id/diaSemana"
+            tools:text="15" />
+
+        <TextView
+            android:id="@+id/mes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/dia"
+            app:layout_constraintStart_toStartOf="@+id/dia"
+            app:layout_constraintTop_toBottomOf="@+id/dia"
+            tools:text="sept." />
+
+        <ImageView
+            android:id="@+id/img_tipo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/medal"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <TextView
+            android:id="@+id/subtipo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/img_tipo"
+            app:layout_constraintStart_toStartOf="@+id/img_tipo"
+            app:layout_constraintTop_toBottomOf="@+id/img_tipo"
+            tools:text="companerismo" />
+
+        <TextView
+            android:id="@+id/descripcion"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/subtipo"
+            app:layout_constraintEnd_toEndOf="@+id/curso"
+            app:layout_constraintStart_toStartOf="@+id/curso"
+            app:layout_constraintTop_toBottomOf="@+id/curso"
+            tools:text="ttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt" />
+
+        <TextView
+            android:id="@+id/curso"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="40dp"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/img_tipo"
+            app:layout_constraintStart_toEndOf="@+id/diaSemana"
+            app:layout_constraintTop_toTopOf="@+id/diaSemana"
+            tools:text="Comunicacion" />
+
+        <TextView
+            android:id="@+id/linea"
+            android:layout_width="5dp"
+            android:layout_height="0dp"
+            android:background="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
 
     <TextView
-        android:id="@+id/dia"
-        android:layout_width="wrap_content"
+        android:id="@+id/textEmptyArchivo"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/diaSemana"
-        app:layout_constraintStart_toStartOf="@+id/diaSemana"
-        app:layout_constraintTop_toBottomOf="@+id/diaSemana"
-        tools:text="15" />
-
-    <TextView
-        android:id="@+id/mes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:textSize="14sp"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        android:background="@color/md_grey_200"
+        android:padding="2dp"
+        android:text="@string/archivos_casosEmpty"
+        android:textColor="@color/md_grey_600"
+        android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/dia"
-        app:layout_constraintStart_toStartOf="@+id/dia"
-        app:layout_constraintTop_toBottomOf="@+id/dia"
-        tools:text="sept." />
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout4"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
 
-    <ImageView
-        android:id="@+id/img_tipo"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintStart_toEndOf="@+id/diaSemana"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/medal" />
-
-    <TextView
-        android:id="@+id/subtipo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/img_tipo"
-        app:layout_constraintStart_toStartOf="@+id/img_tipo"
-        app:layout_constraintTop_toBottomOf="@+id/img_tipo"
-        tools:text="companerismo" />
-
-    <TextView
-        android:id="@+id/descripcion"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recylerarchivos"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/subtipo"
-        app:layout_constraintEnd_toEndOf="@+id/curso"
-        app:layout_constraintStart_toStartOf="@+id/curso"
-        app:layout_constraintTop_toBottomOf="@+id/curso"
-        tools:text="ttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt" />
-
-    <TextView
-        android:id="@+id/curso"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_tipo"
-        app:layout_constraintTop_toTopOf="@+id/img_tipo"
-        app:layout_constraintVertical_bias="0.023"
-        tools:text="Comunicacion" />
-
-    <TextView
-        android:id="@+id/textView97"
-        android:layout_width="0dp"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/background_border"
-        android:text="TextView"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mes"
-        app:layout_constraintVertical_bias="0.39999998" />
+        app:layout_constraintTop_toBottomOf="@+id/textEmptyArchivo" />
 
 </android.support.constraint.ConstraintLayout>

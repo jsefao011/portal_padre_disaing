@@ -22,6 +22,7 @@ import com.consultoraestrategia.ss_crmeducativo.portal.tareas.tareasGenerales.Ta
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.useCase.GetTareasGeneralesAlumno;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.useCase.GetTareasPorCurso;
 import com.consultoraestrategia.ss_crmeducativo.portal.wrapper.MainParametrosGlobales;
+import com.consultoraestrategia.ss_crmeducativo_portal.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +67,7 @@ public class TareasPresenterImpl extends BaseFragmentPresenterImpl<TareaView > i
     }
 
     private void getcursos() {
+
         handler.execute(getTareasPorCurso, new GetTareasPorCurso.RequestValues(idAlumno), new UseCase.UseCaseCallback<GetTareasPorCurso.ResponseValue>() {
             @Override
             public void onSuccess(GetTareasPorCurso.ResponseValue response) {
@@ -81,7 +83,11 @@ public class TareasPresenterImpl extends BaseFragmentPresenterImpl<TareaView > i
     }
 
     private void showListCursoTareas(List<CursoUi> cursoUiList) {
-         if(tareaCursoView!=null)tareaCursoView.setTareasCurso(cursoUiList);
+         if(tareaCursoView!=null){
+             tareaCursoView.hideProgressBar();
+             if(cursoUiList.size()>0)tareaCursoView.setTareasCurso(cursoUiList);
+             else tareaCursoView.showTextEmpty();
+         }
 
     }
 
@@ -110,9 +116,11 @@ public class TareasPresenterImpl extends BaseFragmentPresenterImpl<TareaView > i
             else tareasCountUis.add((TareaUiCount)object);
         }
         if(tareaGeneralesView!=null){
-            tareaGeneralesView.setListTareasList(tareasUis);
-            Log.d(TAG, "tareasCountUis "+ tareasCountUis.size());
-            tareaGeneralesView.setTareaCountList(tareasCountUis);
+            tareaGeneralesView.hideProgressBar();
+            if(tareasUis.size()>0){
+                tareaGeneralesView.setListTareasList(tareasUis);
+                tareaGeneralesView.setTareaCountList(tareasCountUis);
+            } else tareaGeneralesView.showText();
         }
     }
 

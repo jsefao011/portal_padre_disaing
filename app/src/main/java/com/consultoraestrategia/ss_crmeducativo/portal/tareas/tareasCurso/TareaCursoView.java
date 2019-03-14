@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface TareaCursoView {
     void setTareasCurso(List<CursoUi> cursoUiList);
+    void showTextEmpty();
+    void hideProgressBar();
 }
