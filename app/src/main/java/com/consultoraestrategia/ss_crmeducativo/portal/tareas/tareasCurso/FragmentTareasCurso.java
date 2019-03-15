@@ -91,7 +91,7 @@ public class FragmentTareasCurso extends Fragment implements TareaCursoView, Vie
 
     @Override
     public void hideProgressBar() {
-        progress.setVisibility(View.GONE);
+         progress.setVisibility(View.GONE);
     }
 
     @Override

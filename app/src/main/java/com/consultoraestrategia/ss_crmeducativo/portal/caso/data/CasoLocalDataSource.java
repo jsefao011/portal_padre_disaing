@@ -1,10 +1,14 @@
 package com.consultoraestrategia.ss_crmeducativo.portal.caso.data;
 
+import android.text.TextUtils;
 import android.util.Log;
+import android.widget.LinearLayout;
 
 import com.consultoraestrategia.ss_crmeducativo.dao.curso.CursoDao;
 import com.consultoraestrategia.ss_crmeducativo.entities.CalendarioPeriodo;
 import com.consultoraestrategia.ss_crmeducativo.entities.Caso;
+import com.consultoraestrategia.ss_crmeducativo.entities.CasoArchivo;
+import com.consultoraestrategia.ss_crmeducativo.entities.CasoArchivo_Table;
 import com.consultoraestrategia.ss_crmeducativo.entities.Caso_Table;
 import com.consultoraestrategia.ss_crmeducativo.entities.Persona;
 import com.consultoraestrategia.ss_crmeducativo.entities.Persona_Table;
@@ -17,6 +21,9 @@ import com.consultoraestrategia.ss_crmeducativo.portal.caso.entities.CursoUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.entities.FechaUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.entities.TipoHijoUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.entities.TipoPadreUi;
+import com.consultoraestrategia.ss_crmeducativo.repositorio.entities.RepositorioEstadoFileU;
+import com.consultoraestrategia.ss_crmeducativo.repositorio.entities.RepositorioFileUi;
+import com.consultoraestrategia.ss_crmeducativo.repositorio.entities.RepositorioTipoFileU;
 import com.consultoraestrategia.ss_crmeducativo.util.Utils;
 import com.raizlabs.android.dbflow.sql.language.Operator;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
@@ -44,19 +51,6 @@ public class CasoLocalDataSource implements CasoDataSource {
                 .where(Persona_Table.personaId.withTable().eq(alumnoId)).querySingle();
         alumnoUi.setAlumnoId(alumno.getPersonaId());
         Log.d(TAG, "caso size  " +alumnoId);
-
-//        Calendar calendar = Calendar.getInstance();
-//        long fechaActual= calendar.getTimeInMillis();
-//        Log.d(TAG, "fechaActual " +fechaActual);
-//
-        //por ahora para probar los de periodo 4
-       // long fecha= 1541175620000L;
-        int calendarioActualId=4;
-//        List<CalendarioPeriodo> calendarioPeriodoList= SQLite.select().from(CalendarioPeriodo.class).queryList();
-//        for(CalendarioPeriodo calendarioPeriodo :calendarioPeriodoList){
-//            if(fecha>=calendarioPeriodo.getFechaInicio()&& fecha<=calendarioPeriodo.getFechaFin())
-//                calendarioActualId= calendarioPeriodo.getCalendarioPeriodoId();
-//        }
 
         List<Caso>casoList= SQLite.select().from(Caso.class)
                 .where(Caso_Table.alumnoId.withTable().eq(alumno.getPersonaId()))
@@ -103,6 +97,55 @@ public class CasoLocalDataSource implements CasoDataSource {
                 cursoUi.setNombre(cursoCustom.getNombre());
                 casoUi.setCursoUi(cursoUi);
             }
+            //trer recursos archivos
+            List<CasoArchivo>casoArchivoList= SQLite.select()
+                    .from(CasoArchivo.class)
+                    .where(CasoArchivo_Table.casoId.withTable().eq(caso.getKey()))
+                    .queryList();
+            Log.d(TAG, "CAOS LIST "+ casoArchivoList.size());
+
+            List<RepositorioFileUi>repositorioFileUiList= new ArrayList<>();
+            for (CasoArchivo casoArchivo : casoArchivoList) {
+                RepositorioFileUi archivoUi = new RepositorioFileUi();
+                archivoUi.setArchivoId(casoArchivo.getArchivoCasoId());
+                archivoUi.setNombreArchivo(casoArchivo.getNombre());
+                archivoUi.setNombreRecurso(casoArchivo.getNombre());
+                switch (casoArchivo.getTipoId()) {
+                    case CasoArchivo.TIPO_IMAGEN:
+                        archivoUi.setTipoFileU(RepositorioTipoFileU.IMAGEN);
+                        break;
+                    case CasoArchivo.TIPO_VIDEO:
+                        archivoUi.setTipoFileU(RepositorioTipoFileU.VIDEO);
+                        break;
+                    case CasoArchivo.TIPO_DOCUMENTO:
+                        archivoUi.setTipoFileU(RepositorioTipoFileU.DOCUMENTO);
+                        break;
+                    case CasoArchivo.TIPO_AUDIO:
+                        archivoUi.setTipoFileU(RepositorioTipoFileU.AUDIO);
+                        break;
+                    case CasoArchivo.TIPO_HOJA_CALCULO:
+                        archivoUi.setTipoFileU(RepositorioTipoFileU.HOJA_CALCULO);
+                        break;
+                    case CasoArchivo.TIPO_DIAPOSITIVA:
+                        archivoUi.setTipoFileU(RepositorioTipoFileU.DIAPOSITIVA);
+                        break;
+                    case CasoArchivo.TIPO_PDF:
+                        archivoUi.setTipoFileU(RepositorioTipoFileU.PDF);
+                        break;
+                }
+
+                archivoUi.setUrl(casoArchivo.getPath());
+                archivoUi.setPath(casoArchivo.getLocalPath());
+                if (TextUtils.isEmpty(casoArchivo.getLocalPath())) {
+                    archivoUi.setEstadoFileU(RepositorioEstadoFileU.SIN_DESCARGAR);
+                } else {
+                    archivoUi.setEstadoFileU(RepositorioEstadoFileU.DESCARGA_COMPLETA);
+                }
+                archivoUi.setSelect(true);
+                repositorioFileUiList.add(archivoUi);
+
+            }
+            casoUi.setRepositorioFileUiList(repositorioFileUiList);
             casoUiList.add(casoUi);
         }
         alumnoUi.setCasoUiList(casoUiList);
@@ -124,6 +167,21 @@ public class CasoLocalDataSource implements CasoDataSource {
         alumnoUi.setTipoPadreUiList(tipoPadreUiList);
         alumnoUiSucessCallback.onLoad(true, alumnoUi);
 
+    }
+
+    @Override
+    public void updateSucessDowload(String archivoId, String path, CallbackSuccess callback) {
+        CasoArchivo archivo = SQLite.select()
+                .from(CasoArchivo.class)
+                .where(CasoArchivo_Table.key.eq(archivoId))
+                .querySingle();
+        if (archivo != null) {
+            archivo.setLocalPath(path);
+            boolean success = archivo.save();
+            callback.onLoad(success);
+        } else {
+            callback.onLoad(false);
+        }
     }
 
     public  FechaUi f_fecha_letras(long timesTamp) {

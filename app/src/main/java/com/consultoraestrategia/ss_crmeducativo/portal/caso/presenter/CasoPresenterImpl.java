@@ -6,12 +6,17 @@ import android.util.Log;
 
 import com.consultoraestrategia.ss_crmeducativo.base.UseCase;
 import com.consultoraestrategia.ss_crmeducativo.base.UseCaseHandler;
+import com.consultoraestrategia.ss_crmeducativo.base.UseCaseSincrono;
 import com.consultoraestrategia.ss_crmeducativo.base.fragment.BaseFragmentPresenterImpl;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.domain.useCase.GetAlumnoCasos;
+import com.consultoraestrategia.ss_crmeducativo.portal.caso.domain.useCase.UpdateSuccesDowloadCasoArchivo;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.entities.CasoUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.entities.TipoPadreUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.ui.CasoView;
 import com.consultoraestrategia.ss_crmeducativo.portal.wrapper.MainParametrosGlobales;
+import com.consultoraestrategia.ss_crmeducativo.repositorio.entities.RepositorioEstadoFileU;
+import com.consultoraestrategia.ss_crmeducativo.repositorio.entities.RepositorioFileUi;
+import com.consultoraestrategia.ss_crmeducativo.repositorio.useCase.DowloadImageUseCase;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
 
 import java.util.List;
@@ -25,10 +30,14 @@ public class CasoPresenterImpl extends BaseFragmentPresenterImpl<CasoView>  impl
     List<Object>objectList;
     List<TipoPadreUi>tipoPadreUiList;
     String TAG= CasoPresenterImpl.class.getSimpleName();
+    private DowloadImageUseCase dowloadImageUseCase;
+    private UpdateSuccesDowloadCasoArchivo updateSuccesDowloadCasoArchivo;
 
-    public CasoPresenterImpl(UseCaseHandler handler, Resources res,  GetAlumnoCasos getAlumnoCasos) {
+    public CasoPresenterImpl(UseCaseHandler handler, Resources res,  GetAlumnoCasos getAlumnoCasos,DowloadImageUseCase dowloadImageUseCase, UpdateSuccesDowloadCasoArchivo updateSuccesDowloadCasoArchivo) {
         super(handler, res);
         this.getAlumnoCasos=getAlumnoCasos;
+        this.dowloadImageUseCase=dowloadImageUseCase;
+        this.updateSuccesDowloadCasoArchivo=updateSuccesDowloadCasoArchivo;
     }
 
 
@@ -105,5 +114,60 @@ public class CasoPresenterImpl extends BaseFragmentPresenterImpl<CasoView>  impl
         if(casoUiList.size()>0) {if(view!=null)view.showListCasos(casoUiList);}
         else {if(view!=null)view.showTextEmpty(res.getString(R.string.mensaje_casosEmpty));}
 
+    }
+
+    @Override
+    public void onClickDownload(final RepositorioFileUi repositorioFileUi) {
+        handler.execute(dowloadImageUseCase, new DowloadImageUseCase.RequestValues(repositorioFileUi),
+                new UseCase.UseCaseCallback<UseCase.ResponseValue>() {
+                    @Override
+                    public void onSuccess(UseCase.ResponseValue response) {
+                        if(response instanceof DowloadImageUseCase.ResponseProgressValue){
+                            DowloadImageUseCase.ResponseProgressValue responseProgressValue = (DowloadImageUseCase.ResponseProgressValue) response;
+                            view.setUpdateProgress(responseProgressValue.getRepositorioFileUi(), responseProgressValue.getCount());
+                            Log.d(TAG,":( :" + repositorioFileUi.getNombreArchivo() +" = " + responseProgressValue.getRepositorioFileUi().getNombreArchivo());
+                        }
+                        if(response instanceof DowloadImageUseCase.ResponseSuccessValue){
+                            final DowloadImageUseCase.ResponseSuccessValue responseValue = (DowloadImageUseCase.ResponseSuccessValue) response;
+                            saveRegistorRecursos(repositorioFileUi, new UseCaseSincrono.Callback<Boolean>() {
+                                @Override
+                                public void onResponse(boolean success, Boolean value) {
+                                    if(!success){
+                                        responseValue.getRepositorioFileUi().setEstadoFileU(RepositorioEstadoFileU.ERROR_DESCARGA);
+                                        Log.d(TAG,"error al actualizar archivoId: " + repositorioFileUi.getArchivoId()+ " con el pathLocal:" + responseValue.getRepositorioFileUi().getPath());
+                                    }
+                                    view.setUpdate(responseValue.getRepositorioFileUi());
+                                }
+                            });
+                            Log.d(TAG,"pathLocal:" + responseValue.getRepositorioFileUi().getPath());
+                        }
+                        if(response instanceof DowloadImageUseCase.ResponseErrorValue){
+                            DowloadImageUseCase.ResponseErrorValue responseErrorValue = (DowloadImageUseCase.ResponseErrorValue) response;
+                            view.setUpdate(responseErrorValue.getRepositorioFileUi());
+                        }
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                }
+        );
+    }
+
+    private void saveRegistorRecursos(RepositorioFileUi repositorioFileUi, UseCaseSincrono.Callback<Boolean> booleanCallback) {
+        updateSuccesDowloadCasoArchivo.execute(new UpdateSuccesDowloadCasoArchivo.Request(repositorioFileUi.getArchivoId(), repositorioFileUi.getPath()), booleanCallback);
+    }
+
+    @Override
+    public void onClickClose(RepositorioFileUi repositorioFileUi) {
+        repositorioFileUi.setCancel(true);
+    }
+
+    @Override
+    public void onClickArchivo(RepositorioFileUi repositorioFileUi) {
+        if(repositorioFileUi.getEstadoFileU()== RepositorioEstadoFileU.DESCARGA_COMPLETA){
+            if(view!=null)view.leerArchivo(repositorioFileUi.getPath());
+        }
     }
 }

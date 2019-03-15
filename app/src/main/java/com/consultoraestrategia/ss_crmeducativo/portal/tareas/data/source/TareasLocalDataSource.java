@@ -138,13 +138,14 @@ ParametrosDisenioDao parametrosDisenioDao;
                                 .where(ValorTipoNotaC_Table.valorTipoNotaId.withTable()
                                         .eq(evaluacionProcesoC.getValorTipoNotaId())).querySingle();
 
-
+                        Log.d(TAG, "tirulo tarea "+ tareasC.getTitulo());
                         ValorTipoNotaUi valorTipoNotaUi= new ValorTipoNotaUi();
+                        if(valorTipoNotaC!=null || evaluacionProcesoC.getNota()>0)countCalificadas++;
                         if(valorTipoNotaC !=null){
                             Log.d(TAG, "valor NOTA "+ valorTipoNotaC.getTitulo());
                             Log.d(TAG, "valor ALIAS  "+ valorTipoNotaC.getAlias());
                             valorTipoNotaUi.setAlias(valorTipoNotaC.getAlias());
-                            countCalificadas++;
+
                             TipoNotaC tipoNotaC= SQLite.select().from(TipoNotaC.class)
                                     .where(TipoNotaC_Table.tipoNotaId.withTable()
                                             .eq(valorTipoNotaC.getTipoNotaId())).querySingle();
@@ -164,7 +165,6 @@ ParametrosDisenioDao parametrosDisenioDao;
                                     valorTipoNotaUi.setValor(valorTipoNotaC.getTitulo());
                                     tipoNotaUi.setTipo(TipoNotaUi.Tipo.SELECTOR_VALORES);
                                     break;
-
                             }
 
                             tipoNotaUi.setValorTipoNotaUi(valorTipoNotaUi);
@@ -256,7 +256,7 @@ ParametrosDisenioDao parametrosDisenioDao;
                //     Log.d(TAG, "docente "+persona.getNombreCompleto());
                     tareasUi.setDocente(persona.getNombreCompleto());
                     cursoUi.setDocente(persona.getNombreCompleto());
-                }
+                }else cursoUi.setDocente("");
                 //traer docente
 
                 //traer curso;
@@ -296,13 +296,12 @@ ParametrosDisenioDao parametrosDisenioDao;
                                 .where(ValorTipoNotaC_Table.valorTipoNotaId.withTable()
                                         .eq(evaluacionProcesoC.getValorTipoNotaId())).querySingle();
 
-
+                        if(valorTipoNotaC!=null || evaluacionProcesoC.getNota()>0)countCalificadas++;
                         ValorTipoNotaUi valorTipoNotaUi= new ValorTipoNotaUi();
                         if(valorTipoNotaC !=null){
-                            Log.d(TAG, "valor NOTA "+ valorTipoNotaC.getTitulo());
-                            Log.d(TAG, "valor ALIAS  "+ valorTipoNotaC.getAlias());
+                     //       Log.d(TAG, "valor NOTA "+ valorTipoNotaC.getTitulo());
+                        //    Log.d(TAG, "valor ALIAS  "+ valorTipoNotaC.getAlias());
                             valorTipoNotaUi.setAlias(valorTipoNotaC.getAlias());
-                            countCalificadas++;
                             TipoNotaC tipoNotaC= SQLite.select().from(TipoNotaC.class)
                                     .where(TipoNotaC_Table.tipoNotaId.withTable()
                                             .eq(valorTipoNotaC.getTipoNotaId())).querySingle();

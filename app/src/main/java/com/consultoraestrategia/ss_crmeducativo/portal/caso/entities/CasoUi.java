@@ -1,6 +1,9 @@
 package com.consultoraestrategia.ss_crmeducativo.portal.caso.entities;
 
 import com.consultoraestrategia.ss_crmeducativo.entities.queryCustomList.CursoCustom;
+import com.consultoraestrategia.ss_crmeducativo.repositorio.entities.RepositorioFileUi;
+
+import java.util.List;
 
 public class CasoUi {
 
@@ -9,6 +12,7 @@ public class CasoUi {
     private FechaUi fechaUi;
     private TipoHijoUi tipoHijoUi;
     private CursoUi cursoUi;
+    private List<RepositorioFileUi> repositorioFileUiList;
 
     public String getId() {
         return id;
@@ -50,7 +54,12 @@ public class CasoUi {
         this.cursoUi = cursoUi;
     }
 
-    ;
 
+    public List<RepositorioFileUi> getRepositorioFileUiList() {
+        return repositorioFileUiList;
+    }
 
+    public void setRepositorioFileUiList(List<RepositorioFileUi> repositorioFileUiList) {
+        this.repositorioFileUiList = repositorioFileUiList;
+    }
 }

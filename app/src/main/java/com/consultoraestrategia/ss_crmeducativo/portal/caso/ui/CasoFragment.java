@@ -3,14 +3,17 @@ package com.consultoraestrategia.ss_crmeducativo.portal.caso.ui;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.consultoraestrategia.ss_crmeducativo.api.retrofit.ApiRetrofit;
 import com.consultoraestrategia.ss_crmeducativo.base.UseCaseHandler;
 import com.consultoraestrategia.ss_crmeducativo.base.UseCaseThreadPoolScheduler;
 import com.consultoraestrategia.ss_crmeducativo.base.fragment.BaseFragment;
@@ -18,15 +21,25 @@ import com.consultoraestrategia.ss_crmeducativo.lib.autoColumnGrid.AutoColumnGri
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.data.CasoLocalDataSource;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.data.CasoRepository;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.domain.useCase.GetAlumnoCasos;
+import com.consultoraestrategia.ss_crmeducativo.portal.caso.domain.useCase.UpdateSuccesDowloadCasoArchivo;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.entities.CasoUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.entities.TipoPadreUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.presenter.CasoPresenter;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.presenter.CasoPresenterImpl;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.ui.adapter.CasoColumnGridLayoutManager;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.ui.adapter.CasosAdapter;
+import com.consultoraestrategia.ss_crmeducativo.repositorio.adapterDownload.adapter.DownloadItemListener;
+import com.consultoraestrategia.ss_crmeducativo.repositorio.data.RepositorioRepository;
+import com.consultoraestrategia.ss_crmeducativo.repositorio.data.local.RepositorioLocalDataSource;
+import com.consultoraestrategia.ss_crmeducativo.repositorio.data.preferents.RepositorioPreferentsDataSource;
+import com.consultoraestrategia.ss_crmeducativo.repositorio.data.remote.RepositorioRemoteDataSource;
+import com.consultoraestrategia.ss_crmeducativo.repositorio.entities.RepositorioFileUi;
+import com.consultoraestrategia.ss_crmeducativo.repositorio.useCase.DowloadImageUseCase;
 import com.consultoraestrategia.ss_crmeducativo.util.InjectorUtils;
+import com.consultoraestrategia.ss_crmeducativo.util.OpenIntents;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +47,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class CasoFragment extends BaseFragment<CasoView, CasoPresenter, CasoListener> implements CasoView {
+public class CasoFragment extends BaseFragment<CasoView, CasoPresenter, CasoListener> implements CasoView,  DownloadItemListener {
 
     String TAG = CasoFragment.class.getSimpleName();
     @BindView(R.id.recyclerCaso)
@@ -63,7 +76,12 @@ public class CasoFragment extends BaseFragment<CasoView, CasoPresenter, CasoList
     @Override
     protected CasoPresenter getPresenter() {
         CasoRepository casoRepository = new CasoRepository(new CasoLocalDataSource(InjectorUtils.provideCursoDao()));
-        presenter = new CasoPresenterImpl(new UseCaseHandler(new UseCaseThreadPoolScheduler()), getResources(), new GetAlumnoCasos(casoRepository));
+        presenter = new CasoPresenterImpl(new UseCaseHandler(new UseCaseThreadPoolScheduler()), getResources(), new GetAlumnoCasos(casoRepository)
+        , new DowloadImageUseCase(new RepositorioRepository(
+                new RepositorioLocalDataSource(),
+                new RepositorioPreferentsDataSource(),
+                new RepositorioRemoteDataSource(ApiRetrofit.getInstance())
+        )), new UpdateSuccesDowloadCasoArchivo(casoRepository));
         return presenter;
     }
 
@@ -103,7 +121,7 @@ public class CasoFragment extends BaseFragment<CasoView, CasoPresenter, CasoList
         CasoColumnGridLayoutManager columnCountProvider = new CasoColumnGridLayoutManager(getContext());
         autoColumnGridLayoutManager.setColumnCountProvider(columnCountProvider);
         recyclerCaso.setLayoutManager(autoColumnGridLayoutManager);
-        casosAdapter = new CasosAdapter(new ArrayList<CasoUi>());
+        casosAdapter = new CasosAdapter(new ArrayList<CasoUi>(), this, recyclerCaso);
         recyclerCaso.setAdapter(casosAdapter);
         recyclerCaso.setHasFixedSize(true);
     }
@@ -150,5 +168,37 @@ public class CasoFragment extends BaseFragment<CasoView, CasoPresenter, CasoList
     public void showTextEmpty(String string) {
         txtemptyproEd.setText(string);
         txtemptyproEd.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void leerArchivo(String path) {
+        if(!TextUtils.isEmpty(path)){
+            OpenIntents.openFile(FileProvider.getUriForFile(getContext(), getContext().getApplicationContext().getPackageName() + ".provider", new File(path)), getContext());
+        }
+    }
+
+    @Override
+    public void setUpdateProgress(RepositorioFileUi repositorioFileUi, int count) {
+        casosAdapter.updateProgress(repositorioFileUi, count);
+    }
+
+    @Override
+    public void setUpdate(RepositorioFileUi repositorioFileUi) {
+        casosAdapter.update(repositorioFileUi);
+    }
+
+    @Override
+    public void onClickDownload(RepositorioFileUi repositorioFileUi) {
+       presenter.onClickDownload(repositorioFileUi);
+    }
+
+    @Override
+    public void onClickClose(RepositorioFileUi repositorioFileUi) {
+      presenter.onClickClose(repositorioFileUi);
+    }
+
+    @Override
+    public void onClickArchivo(RepositorioFileUi repositorioFileUi) {
+        presenter.onClickArchivo(repositorioFileUi);
     }
 }

@@ -2,9 +2,9 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="80dp"
-    android:background="@color/md_white_1000"
-    android:layout_height="50dp">
+    android:layout_width="70dp"
+    android:layout_height="50dp"
+    android:background="@color/md_white_1000">
 
     <TextView
         android:id="@+id/cantidad"
@@ -31,5 +31,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cantidad"
-        tools:text="Asignadas" />
+        tools:text="Calificadas" />
 </android.support.constraint.ConstraintLayout>

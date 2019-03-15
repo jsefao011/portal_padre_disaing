@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.consultoraestrategia.ss_crmeducativo.lib.autoColumnGrid.AutoColumnGridLayoutManager;
@@ -48,7 +49,7 @@ public class CursoHolder   extends RecyclerView.ViewHolder implements View. OnCl
     public void bind(CursoUi cursoUi){
         recyclerTareas.setVisibility(View.GONE);
         curso.setText(cursoUi.getCurso());
-        docente.setText("Profesor: "+cursoUi.getDocente());
+        docente.setText(cursoUi.getDocente());
         try { content.setBackgroundColor(Color.parseColor(cursoUi.getColoCurso()));
             linea.setBackgroundColor(Color.parseColor(cursoUi.getColoCurso()));
         }catch (Exception e){e.getStackTrace();}
