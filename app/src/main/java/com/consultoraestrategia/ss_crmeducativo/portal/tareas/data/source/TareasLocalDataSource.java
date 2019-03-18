@@ -83,6 +83,7 @@ ParametrosDisenioDao parametrosDisenioDao;
             for(TareasC tareasC: listaTareasCList){
                 total++;
                 TareasUi tareasUi= new TareasUi();
+                tareasUi.setTipoLista(TareasUi.TipoLista.GENERAL);
                 tareasUi.setCount(total);
                 Persona persona;
                 From<Persona> personaWhere = SQLite.select(Utils.f_allcolumnTable(Persona_Table.ALL_COLUMN_PROPERTIES))
@@ -228,7 +229,7 @@ ParametrosDisenioDao parametrosDisenioDao;
             CursoUi cursoUi= new CursoUi();
             //parametri disenio
             ParametrosDisenio parametrosDisenio= parametrosDisenioDao.obtenerPorCargaCurso(cargaCursos.getCargaCursoId());
-            if(parametrosDisenio!=null)cursoUi.setColoCurso(parametrosDisenio.getColor1());
+            if(parametrosDisenio!=null)cursoUi.setColoCurso(parametrosDisenio.getColor3());
 
 
             int countCalificadas=0;
@@ -239,6 +240,7 @@ ParametrosDisenioDao parametrosDisenioDao;
                 total++;
               //  Log.d(TAG, "tareasC titulo  "+tareasC.getTitulo()+ " id tarea "+ tareasC.getTareaId());
                 TareasUi tareasUi= new TareasUi();
+                tareasUi.setTipoLista(TareasUi.TipoLista.CURSO);
                 tareasUi.setCount(total);
                 Persona persona;
                 From<Persona> personaWhere = SQLite.select(Utils.f_allcolumnTable(Persona_Table.ALL_COLUMN_PROPERTIES))
@@ -254,7 +256,7 @@ ParametrosDisenioDao parametrosDisenioDao;
 
                 if(persona!=null){
                //     Log.d(TAG, "docente "+persona.getNombreCompleto());
-                    tareasUi.setDocente(persona.getNombreCompleto());
+                   // tareasUi.setDocente(persona.getNombreCompleto());
                     cursoUi.setDocente(persona.getNombreCompleto());
                 }else cursoUi.setDocente("");
                 //traer docente
@@ -264,11 +266,10 @@ ParametrosDisenioDao parametrosDisenioDao;
                 integerList.add(cargaCursos.getCargaCursoId());
                 List<CursoCustom>cursoCustomList= cursoDao.obtenerPorCargaCursos(integerList);
                 for(CursoCustom cursoCustom:cursoCustomList ){
-                    tareasUi.setCurso(cursoCustom.getNombre());
+                    //tareasUi.setCurso(cursoCustom.getNombre());
                     cursoUi.setCurso(cursoCustom.getNombre());
                 }
                 tareasUi.setNombre(tareasC.getTitulo());
-                tareasUi.setDescripcion(tareasC.getInstrucciones());
                 //traer fecha tarea
                 tareasUi.setFechaUiInicio(getFecha(tareasC.getFechaCreacion()));
                 tareasUi.setFechaUiFin(getFecha(tareasC.getFechaEntrega()));

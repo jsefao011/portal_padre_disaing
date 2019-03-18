@@ -19,6 +19,7 @@ public class CursoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     List<CursoUi> cursoUiList;
 
 
+
     public CursoAdapter(List<CursoUi> cursoUiList) {
         this.cursoUiList = cursoUiList;
     }

@@ -66,6 +66,16 @@ public class TareasPresenterImpl extends BaseFragmentPresenterImpl<TareaView > i
         getTareasGenerales();
     }
 
+    @Override
+    public void onDestroyTabTareaCurso() {
+       tareaCursoView=null;
+    }
+
+    @Override
+    public void onDestroyTabTareaGeneral() {
+        tareaGeneralesView=null;
+    }
+
     private void getcursos() {
 
         handler.execute(getTareasPorCurso, new GetTareasPorCurso.RequestValues(idAlumno), new UseCase.UseCaseCallback<GetTareasPorCurso.ResponseValue>() {

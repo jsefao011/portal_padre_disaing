@@ -155,7 +155,8 @@ public class TareasFragment extends BaseFragment<TareaView,TareasPresenter, Tare
 
     @Override
     public void onFragmentViewDestroyed(Fragment f) {
-
+        if(f instanceof FragmentTareasCurso ) presenter.onDestroyTabTareaCurso();
+        else if(f instanceof  FragmentTareasGenerales)presenter.onDestroyTabTareaGeneral();
     }
 
     @Override

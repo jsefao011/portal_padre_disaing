@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.consultoraestrategia.ss_crmeducativo.base.viewpager.ViewPagerItemListener;
 import com.consultoraestrategia.ss_crmeducativo.lib.autoColumnGrid.AutoColumnGridLayoutManager;
-import com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters.CabeceraAdapter;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters.TareaAdapter;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters.TareaColumnCountProvider;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.TareaUiCount;
@@ -35,8 +34,7 @@ public class FragmentTareasGenerales extends Fragment implements TareaGeneralesV
 
     Unbinder unbinder;
     TareasPresenter tareasPresenter;
-    @BindView(R.id.recyclerCount)
-    RecyclerView recyclerCount;
+
     @BindView(R.id.recyclerTareas)
     RecyclerView recyclerTareas;
     @BindView(R.id.content)
@@ -47,8 +45,19 @@ public class FragmentTareasGenerales extends Fragment implements TareaGeneralesV
     TextView linea;
     @BindView(R.id.progress)
     ProgressBar progress;
+    @BindView(R.id.cantidadA)
+    TextView cantidadA;
+    @BindView(R.id.asignado)
+    TextView asignado;
+    @BindView(R.id.cantidade)
+    TextView cantidade;
+    @BindView(R.id.entregar)
+    TextView entregar;
+    @BindView(R.id.cantidadc)
+    TextView cantidadc;
+    @BindView(R.id.calificado)
+    TextView calificado;
     private TareaAdapter tareasAdapter;
-    private CabeceraAdapter cabeceraAdapter;
 
     public static FragmentTareasGenerales newInstance() {
         FragmentTareasGenerales fragment = new FragmentTareasGenerales();
@@ -69,17 +78,7 @@ public class FragmentTareasGenerales extends Fragment implements TareaGeneralesV
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-       initAdapter();
-        initAdapterCabecera();
-    }
-
-    private void initAdapterCabecera() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerCount.setLayoutManager(linearLayoutManager);
-        cabeceraAdapter = new CabeceraAdapter(new ArrayList<TareaUiCount>());
-        recyclerCount.setAdapter(cabeceraAdapter);
-        recyclerCount.setHasFixedSize(true);
+        initAdapter();
 
     }
 
@@ -90,7 +89,7 @@ public class FragmentTareasGenerales extends Fragment implements TareaGeneralesV
         recyclerTareas.setLayoutManager(autoColumnGridLayoutManager);
         tareasAdapter = new TareaAdapter(new ArrayList<TareasUi>(), "");
         recyclerTareas.setAdapter(tareasAdapter);
-        recyclerCount.setHasFixedSize(true);
+        recyclerTareas.setHasFixedSize(true);
 
     }
 
@@ -119,7 +118,23 @@ public class FragmentTareasGenerales extends Fragment implements TareaGeneralesV
         content.setVisibility(View.VISIBLE);
         linea.setVisibility(View.VISIBLE);
         txtempty.setVisibility(View.GONE);
-        cabeceraAdapter.setObjectList(tareasCountUis);
+
+        //cabecera
+        TareaUiCount TareaAsignada= tareasCountUis.get(0);
+        cantidadA.setText(String.valueOf(TareaAsignada.getCantidad()));
+        asignado.setText("Asignada");
+        cantidadA.setTextColor(ContextCompat.getColor(getContext(), R.color.md_black_1000));
+
+        TareaUiCount TareaPorEntregar= tareasCountUis.get(1);
+        cantidade.setText(String.valueOf(TareaPorEntregar.getCantidad()));
+        entregar.setText("Por entregar");
+        cantidade.setTextColor(ContextCompat.getColor(getContext(), R.color.md_red_600));
+
+        TareaUiCount TareaCalificada= tareasCountUis.get(2);
+        cantidadc.setText(String.valueOf(TareaCalificada.getCantidad()));
+        calificado.setText("Calificadas");
+        cantidadc.setTextColor(ContextCompat.getColor(getContext(), R.color.md_black_1000));
+
     }
 
 

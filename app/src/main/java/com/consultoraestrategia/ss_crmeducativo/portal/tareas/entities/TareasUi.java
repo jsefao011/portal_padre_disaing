@@ -5,6 +5,7 @@ import java.util.List;
 public class TareasUi {
 
     public enum Tipo{NORMAL, RUBRO}
+    public enum TipoLista{GENERAL, CURSO}
     private int id;
     private String nombre;
     private String curso;
@@ -16,6 +17,8 @@ public class TareasUi {
     private TipoNotaUi tipoNotaUi;
     private Tipo tipo;
     private int count;
+    private TipoLista tipoLista;
+
 
 
     public TareasUi() {
@@ -108,6 +111,14 @@ public class TareasUi {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public TipoLista getTipoLista() {
+        return tipoLista;
+    }
+
+    public void setTipoLista(TipoLista tipoLista) {
+        this.tipoLista = tipoLista;
     }
 }
 
