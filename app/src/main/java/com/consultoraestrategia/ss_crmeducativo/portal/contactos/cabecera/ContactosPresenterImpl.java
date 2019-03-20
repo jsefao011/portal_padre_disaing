@@ -91,14 +91,13 @@ public class ContactosPresenterImpl extends BaseFragmentPresenterImpl<ContactosV
     }
 
     private void setGetCompaneros() {
-        Log.d(TAG, "getComentariosList");
+        Log.d(TAG, "setGetCompaneros");
         handler.execute(getCompaneros,
                 new GetCompaneros.RequestValues(1590, 1), new UseCase.UseCaseCallback<GetCompaneros.ResponseValues>() {
                     @Override
                     public void onSuccess(GetCompaneros.ResponseValues response) {
                         List<Object> objects = new ArrayList<>();
                         objects.addAll(response.getList());
-                        Log.d("SizeList", "as" + objects.size());
                         if (detalleCompanerosView != null) detalleCompanerosView.showListCompaneros(objects);
                     }
 
@@ -130,7 +129,7 @@ public class ContactosPresenterImpl extends BaseFragmentPresenterImpl<ContactosV
     private void setGetAdministrativo() {
         Log.d(TAG, "getAdministrativosList");
         handler.execute(getAdministrativo,
-                new GetAdministrativo.RequestValues(1590, 1), new UseCase.UseCaseCallback<GetAdministrativo.ResponseValues>() {
+                new GetAdministrativo.RequestValues(idAlumno, 1), new UseCase.UseCaseCallback<GetAdministrativo.ResponseValues>() {
                     @Override
                     public void onSuccess(GetAdministrativo.ResponseValues response) {
                         List<Object> objects = new ArrayList<>();

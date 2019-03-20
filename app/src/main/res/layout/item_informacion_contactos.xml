@@ -6,44 +6,58 @@
     android:background="@color/md_white_1000">
 
 
-
-
-    <ImageView
-        android:id="@+id/view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tipo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:text="Hijo"
-        android:textSize="20dp"
-        android:fontFamily="sans-serif-light"
-        android:textColor="@color/colorPrimary"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/view2"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_onClick"
         android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/md_blue_grey_50"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tipo" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tipo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-light"
+            android:maxLines="1"
+            android:text="Hijo"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@color/md_blue_grey_50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tipo" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
 
 
     <android.support.constraint.ConstraintLayout
@@ -56,7 +70,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2">
+        app:layout_constraintTop_toBottomOf="@+id/cl_onClick">
 
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -79,6 +93,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
+            android:textColorHint="@color/colorPrimary"
             android:fontFamily="sans-serif-light"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -91,6 +106,7 @@
                 android:hint="Nombre"
                 android:paddingLeft="3dp"
                 android:focusable="false"
+                android:textColor="#B5B3B3"
                 android:fontFamily="sans-serif-light"
                 android:enabled="false"
                 />
@@ -104,6 +120,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="sans-serif-light"
             android:layout_marginEnd="24dp"
+            android:textColorHint="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_nombre">
@@ -113,6 +130,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
+                android:textColor="#B5B3B3"
                 android:focusable="false"
                 android:paddingLeft="3dp"
                 android:fontFamily="sans-serif-light"
@@ -127,6 +145,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:fontFamily="sans-serif-light"
+            android:textColorHint="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_primerApellido">
@@ -136,9 +155,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Celular"
+                android:textColor="#B5B3B3"
                 android:paddingLeft="3dp"
+                android:focusable="false"
+                android:enabled="false"
                 android:fontFamily="sans-serif-light"
-                android:drawableLeft="@drawable/call"
                 android:inputType="number" />
         </android.support.design.widget.TextInputLayout>
 
@@ -151,6 +172,7 @@
             android:layout_marginEnd="24dp"
             android:fontFamily="sans-serif-light"
             app:layout_constraintEnd_toEndOf="parent"
+            android:textColorHint="@color/colorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_telefono">
 
@@ -159,10 +181,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint=" Mail"
-                android:paddingLeft="3dp"
+                android:textColor="#B5B3B3"
+                android:focusable="false"
+                android:enabled="false"
                 android:fontFamily="sans-serif-light"
-                android:drawableLeft="@drawable/gmail"
-                android:drawablePadding="3dp"
                 android:inputType="textEmailAddress" />
         </android.support.design.widget.TextInputLayout>
 
@@ -177,6 +199,7 @@
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/view3"
             app:layout_constraintEnd_toEndOf="parent"
+            android:textColorHint="@color/colorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/til_correo">
 
@@ -184,11 +207,11 @@
                 android:id="@+id/direcciones"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/maping"
                 android:hint="Direccion"
-                android:paddingLeft="3dp"
-                android:fontFamily="sans-serif-light"
-                android:inputType="textEmailAddress" />
+                android:textColor="#B5B3B3"
+                android:focusable="false"
+                android:enabled="false"
+                android:fontFamily="sans-serif-light"/>
         </android.support.design.widget.TextInputLayout>
 
         <View

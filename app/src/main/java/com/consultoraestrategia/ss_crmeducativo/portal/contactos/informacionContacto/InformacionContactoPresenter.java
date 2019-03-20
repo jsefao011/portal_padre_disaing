@@ -1,0 +1,7 @@
+package com.consultoraestrategia.ss_crmeducativo.portal.contactos.informacionContacto;
+
+import com.consultoraestrategia.ss_crmeducativo.base.fragment.BaseFragmentPresenter;
+import com.consultoraestrategia.ss_crmeducativo.portal.contactos.informacionContacto.ui.InformacionContactoView;
+
+public interface InformacionContactoPresenter extends BaseFragmentPresenter<InformacionContactoView> {
+}

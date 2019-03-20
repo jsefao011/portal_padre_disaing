@@ -14,7 +14,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 @Table(database = AppDatabase.class)
 public class Relaciones extends BaseModel {
 
-    public static final int PADRE= 181, MADRE=182;
+    public static final int PADRE= 181, MADRE=182, ABUELO_A=469, TIO_A=491;
     @Unique
     @Column
     @PrimaryKey

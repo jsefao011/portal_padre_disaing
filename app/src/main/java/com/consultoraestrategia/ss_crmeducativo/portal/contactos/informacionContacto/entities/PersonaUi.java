@@ -1,4 +1,6 @@
-package com.consultoraestrategia.ss_crmeducativo.portal.contactos.entities;
+package com.consultoraestrategia.ss_crmeducativo.portal.contactos.informacionContacto.entities;
+
+import com.consultoraestrategia.ss_crmeducativo.portal.contactos.entities.ApoderadoUi;
 
 public class PersonaUi {
 
@@ -20,8 +22,8 @@ public class PersonaUi {
     private int estadoId;
     private String correo;
     private String direccion;
-    private Tipo tipo=Tipo.DOCENTE;
-    private TipoObjeto tipoObjeto=TipoObjeto.PERSONA;
+    private Tipo tipo= Tipo.DOCENTE;
+    private TipoObjeto tipoObjeto= TipoObjeto.PERSONA;
     private ApoderadoUi apoderadoUi;
     private int numOrd;
 

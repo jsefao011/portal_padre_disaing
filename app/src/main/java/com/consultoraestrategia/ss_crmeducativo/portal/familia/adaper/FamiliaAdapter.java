@@ -72,8 +72,4 @@ public class FamiliaAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolde
         notifyDataSetChanged();
     }
 
-
-    public void onHideKeyBoardTrue(EditText textTelefono, EditText gmail, EditText direccion) {
-        familiaListener.onHideKeyBoardTrue(textTelefono, gmail, direccion);
-    }
 }
