@@ -2,18 +2,9 @@ package com.consultoraestrategia.ss_crmeducativo.portal.familia.data.source.loca
 
 import android.util.Log;
 
-import com.consultoraestrategia.ss_crmeducativo.api.retrofit.ApiRetrofit;
 import com.consultoraestrategia.ss_crmeducativo.dao.personaDao.PersonaDao;
-import com.consultoraestrategia.ss_crmeducativo.entities.BaseEntity;
-import com.consultoraestrategia.ss_crmeducativo.entities.CargaCursos;
-import com.consultoraestrategia.ss_crmeducativo.entities.CargaCursos_Table;
-import com.consultoraestrategia.ss_crmeducativo.entities.CasoReporte_Table;
 import com.consultoraestrategia.ss_crmeducativo.entities.Contrato;
 import com.consultoraestrategia.ss_crmeducativo.entities.Contrato_Table;
-import com.consultoraestrategia.ss_crmeducativo.entities.DetalleContratoAcad;
-import com.consultoraestrategia.ss_crmeducativo.entities.DetalleContratoAcad_Table;
-import com.consultoraestrategia.ss_crmeducativo.entities.Empleado;
-import com.consultoraestrategia.ss_crmeducativo.entities.Empleado_Table;
 import com.consultoraestrategia.ss_crmeducativo.entities.Persona;
 import com.consultoraestrategia.ss_crmeducativo.entities.Persona_Table;
 import com.consultoraestrategia.ss_crmeducativo.entities.Relaciones;
@@ -21,13 +12,9 @@ import com.consultoraestrategia.ss_crmeducativo.entities.Relaciones_Table;
 import com.consultoraestrategia.ss_crmeducativo.lib.AppDatabase;
 import com.consultoraestrategia.ss_crmeducativo.portal.familia.data.source.FamiliaDataSource;
 import com.consultoraestrategia.ss_crmeducativo.portal.familia.entities.PersonaUi;
-import com.consultoraestrategia.ss_crmeducativo.util.Utils;
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.config.FlowManager;
-import com.raizlabs.android.dbflow.converter.SqlDateConverter;
-import com.raizlabs.android.dbflow.sql.language.Operator;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
-import com.raizlabs.android.dbflow.sql.language.Where;
 import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
 
 import java.util.ArrayList;
@@ -118,7 +105,7 @@ public class FamiliaLocalDataSource implements FamiliaDataSource {
                 personaUi.setDireccion(persona.getDireccion());
                 personaUi.setUrlImagen(persona.getFoto());
                 personaUi.setTipo(PersonaUi.Tipo.HIJO);
-                personaUi.setNum(3);
+                personaUi.setNum(5);
                 personaUi.setApoderado(false);
                 objectSet.add(personaUi);
             }
@@ -164,6 +151,14 @@ public class FamiliaLocalDataSource implements FamiliaDataSource {
                 case Relaciones.PADRE:
                     personaUi.setTipo(PersonaUi.Tipo.PADRE);
                     personaUi.setNum(1);
+                    break;
+                case Relaciones.ABUELO_A:
+                    personaUi.setTipo(PersonaUi.Tipo.ABUELO);
+                    personaUi.setNum(3);
+                    break;
+                case Relaciones.TIO_A:
+                    personaUi.setTipo(PersonaUi.Tipo.TIO);
+                    personaUi.setNum(4);
                     break;
             }
 

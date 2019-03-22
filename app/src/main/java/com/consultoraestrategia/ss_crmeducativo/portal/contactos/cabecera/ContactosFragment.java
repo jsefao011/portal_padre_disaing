@@ -88,7 +88,7 @@ public class ContactosFragment extends BaseFragment<ContactosView, ContactosPres
         super.onViewCreated(view, savedInstanceState);
         setupAdapterViewPager();
         setHasOptionsMenu(true);
-        //presenter.onCreate();
+        presenter.onViewCreated();
     }
 
     @Override

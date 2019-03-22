@@ -62,11 +62,10 @@ public class ContactosLocalDataSource implements ContactosDataSource {
                     .orderBy(Persona_Table.nombres.withTable().asc())
                     .queryList();
 
-
             for (Persona persona : personasList){
                 PersonaUi personaUi = new PersonaUi();
                 personaUi.setPersonaId(persona.getPersonaId());
-                personaUi.setNombres(persona.getNombreCompleto());
+                personaUi.setNombres(persona.getNombres());
                 personaUi.setApellidoMaterno(persona.getApellidoMaterno());
                 personaUi.setApellidoPaterno(persona.getApellidoPaterno());
                 personaUi.setCelular(persona.getCelular());
@@ -77,10 +76,37 @@ public class ContactosLocalDataSource implements ContactosDataSource {
                 personaUi.setGenero(persona.getGenero());
                 personaUi.setEstadoCivil(persona.getEstadoCivil());
                 personaUi.setNumDoc(persona.getNumDoc());
+                personaUi.setTipoObjeto(PersonaUi.TipoObjeto.PERSONA);
+
+                PersonaUi personaUi1 = new PersonaUi();
+                personaUi1.setTipoObjeto(PersonaUi.TipoObjeto.LETRA);
+                char letter = personaUi.getNombres().charAt(0);
+                String letterString = String.valueOf(letter);
+                personaUi1.setNombres(letterString);
+                objectList.add(personaUi1);
+
+                Persona apoderado = SQLite.select()
+                        .from(Persona.class)
+                        .innerJoin(Contrato.class)
+                        .on(Persona_Table.personaId.withTable().eq(Contrato_Table.personaId.withTable()))
+                        .where(Contrato_Table.personaId.withTable().eq(personaUi.getPersonaId()))
+                        .querySingle();
+
+                if (apoderado!=null){
+                    ApoderadoUi apoderadoUi = new ApoderadoUi();
+                    apoderadoUi.setId(apoderado.getPersonaId());
+                    apoderadoUi.setNombre(personaUi.getNombres());
+                    apoderadoUi.setApellido(personaUi.getApellidoMaterno() + " " + personaUi.getApellidoPaterno());
+                    apoderadoUi.setCelular(personaUi.getCelular());
+                    apoderadoUi.setCorreo(personaUi.getCorreo());
+                    personaUi.setApoderadoUi(apoderadoUi);
+                }
+
                 objectList.add(personaUi);
             }
+
+
             List<Object> objects = new ArrayList<>(objectList);
-            Log.d("tamanioda", "as" + objectList.size());
             callback.onLoad(true, objects);
         }catch (Exception e){
             e.printStackTrace();
@@ -107,12 +133,7 @@ public class ContactosLocalDataSource implements ContactosDataSource {
                     .and(Contrato_Table.vigente.withTable().eq(1))
                     .queryList();
 
-            for (CargaCursos cargaCurso : cargaCursos){
-                integerList.add(cargaCurso.getEmpleadoId());
-                Log.d("onEmpleadoId", "true"+ cargaCurso.getEmpleadoId());
-            }
-
-
+            for (CargaCursos cargaCurso : cargaCursos) integerList.add(cargaCurso.getEmpleadoId());
 
             List<Persona> personasList = SQLite.select()
                     .from(Persona.class)
@@ -135,23 +156,14 @@ public class ContactosLocalDataSource implements ContactosDataSource {
                 personaUi.setGenero(persona.getGenero());
                 personaUi.setEstadoCivil(persona.getEstadoCivil());
                 personaUi.setNumDoc(persona.getNumDoc());
+                personaUi.setTipoObjeto(PersonaUi.TipoObjeto.PERSONA);
 
-                Persona apoderado = SQLite.select()
-                        .from(Persona.class)
-                        .innerJoin(Contrato.class)
-                        .on(Persona_Table.personaId.withTable().eq(Contrato_Table.personaId.withTable()))
-                        .where(Contrato_Table.personaId.withTable().eq(personaUi.getPersonaId()))
-                        .querySingle();
-
-                if (apoderado!=null){
-                    ApoderadoUi apoderadoUi = new ApoderadoUi();
-                    apoderadoUi.setId(apoderado.getPersonaId());
-                    apoderadoUi.setNombre(personaUi.getNombres());
-                    apoderadoUi.setApellido(personaUi.getApellidoMaterno() + " " + personaUi.getApellidoPaterno());
-                    apoderadoUi.setCelular(personaUi.getCelular());
-                    apoderadoUi.setCorreo(personaUi.getCelular());
-                    personaUi.setApoderadoUi(apoderadoUi);
-                }
+                PersonaUi personaUi1 = new PersonaUi();
+                personaUi1.setTipoObjeto(PersonaUi.TipoObjeto.LETRA);
+                char letter = personaUi.getNombres().charAt(0);
+                String letterString = String.valueOf(letter);
+                personaUi1.setNombres(letterString);
+                objectList.add(personaUi1);
                 objectList.add(personaUi);
             }
 

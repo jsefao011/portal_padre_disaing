@@ -115,5 +115,9 @@ dependencies {
     implementation 'com.github.ittianyu:BottomNavigationViewEx:1.2.4'
     implementation 'com.github.chahine:pageindicator:0.2.3'
     implementation 'com.simplecityapps:recyclerview-fastscroll:1.0.5'
+    implementation 'com.github.kapilmhr:AlphabetIndexFastScrollRecyclerview:1.0.0'
+    implementation 'com.github.qiujayen:sticky-layoutmanager:1.0.1'
+
+    implementation 'com.github.jiang111:IndexRecyclerView:v1.1'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -2,7 +2,7 @@ package com.consultoraestrategia.ss_crmeducativo.portal.familia.entities;
 
 public class PersonaUi {
 
-    public enum Tipo{PADRE, MADRE, HIJO}
+    public enum Tipo{PADRE, MADRE, HIJO, ABUELO, TIO}
     private int idPersona;
     private String nombre;
     private String apellidoCompleto;
