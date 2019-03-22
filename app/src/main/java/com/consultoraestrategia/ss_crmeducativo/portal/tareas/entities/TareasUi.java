@@ -18,6 +18,8 @@ public class TareasUi {
     private Tipo tipo;
     private int count;
     private TipoLista tipoLista;
+    private String evalProcesoId;
+    private int cargaCursoId;
 
 
 
@@ -119,6 +121,22 @@ public class TareasUi {
 
     public void setTipoLista(TipoLista tipoLista) {
         this.tipoLista = tipoLista;
+    }
+
+    public String getEvalProcesoId() {
+        return evalProcesoId;
+    }
+
+    public void setEvalProcesoId(String evalProcesoId) {
+        this.evalProcesoId = evalProcesoId;
+    }
+
+    public int getCargaCursoId() {
+        return cargaCursoId;
+    }
+
+    public void setCargaCursoId(int cargaCursoId) {
+        this.cargaCursoId = cargaCursoId;
     }
 }
 

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -15,7 +16,9 @@ import com.consultoraestrategia.ss_crmeducativo.base.UseCaseHandler;
 import com.consultoraestrategia.ss_crmeducativo.base.UseCaseThreadPoolScheduler;
 import com.consultoraestrategia.ss_crmeducativo.base.fragment.BaseFragment;
 import com.consultoraestrategia.ss_crmeducativo.base.viewpager.LifecycleImpl;
+import com.consultoraestrategia.ss_crmeducativo.base.viewpager.ViewPagerItemListener;
 import com.consultoraestrategia.ss_crmeducativo.base.viewpager.ViewpagerAdapter;
+import com.consultoraestrategia.ss_crmeducativo.portal.rubroInformacion.ui.InfoRubroFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.data.source.TareasLocalDataSource;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.data.source.TareasRepository;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.presenter.TareaListener;
@@ -28,6 +31,8 @@ import com.consultoraestrategia.ss_crmeducativo.portal.tareas.useCase.GetTareasP
 import com.consultoraestrategia.ss_crmeducativo.util.InjectorUtils;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.Unbinder;
@@ -161,11 +166,23 @@ public class TareasFragment extends BaseFragment<TareaView,TareasPresenter, Tare
 
     @Override
     public void onFragmentActivityCreated(Fragment f, Bundle savedInstanceState) {
-
+        if(f instanceof ViewPagerItemListener){
+            ViewPagerItemListener<TareasPresenter> viewPagerItemFragment = (ViewPagerItemListener<TareasPresenter>)f;
+            viewPagerItemFragment.onAttach(presenter);
+        }
     }
 
     @Override
     public void showFinalMessageAceptCancel(CharSequence message, CharSequence messageTitle) {
+
+    }
+
+    @Override
+    public void showDialogInfoRubro(String EvalProcesoId, int cargaCursoId) {
+
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        InfoRubroFragment infoRubroFragment = InfoRubroFragment.newInstance(EvalProcesoId, cargaCursoId);
+        infoRubroFragment.show(manager, InfoRubroFragment.class.getSimpleName());
 
     }
 }

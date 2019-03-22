@@ -107,9 +107,9 @@ public class FragmentCabecera extends Fragment implements FragmentCabeceraView, 
 
     @Override
     public void onFragmentActivityCreated(Fragment f, Bundle savedInstanceState) {
-        if(f instanceof ViewPagerItemListener){
-            ViewPagerItemListener<CabeceraPresenter> viewPagerItemFragment = (ViewPagerItemListener<CabeceraPresenter>)f;
-            viewPagerItemFragment.onAttach(presenter);
-        }
+//        if(f instanceof ViewPagerItemListener){
+//            ViewPagerItemListener<CabeceraPresenter> viewPagerItemFragment = (ViewPagerItemListener<CabeceraPresenter>)f;
+//            viewPagerItemFragment.onAttach(presenter);
+//        }
     }
 }

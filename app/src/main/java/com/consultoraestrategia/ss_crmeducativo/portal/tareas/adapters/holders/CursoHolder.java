@@ -14,6 +14,7 @@ import com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters.TareaColu
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.CursoUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.TareaUiCount;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.TareasUi;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.presenter.TareaListener;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
 
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public class CursoHolder   extends RecyclerView.ViewHolder implements View. OnCl
     TextView cantidadc;
     @BindView(R.id.calificado)
     TextView calificado;
+    TareaListener tareaListener;
 
 
     public CursoHolder(View itemView) {
@@ -56,7 +58,8 @@ public class CursoHolder   extends RecyclerView.ViewHolder implements View. OnCl
         ButterKnife.bind(this, itemView);
         content.setOnClickListener(this);
     }
-    public void bind(CursoUi cursoUi){
+    public void bind(CursoUi cursoUi, TareaListener tareaListener){
+        this.tareaListener=tareaListener;
         recyclerTareas.setVisibility(View.GONE);
         curso.setText(cursoUi.getCurso());
         docente.setText(cursoUi.getDocente());
@@ -92,7 +95,7 @@ public class CursoHolder   extends RecyclerView.ViewHolder implements View. OnCl
         TareaColumnCountProvider columnCountProvider = new TareaColumnCountProvider(itemView.getContext());
         autoColumnGridLayoutManager.setColumnCountProvider(columnCountProvider);
         recyclerTareas.setLayoutManager(autoColumnGridLayoutManager);
-        tareaAdapter = new TareaAdapter(new ArrayList<TareasUi>(), "");
+        tareaAdapter = new TareaAdapter(new ArrayList<TareasUi>(), "", tareaListener);
         recyclerTareas.setAdapter(tareaAdapter);
         recyclerTareas.setHasFixedSize(true);
 

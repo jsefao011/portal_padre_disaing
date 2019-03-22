@@ -145,12 +145,12 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:minHeight="100dp"
-        app:column_header_height="@dimen/table_header_width_eval_session"
+        app:column_header_height="@dimen/info_rubro_column_corner_height"
         app:layout_constraintBottom_toTopOf="@+id/btnRetroceder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_logro"
-        app:row_header_width="@dimen/table_firstheader_width_eval_session"
+        app:row_header_width="@dimen/info_rubro_column_corner_width"
         app:shadow_color="@color/md_grey_50"
         app:unselected_color="@color/md_white_1000" />
 

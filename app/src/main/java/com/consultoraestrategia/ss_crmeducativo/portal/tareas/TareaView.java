@@ -6,4 +6,5 @@ import com.consultoraestrategia.ss_crmeducativo.portal.tareas.presenter.TareasPr
 public interface TareaView extends BaseView<TareasPresenter> {
 
 
+    void showDialogInfoRubro(String EvalProcesoId, int cargaCursoId);
 }

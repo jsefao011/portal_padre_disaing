@@ -1,4 +1,7 @@
 package com.consultoraestrategia.ss_crmeducativo.portal.tareas.presenter;
 
-public class TareaListener {
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.TareasUi;
+
+public interface TareaListener {
+    void onclickInfoRubro(TareasUi tareasUi);
 }

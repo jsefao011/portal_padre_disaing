@@ -85,6 +85,7 @@ ParametrosDisenioDao parametrosDisenioDao;
                 TareasUi tareasUi= new TareasUi();
                 tareasUi.setTipoLista(TareasUi.TipoLista.GENERAL);
                 tareasUi.setCount(total);
+                tareasUi.setCargaCursoId(cargaCursos.getCargaCursoId());
                 Persona persona;
                 From<Persona> personaWhere = SQLite.select(Utils.f_allcolumnTable(Persona_Table.ALL_COLUMN_PROPERTIES))
                         .from(Persona.class).
@@ -133,6 +134,7 @@ ParametrosDisenioDao parametrosDisenioDao;
 
                 if(evaluacionProcesoC!=null){
                     tareasUi.setTipo(TareasUi.Tipo.RUBRO);
+                    tareasUi.setEvalProcesoId(evaluacionProcesoC.getEvaluacionProcesoId());
                     TipoNotaUi tipoNotaUi=  new TipoNotaUi();
                     if(evaluacionProcesoC.getValorTipoNotaId()!=null){
                         ValorTipoNotaC valorTipoNotaC= SQLite.select().from(ValorTipoNotaC.class)
@@ -242,6 +244,7 @@ ParametrosDisenioDao parametrosDisenioDao;
                 TareasUi tareasUi= new TareasUi();
                 tareasUi.setTipoLista(TareasUi.TipoLista.CURSO);
                 tareasUi.setCount(total);
+                tareasUi.setCargaCursoId(cargaCursos.getCargaCursoId());
                 Persona persona;
                 From<Persona> personaWhere = SQLite.select(Utils.f_allcolumnTable(Persona_Table.ALL_COLUMN_PROPERTIES))
                         .from(Persona.class).
@@ -290,7 +293,7 @@ ParametrosDisenioDao parametrosDisenioDao;
 
                 if(evaluacionProcesoC!=null){
                     tareasUi.setTipo(TareasUi.Tipo.RUBRO);
-
+                    tareasUi.setEvalProcesoId(evaluacionProcesoC.getRubroEvalProcesoId());
                     TipoNotaUi tipoNotaUi=  new TipoNotaUi();
                     if(evaluacionProcesoC.getValorTipoNotaId()!=null){
                         ValorTipoNotaC valorTipoNotaC= SQLite.select().from(ValorTipoNotaC.class)

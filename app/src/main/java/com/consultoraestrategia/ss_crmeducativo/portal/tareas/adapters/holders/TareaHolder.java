@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -14,6 +15,7 @@ import com.consultoraestrategia.ss_crmeducativo.api.retrofit.ApiRetrofit;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.TareasUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.TipoNotaUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.ValorTipoNotaUi;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.presenter.TareaListener;
 import com.consultoraestrategia.ss_crmeducativo.repositorio.useCase.UpdateRepositorioDowload;
 import com.consultoraestrategia.ss_crmeducativo.util.Utils;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
@@ -21,7 +23,7 @@ import com.consultoraestrategia.ss_crmeducativo_portal.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TareaHolder extends RecyclerView.ViewHolder {
+public class TareaHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     @BindView(R.id.count)
     TextView count;
@@ -49,15 +51,29 @@ public class TareaHolder extends RecyclerView.ViewHolder {
     TextView mesfin;
     @BindView(R.id.linea)
     TextView linea;
+    @BindView(R.id.linea1)
+    TextView linea1;
+    @BindView(R.id.linea2)
+    TextView linea2;
+    @BindView(R.id.linea3)
+    TextView linea3;
     @BindView(R.id.nota)
     TextView nota;
+    @BindView(R.id.contentnota)
+    LinearLayout  contentnota;
+    TareaListener tareaListener;
+    TareasUi tareasUi;
 
     public TareaHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+        contentnota.setOnClickListener(this);
     }
 
-    public void bind(TareasUi tareasUi, int contador, String parametroDisenio){
+    public void bind(TareasUi tareasUi, int contador, String parametroDisenio, TareaListener tareaListener){
+
+        this.tareaListener=tareaListener;
+        this.tareasUi=tareasUi;
         count.setText(String.valueOf(tareasUi.getCount()));
         titulo.setText(tareasUi.getNombre());
         if(tareasUi.getFechaUiInicio()!=null){
@@ -68,7 +84,11 @@ public class TareaHolder extends RecyclerView.ViewHolder {
             diafin.setText(String.valueOf(tareasUi.getFechaUiFin().getFecha()));
             mesfin.setText(tareasUi.getFechaUiFin().getMes());
         }
-        try { linea.setBackgroundColor(Color.parseColor(parametroDisenio));
+        try {
+            linea.setBackgroundColor(Color.parseColor(parametroDisenio));
+            linea1.setBackgroundColor(Color.parseColor(parametroDisenio));
+            linea2.setBackgroundColor(Color.parseColor(parametroDisenio));
+            linea3.setBackgroundColor(Color.parseColor(parametroDisenio));
         }catch (Exception e){e.getStackTrace();}
 
         if(tareasUi.getTipo().equals(TareasUi.Tipo.RUBRO)){
@@ -116,11 +136,31 @@ public class TareaHolder extends RecyclerView.ViewHolder {
             nota.setText("-");
         }
 
-            curso.setText(tareasUi.getCurso());
-            docente.setText(tareasUi.getDocente());
+
+        switch (tareasUi.getTipoLista()){
+            case GENERAL:
+                curso.setText(tareasUi.getCurso());
+                docente.setText(tareasUi.getDocente());
+                curso.setVisibility(View.VISIBLE);
+                docente.setVisibility(View.VISIBLE);
+                break;
+            default:
+                curso.setVisibility(View.GONE);
+                docente.setVisibility(View.GONE);
+                break;
+        }
 
 
 
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.contentnota:
+                tareaListener.onclickInfoRubro(tareasUi);
+                break;
+        }
     }
 }

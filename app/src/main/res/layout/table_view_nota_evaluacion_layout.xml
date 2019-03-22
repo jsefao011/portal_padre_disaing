@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
-    android:layout_width="45dp"
-    android:layout_height="@dimen/table_body_height_eval_session">
+    android:layout_width="@dimen/info_rubro_column_width"
+    android:layout_height="@dimen/info_rubro_column_corner_height">
 
     <TextView
         android:id="@+id/txt_nota_evaluacion"

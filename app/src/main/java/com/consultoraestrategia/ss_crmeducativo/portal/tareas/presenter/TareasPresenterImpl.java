@@ -76,6 +76,12 @@ public class TareasPresenterImpl extends BaseFragmentPresenterImpl<TareaView > i
         tareaGeneralesView=null;
     }
 
+    @Override
+    public void onClickRubroInformacion(TareasUi tareasUi) {
+        Log.d(TAG, "onClickRubroInformacion "+ tareasUi.getEvalProcesoId());
+        if(tareasView!=null)tareasView.showDialogInfoRubro(tareasUi.getEvalProcesoId(), tareasUi.getCargaCursoId());
+    }
+
     private void getcursos() {
 
         handler.execute(getTareasPorCurso, new GetTareasPorCurso.RequestValues(idAlumno), new UseCase.UseCaseCallback<GetTareasPorCurso.ResponseValue>() {

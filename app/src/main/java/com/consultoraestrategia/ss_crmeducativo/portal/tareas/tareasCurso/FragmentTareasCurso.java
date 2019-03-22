@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.consultoraestrategia.ss_crmeducativo.base.viewpager.ViewPagerItemListener;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters.CursoAdapter;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.CursoUi;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.TareasUi;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.presenter.TareaListener;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.presenter.TareasPresenter;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
 
@@ -25,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class FragmentTareasCurso extends Fragment implements TareaCursoView, ViewPagerItemListener<TareasPresenter> {
+public class FragmentTareasCurso extends Fragment implements TareaCursoView, ViewPagerItemListener<TareasPresenter> , TareaListener {
 
     @BindView(R.id.textEmpty)
     TextView textEmpty;
@@ -65,7 +67,7 @@ public class FragmentTareasCurso extends Fragment implements TareaCursoView, Vie
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rc_tablesTareas.setLayoutManager(linearLayoutManager);
-        cursoAdapter = new CursoAdapter(new ArrayList<CursoUi>());
+        cursoAdapter = new CursoAdapter(new ArrayList<CursoUi>(), this);
         rc_tablesTareas.setAdapter(cursoAdapter);
         rc_tablesTareas.setHasFixedSize(true);
 
@@ -74,7 +76,7 @@ public class FragmentTareasCurso extends Fragment implements TareaCursoView, Vie
 
     @Override
     public void onAttach(TareasPresenter presenter) {
-        this.tareasPresenter = tareasPresenter;
+        this.tareasPresenter = presenter;
     }
 
     @Override
@@ -98,5 +100,10 @@ public class FragmentTareasCurso extends Fragment implements TareaCursoView, Vie
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onclickInfoRubro(TareasUi tareasUi) {
+         tareasPresenter.onClickRubroInformacion(tareasUi);
     }
 }

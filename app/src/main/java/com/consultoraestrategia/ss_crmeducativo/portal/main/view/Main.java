@@ -327,7 +327,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     @Override
     public void initFragmentEstudianteAsistencia(MainParametrosGlobales mainParametrosGlobales) {
         setTitle("ASISTENCIA");
-        //getSupportFragmentManager(EstudianteTareaFragment.class,mainParametrosGlobales.getBundle());
+        getSupportFragmentManager(EstudianteTareaFragment.class,mainParametrosGlobales.getBundle());
     }
 
     @Override

@@ -7,18 +7,21 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.consultoraestrategia.ss_crmeducativo.api.retrofit.ApiRetrofit;
 import com.consultoraestrategia.ss_crmeducativo.base.viewpager.ViewPagerItemListener;
 import com.consultoraestrategia.ss_crmeducativo.lib.autoColumnGrid.AutoColumnGridLayoutManager;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters.TareaAdapter;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters.TareaColumnCountProvider;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.TareaUiCount;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.TareasUi;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.presenter.TareaListener;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.presenter.TareasPresenter;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
 
@@ -29,11 +32,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class FragmentTareasGenerales extends Fragment implements TareaGeneralesView, ViewPagerItemListener<TareasPresenter> {
+public class FragmentTareasGenerales extends Fragment implements TareaGeneralesView, ViewPagerItemListener<TareasPresenter>, TareaListener {
 
 
     Unbinder unbinder;
     TareasPresenter tareasPresenter;
+    String TAG= FragmentTareasGenerales.class.getSimpleName();
 
     @BindView(R.id.recyclerTareas)
     RecyclerView recyclerTareas;
@@ -87,7 +91,7 @@ public class FragmentTareasGenerales extends Fragment implements TareaGeneralesV
         TareaColumnCountProvider columnCountProvider = new TareaColumnCountProvider(getContext());
         autoColumnGridLayoutManager.setColumnCountProvider(columnCountProvider);
         recyclerTareas.setLayoutManager(autoColumnGridLayoutManager);
-        tareasAdapter = new TareaAdapter(new ArrayList<TareasUi>(), "");
+        tareasAdapter = new TareaAdapter(new ArrayList<TareasUi>(), "", this);
         recyclerTareas.setAdapter(tareasAdapter);
         recyclerTareas.setHasFixedSize(true);
 
@@ -95,7 +99,7 @@ public class FragmentTareasGenerales extends Fragment implements TareaGeneralesV
 
     @Override
     public void onAttach(TareasPresenter presenter) {
-        this.tareasPresenter = tareasPresenter;
+        this.tareasPresenter = presenter;
     }
 
     @Override
@@ -142,5 +146,10 @@ public class FragmentTareasGenerales extends Fragment implements TareaGeneralesV
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onclickInfoRubro(TareasUi tareasUi) {
+        tareasPresenter.onClickRubroInformacion(tareasUi);
     }
 }

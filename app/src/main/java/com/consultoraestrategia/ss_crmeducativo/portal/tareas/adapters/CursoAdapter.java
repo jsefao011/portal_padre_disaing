@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.adapters.holders.CursoHolder;
 import com.consultoraestrategia.ss_crmeducativo.portal.tareas.entities.CursoUi;
+import com.consultoraestrategia.ss_crmeducativo.portal.tareas.presenter.TareaListener;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
 
 import java.util.List;
@@ -17,11 +18,13 @@ import butterknife.BindView;
 public class CursoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     List<CursoUi> cursoUiList;
+    TareaListener tareaListener;
 
 
 
-    public CursoAdapter(List<CursoUi> cursoUiList) {
+    public CursoAdapter(List<CursoUi> cursoUiList, TareaListener tareaListener) {
         this.cursoUiList = cursoUiList;
+        this.tareaListener=tareaListener;
     }
 
     @NonNull
@@ -33,7 +36,7 @@ public class CursoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         CursoUi cursoUi = cursoUiList.get(position);
-        ((CursoHolder) holder).bind(cursoUi);
+        ((CursoHolder) holder).bind(cursoUi, tareaListener);
     }
 
     @Override
