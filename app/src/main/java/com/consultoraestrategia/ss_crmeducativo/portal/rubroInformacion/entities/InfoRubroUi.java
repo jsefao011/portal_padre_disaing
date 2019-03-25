@@ -8,9 +8,12 @@ public class InfoRubroUi {
     private AlumnoUi alumnoUi;
     private CursoUi cursoUi;
     private String nombreRubro;
-    List<Row> rows= new ArrayList<>();
-    List<List<Cell>> cellListList=  new ArrayList<>();
-    List<Column> columns= new ArrayList<>();
+    private List<Row> rows= new ArrayList<>();
+    private List<List<Cell>> cellListList=  new ArrayList<>();
+    private List<Column> columns= new ArrayList<>();
+    private String desempenio;
+    private String puntos;
+    private String logro;
 
     public AlumnoUi getAlumnoUi() {
         return alumnoUi;
@@ -59,5 +62,29 @@ public class InfoRubroUi {
 
     public void setColumns(List<Column> columns) {
         this.columns = columns;
+    }
+
+    public String getDesempenio() {
+        return desempenio;
+    }
+
+    public void setDesempenio(String desempenio) {
+        this.desempenio = desempenio;
+    }
+
+    public String getPuntos() {
+        return puntos;
+    }
+
+    public void setPuntos(String puntos) {
+        this.puntos = puntos;
+    }
+
+    public String getLogro() {
+        return logro;
+    }
+
+    public void setLogro(String logro) {
+        this.logro = logro;
     }
 }

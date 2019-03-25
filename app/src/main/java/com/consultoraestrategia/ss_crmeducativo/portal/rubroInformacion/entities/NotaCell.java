@@ -26,4 +26,5 @@ public class NotaCell extends Cell
     public void setColor(ColorNota color) {
         this.color = color;
     }
+
 }

@@ -6,6 +6,8 @@ import com.consultoraestrategia.ss_crmeducativo.dao.campoTematicoDao.Competencia
 import com.consultoraestrategia.ss_crmeducativo.dao.curso.CursoDao;
 import com.consultoraestrategia.ss_crmeducativo.dao.indicadorDao.IndicadorDao;
 import com.consultoraestrategia.ss_crmeducativo.entities.Competencia;
+import com.consultoraestrategia.ss_crmeducativo.entities.EscalaEvaluacion;
+import com.consultoraestrategia.ss_crmeducativo.entities.EscalaEvaluacion_Table;
 import com.consultoraestrategia.ss_crmeducativo.entities.EvaluacionProcesoC;
 import com.consultoraestrategia.ss_crmeducativo.entities.EvaluacionProcesoC_Table;
 import com.consultoraestrategia.ss_crmeducativo.entities.Icds;
@@ -33,8 +35,10 @@ import com.consultoraestrategia.ss_crmeducativo.portal.rubroInformacion.entities
 import com.consultoraestrategia.ss_crmeducativo.portal.rubroInformacion.entities.NotaColumn;
 import com.consultoraestrategia.ss_crmeducativo.portal.rubroInformacion.entities.Row;
 import com.consultoraestrategia.ss_crmeducativo.portal.rubroInformacion.entities.TextoColum;
+import com.consultoraestrategia.ss_crmeducativo.util.Utils;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -76,10 +80,12 @@ public class InfoRubroDataLocalSource implements InfoRubroDataSource {
                 .where(EvaluacionProcesoC_Table.evaluacionProcesoId.withTable()
                         .eq(idEvaluacionProceso)).querySingle();
         if(evaluacionProcesoC!=null){
+            Log.d(TAG, "evaluacionProcesoC "+evaluacionProcesoC.getAlumnoId());
             Persona persona= SQLite.select().from(Persona.class)
                     .where(Persona_Table.personaId.withTable()
                             .eq(evaluacionProcesoC.getAlumnoId())).querySingle();
             if(persona!=null){
+                Log.d(TAG, "ALMNO "+ persona.getNombres());
                 AlumnoUi alumnoUi= new AlumnoUi();
                 alumnoUi.setNombre(persona.getNombres());
                 alumnoUi.setApellidos(persona.getApellidos());
@@ -109,11 +115,13 @@ public class InfoRubroDataLocalSource implements InfoRubroDataSource {
                 List<List<Cell>> cellListList= new ArrayList<>();
 
                 List<Column> columns= new ArrayList<>();
-
+                double escalaMaxAcumulada=0.0;
+                TipoNotaC tipoNotaC= null;
 
 
                 for(RubroEvalRNPFormulaC rubroEvalRNPFormulaC:formulaList ){
-                    List<Cell> cells= new ArrayList<>();
+
+
                     columns.clear();
                     List<String> rubroEvalProcesoKeyList= new ArrayList<>();
                     rubroEvalProcesoKeyList.add(rubroEvalRNPFormulaC.getRubroEvaluacionSecId());
@@ -133,13 +141,17 @@ public class InfoRubroDataLocalSource implements InfoRubroDataSource {
                                break;
                        }
                     }
+                    List<Cell> cells= new ArrayList<>();
 
                     List<IndicadorQuery> indicadorUiList = indicadorDao.getIcdsporRubroProceso(rubroEvalProcesoKeyList);
+                 //   Log.d(TAG, "indicadorQuery size " + indicadorUiList.size());
                     for (IndicadorQuery indicadorQuery : indicadorUiList) {
                         Row row = new Row();
-                        row.setContenido(indicadorQuery.getAlias());
+                     //   Log.d(TAG, "indicadorQuery alias " + indicadorQuery.getAlias());
+                        if(!indicadorQuery.getAlias().isEmpty()) row.setContenido(indicadorQuery.getAlias());
+                        else row.setContenido(indicadorQuery.getTitulo());
                         rows.add(row);
-                            Log.d(TAG, "indicadorQuery tipo " + indicadorQuery.getTipoId());
+                           // Log.d(TAG, "indicadorQuery tipo " + indicadorQuery.getTipoId());
                             switch (indicadorQuery.getTipoId()) {
                                 case Icds.TIPO_HACER:
                                     competenciaCell.setTipoIndicador(CompetenciaCell.TipoIndicador.HACER);
@@ -157,24 +169,43 @@ public class InfoRubroDataLocalSource implements InfoRubroDataSource {
 
                     }
                     cells.add(competenciaCell);
-                    //columnas
-                    NotaColumn notaColumn= new NotaColumn();
-                    notaColumn.setContenido("NF");
-                    columns.add(notaColumn);
+                    EvaluacionProcesoC evaluacionProcesoCrubro=null;
+                    //rubros
+                    RubroEvaluacionProcesoC rubro= SQLite.select().from(RubroEvaluacionProcesoC.class)
+                            .where(RubroEvaluacionProcesoC_Table.key.withTable()
+                            .eq(rubroEvalRNPFormulaC.getRubroEvaluacionSecId())).querySingle();
+                    if(rubro!=null){
+                        tipoNotaC=SQLite.select().from(TipoNotaC.class)
+                                .where(TipoNotaC_Table.tipoNotaId.withTable()
+                                .eq(rubro.getTipoNotaId())).querySingle();
+                        if(tipoNotaC!=null){
+                            EscalaEvaluacion escalaEvaluacionRub= SQLite.select().from(EscalaEvaluacion.class)
+                                    .where(EscalaEvaluacion_Table.escalaEvaluacionId.withTable()
+                                    .eq(tipoNotaC.getEscalaEvaluacionId())).querySingle();
+                            if(escalaEvaluacionRub!=null){
+                                escalaMaxAcumulada += escalaEvaluacionRub.getValorMaximo() - escalaEvaluacionRub.getValorMinimo();
+                            }
+                          evaluacionProcesoCrubro= SQLite.select().from(EvaluacionProcesoC.class)
+                          .where(EvaluacionProcesoC_Table.rubroEvalProcesoId.withTable()
+                                  .eq(rubro.getKey())).
+                                          and(EvaluacionProcesoC_Table.alumnoId.withTable()
+                                                  .eq(evaluacionProcesoC.getAlumnoId())).querySingle();
 
-                    TipoNotaC tipoNotaC= SQLite.select().from(TipoNotaC.class)
-                            .where(TipoNotaC_Table.tipoNotaId.withTable()
-                                    .eq(rubroEvaluacionProcesoC.getTipoNotaId())).querySingle();
-                    if(tipoNotaC!=null){
+                        }
+
+                        //columnas
+                        NotaColumn notaColumn= new NotaColumn();
+                        notaColumn.setContenido("NF");
+                        columns.add(notaColumn);
+
                         List<ValorTipoNotaC>valorTipoNotaCList= SQLite.select().from(ValorTipoNotaC.class)
                                 .where(ValorTipoNotaC_Table.tipoNotaId.withTable()
                                         .eq(tipoNotaC.getTipoNotaId())).
                                         orderBy(ValorTipoNotaC_Table.limiteSuperior.desc()).queryList();
 
-                     int count=0;
+                        int count=0;
                         for(ValorTipoNotaC valorTipoNotaC: valorTipoNotaCList){
                             count++;
-                            Log.d(TAG, "valores  "+ valorTipoNotaC.getAlias());
                             switch (tipoNotaC.getTipoId()){
                                 case TipoNotaC.SELECTOR_ICONOS:
                                     ImagenColumn imagenColumn= new ImagenColumn();
@@ -191,17 +222,50 @@ public class InfoRubroDataLocalSource implements InfoRubroDataSource {
                             }
                             NotaCell notaCell= new NotaCell();
                             notaCell.setColor(setColor(count));
-                            if(valorTipoNotaC.getValorTipoNotaId().equals( evaluacionProcesoC.getValorTipoNotaId())){
-                                notaCell.setSelected(true);
+                            notaCell.setContenido(valorTipoNotaC.getAlias());
 
+                            if(evaluacionProcesoCrubro!=null){
+                                if(!evaluacionProcesoCrubro.getValorTipoNotaId().isEmpty()){
+                                    if(valorTipoNotaC.getValorTipoNotaId().equals(evaluacionProcesoCrubro.getValorTipoNotaId())){
+                                       // Log.d(TAG, "VALORITPO "+ valorTipoNotaC.getAlias());
+                                        notaCell.setSelected(true);
+                                    }
+                                }
                             }
                             cells.add(notaCell);
+                            //calcular nivel de logro
+                            if(!evaluacionProcesoC.getValorTipoNotaId().isEmpty()){
+                                if(valorTipoNotaC.getKey().equals(evaluacionProcesoC.getValorTipoNotaId()))infoRubroUi.setLogro(valorTipoNotaC.getAlias());
+                            }
                         }
+                        cellListList.add(cells);
+                    }
+
+                }
+                //escala
+                double nota= evaluacionProcesoC.getNota();
+                Log.d(TAG, "nota "+ nota);
+                if(tipoNotaC!=null){
+                    EscalaEvaluacion escalaEvaluacion= SQLite.select()
+                            .from(EscalaEvaluacion.class)
+                            .where(EscalaEvaluacion_Table.escalaEvaluacionId.withTable()
+                                    .eq(tipoNotaC.getEscalaEvaluacionId()))
+                            .querySingle();
+                    if(escalaEvaluacion!=null){
+                        if (nota <= escalaEvaluacion.getValorMinimo()) {
+                            nota = escalaEvaluacion.getValorMinimo();
+                        }
+                        double puntos= Utils.transformacionInvariante(escalaEvaluacion.getValorMinimo(), escalaEvaluacion.getValorMaximo(), nota,0,escalaMaxAcumulada);
+//                        Log.d(TAG, "puntos calculados "+ puntos);
+//                        Log.d(TAG, "puntos acumulados "+ escalaMaxAcumulada);
+                        infoRubroUi.setPuntos(Math.round(puntos) + "/" + Math.round(escalaMaxAcumulada));
+                        NumberFormat percentInstance = NumberFormat.getPercentInstance();
+                        double percent = puntos / escalaMaxAcumulada;
+                        infoRubroUi.setDesempenio(percentInstance.format(percent));
 
                     }
-                    cellListList.add(cells);
-                }
 
+                }
 
                 infoRubroUi.setRows(rows);
                 infoRubroUi.setCellListList(cellListList);

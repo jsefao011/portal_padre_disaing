@@ -3,9 +3,11 @@ package com.consultoraestrategia.ss_crmeducativo.portal.rubroInformacion.adapter
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.consultoraestrategia.ss_crmeducativo.api.retrofit.ApiRetrofit;
 import com.consultoraestrategia.ss_crmeducativo.portal.rubroInformacion.entities.NotaCell;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
 
@@ -52,7 +54,7 @@ public class EvaluacionCellViewHolder extends CellViewHolder<NotaCell> {
                 textFondo.setBackgroundColor(ContextCompat.getColor(itemView.getContext(),R.color.md_orange_300));
                 txtEvalaucion.setTextColor(Color.WHITE);
                 break;
-            case BLANCO:
+            case DEFAULT:
                 textFondo.setBackgroundColor(ContextCompat.getColor(itemView.getContext(),R.color.md_grey_300));
                 break;
             case VERDE:

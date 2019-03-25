@@ -66,11 +66,17 @@ public class InfoRubroPresenterImpl extends BaseFragmentPresenterImpl<InfoRubroV
         handler.execute(getInfoRubroProceso, new GetInfoRubroProceso.RequestValues(evaluacionProcesoId, cargaCursoId), new UseCase.UseCaseCallback<GetInfoRubroProceso.ResponseValue>() {
             @Override
             public void onSuccess(GetInfoRubroProceso.ResponseValue response) {
-                Log.d(TAG,"onError getInfoRubro ");
-                if(view!=null)view.setNombreRubrica(response.getInfoRubroUi().getNombreRubro());
+
                 showCurso(response.getInfoRubroUi().getCursoUi());
                 showAlumno(response.getInfoRubroUi().getAlumnoUi());
-                if(view!=null)view.showTableView(response.getInfoRubroUi().getCellListList(),response.getInfoRubroUi().getColumns(), response.getInfoRubroUi().getRows(), "Indicadores");
+                if(view!=null){
+                    view.setNombreRubrica(response.getInfoRubroUi().getNombreRubro());
+                    view.setPuntos(response.getInfoRubroUi().getPuntos());
+                    view.setDesempenio(response.getInfoRubroUi().getDesempenio());
+                    view.setLogro(response.getInfoRubroUi().getLogro());
+                    view.showTableView(response.getInfoRubroUi().getCellListList(),response.getInfoRubroUi().getColumns(), response.getInfoRubroUi().getRows(), "Indicadores");
+
+                }
             }
 
             @Override
@@ -80,16 +86,14 @@ public class InfoRubroPresenterImpl extends BaseFragmentPresenterImpl<InfoRubroV
         });
     }
 
-
-
-
     private void showAlumno(AlumnoUi alumnoUi) {
-        if(view!=null)view.setAlumno(alumnoUi);
+        if(alumnoUi!=null){
+            if(view!=null)view.setAlumno(alumnoUi);
+        }
     }
 
     private void showCurso(CursoUi cursoUi) {
         if(view!=null)view.setNombreCurso(cursoUi.getNombre().toUpperCase()+ " " +cursoUi.getPeriodo() +" - " +cursoUi.getSeccion());
-
     }
 
     @Override
