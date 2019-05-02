@@ -63,7 +63,7 @@ public class FamiliaPresenterImpl extends BaseFragmentPresenterImpl<FamiliaView>
                     public void onSuccess(GetPersonFamilia.ResponseValues response) {
                         List<Object> objects = new ArrayList<>();
                         objects.addAll(response.getList());
-                        if (view != null) view.showListComentarios(objects);
+                        if (view != null) view.showListFamilia(objects);
                     }
 
                     @Override
@@ -99,7 +99,7 @@ public class FamiliaPresenterImpl extends BaseFragmentPresenterImpl<FamiliaView>
                         List<Object> objects = new ArrayList<>();
                         objects.addAll(response.getList());
                         Log.d("AGTAMANIO", "as" + response.getList().size());
-                        if (view != null) view.showListComentarios(objects);
+                        if (view != null) view.showListFamilia(objects);
                     }
 
                     @Override

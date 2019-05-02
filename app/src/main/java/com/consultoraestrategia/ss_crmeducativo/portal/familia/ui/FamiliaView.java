@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface FamiliaView extends BaseView<FamiliaPresenter> {
 
-    void showListComentarios(List<Object> objects);
+    void showListFamilia(List<Object> objects);
     void onCLickSave();
 }

@@ -57,6 +57,8 @@ import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteRubro.Estu
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteTarea.EstudianteTareaFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.estudianteconducta.EstudianteConductaFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.fragmentTofragment.cabecera.FragmentCabecera;
+import com.consultoraestrategia.ss_crmeducativo.portal.eventos.buscarEventos.listener.BuscarEventosListener;
+import com.consultoraestrategia.ss_crmeducativo.portal.eventos.ui.EventosFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.familia.ui.FamiliaFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.MainPresenter;
 import com.consultoraestrategia.ss_crmeducativo.portal.main.MainPresenterImpl;
@@ -90,7 +92,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Main extends BaseActivity<MainView, MainPresenter> implements MainView, MenuListener, BaseFragmentListener, AdapterAlumnoList.Listener {
+public class Main extends BaseActivity<MainView, MainPresenter> implements MainView, MenuListener, BaseFragmentListener, AdapterAlumnoList.Listener, BuscarEventosListener {
     //http://pruebas.consultoraestrategia.com/FotosCata/184/01102018121442_27-ELIANE.JPG\"\n" +
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -351,7 +353,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     @Override
     public void initFragmentColegioEvento(MainParametrosGlobales mainParametrosGlobales) {
         setTitle("EVENTO");
-        //getSupportFragmentManager(ColegioEventoFragment.class);
+        getSupportFragmentManager(EventosFragment.class, mainParametrosGlobales.getBundle());
     }
 
     @Override
@@ -586,4 +588,12 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
         presenter.onClickedProgramaEducativo();
     }
 
+    @Override
+    public void getRotationItem() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

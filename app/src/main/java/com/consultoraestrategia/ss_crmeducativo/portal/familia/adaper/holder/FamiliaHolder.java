@@ -64,9 +64,6 @@ public class FamiliaHolder extends RecyclerView.ViewHolder {
     @SuppressLint("NewApi")
     public void bind(final PersonaUi personaUis, final FamiliaAdapter familiaAdapter, final boolean state) {
         this.personaUi = personaUis;
-
-        Log.d("PersonauI", personaUi.toString());
-
         textNombre.setText(personaUi.getNombre());
         textAPellido.setText(personaUi.getApellidoCompleto());
         textTelefono.setText(personaUi.getTelefono());

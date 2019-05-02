@@ -27,7 +27,6 @@ import com.consultoraestrategia.ss_crmeducativo.portal.familia.data.source.Famil
 import com.consultoraestrategia.ss_crmeducativo.portal.familia.data.source.local.FamiliaLocalDataSource;
 import com.consultoraestrategia.ss_crmeducativo.portal.familia.domain.usecase.GetPersonFamilia;
 import com.consultoraestrategia.ss_crmeducativo.portal.familia.domain.usecase.SetPersonFamilia;
-import com.consultoraestrategia.ss_crmeducativo.portal.familia.entities.PersonaUi;
 import com.consultoraestrategia.ss_crmeducativo.portal.familia.listener.FamiliaListener;
 import com.consultoraestrategia.ss_crmeducativo.util.InjectorUtils;
 import com.consultoraestrategia.ss_crmeducativo_portal.R;
@@ -137,7 +136,7 @@ public class FamiliaFragment extends BaseFragment<FamiliaView, FamiliaPresenter,
     }
 
     @Override
-    public void showListComentarios(List<Object> objects) {
+    public void showListFamilia(List<Object> objects) {
         familiaAdapter.setObjetList(objects);
     }
 

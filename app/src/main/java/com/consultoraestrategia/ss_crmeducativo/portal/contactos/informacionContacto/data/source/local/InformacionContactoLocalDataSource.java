@@ -27,7 +27,6 @@ public class InformacionContactoLocalDataSource implements InformacionContactoDa
 
     @Override
     public void getInformacionALumno(int idAlumno, SucessCallback<List<Object>> sucessCallback) {
-
         Log.d(TAG, "idAlumno" + idAlumno);
 
         try{
