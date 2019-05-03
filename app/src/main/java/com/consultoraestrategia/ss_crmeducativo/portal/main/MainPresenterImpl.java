@@ -105,12 +105,12 @@ public class MainPresenterImpl extends BasePresenterImpl<MainView> implements Ma
         configuracionUiListColegio.clear();
         configuracionUiListColegio.add(new ItemMenuUI(TipoMenu.COLEGIO_EVENTO,"Evento", false, R.drawable.ic_evento));
         configuracionUiListColegio.add(new ItemMenuUI(TipoMenu.COLEGIO_CALENDARIO,"Calendario", false,R.drawable.ic_calendario));
-        configuracionUiListColegio.add(new ItemMenuUI(TipoMenu.COLEGIO_DIRECTORIO,"Agenda", true,R.drawable.ic_agenda));
+        configuracionUiListColegio.add(new ItemMenuUI(TipoMenu.COLEGIO_DIRECTORIO,"Agenda", false,R.drawable.ic_agenda));
 
         configuracionUiListFamilia.clear();
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_TAREAS,"Tareas", false, R.drawable.ic_portafolio));
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_RUBROS,"Evaluación", false, R.drawable.ic_evaluacion));
-        configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_ASISTENCIA,"Asistencia", false, R.drawable.ic_evento));
+        configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_ASISTENCIA,"Asistencia", true, R.drawable.ic_evento));
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_CONDUCTA,"Comportamiento", false, R.drawable.ic_comportamiento));
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_ESTADOCUENTA,"Estado de cuenta", false, R.drawable.ic_estodo_cuenta));
         configuracionUiListEstudiante.add(new ItemMenuUI(TipoMenu.ESTUDIANTE_HORARIO,"Horario", false,R.drawable.ic_cursos));

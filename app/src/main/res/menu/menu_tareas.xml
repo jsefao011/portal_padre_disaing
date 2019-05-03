@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <item
+            android:id="@+id/menu_general"
+            android:title="Colegio"
+            android:icon="@drawable/calendarblack"
+            />
         <item
             android:id="@+id/menu_curso"
             android:title="Curso"
-            android:icon="@drawable/booksstack"
+            android:icon="@drawable/stopwatch"
             />
-        <item
-            android:id="@+id/menu_general"
-            android:title="General"
-            android:icon="@drawable/listonwindow"
 
-            />
 
 </menu>

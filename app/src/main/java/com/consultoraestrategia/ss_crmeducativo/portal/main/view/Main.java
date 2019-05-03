@@ -46,6 +46,7 @@ import com.consultoraestrategia.ss_crmeducativo.base.activity.BaseActivity;
 import com.consultoraestrategia.ss_crmeducativo.base.fragment.BaseFragmentListener;
 import com.consultoraestrategia.ss_crmeducativo.entities.SessionUser;
 import com.consultoraestrategia.ss_crmeducativo.lib.AppDatabase;
+import com.consultoraestrategia.ss_crmeducativo.portal.asistencia.ui.AsistenciaFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.caso.ui.CasoFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.contactos.cabecera.ContactosFragment;
 import com.consultoraestrategia.ss_crmeducativo.portal.demo.colegioCalendario.ColegioCalendarioFragment;
@@ -329,7 +330,7 @@ public class Main extends BaseActivity<MainView, MainPresenter> implements MainV
     @Override
     public void initFragmentEstudianteAsistencia(MainParametrosGlobales mainParametrosGlobales) {
         setTitle("ASISTENCIA");
-        getSupportFragmentManager(EstudianteTareaFragment.class,mainParametrosGlobales.getBundle());
+        getSupportFragmentManager(AsistenciaFragment.class,mainParametrosGlobales.getBundle());
     }
 
     @Override

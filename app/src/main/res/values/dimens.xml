@@ -16,4 +16,15 @@
     <dimen name="table_body_height_eval_bidimencional">55dp</dimen>
     <dimen name="table_body_height_eval_session">45dp</dimen>
 
+    <!--por ahora se agrega las dimnsiones del table view-->
+    <dimen name="default_row_header_width">55dp</dimen>
+    <dimen name="default_column_header_height">55dp</dimen>
+    <dimen name="info_rubro_column_corner_width">120dp</dimen>
+    <dimen name="info_rubro_column_corner_height">45dp</dimen>
+    <dimen name="info_rubro_column_width">45dp</dimen>
+    <integer name="default_item_cache_size">10</integer>
+    <dimen name="width_tab_cal_periodo">25dp</dimen>
+    <dimen name="margin_rigth_fragment_cal_periodo">25dp</dimen>
+    <dimen name="height_tab_cal_periodo">100dp</dimen>
+
 </resources>

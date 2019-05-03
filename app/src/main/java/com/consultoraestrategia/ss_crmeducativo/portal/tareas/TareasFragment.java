@@ -124,7 +124,6 @@ public class TareasFragment extends BaseFragment<TareaView,TareasPresenter, Tare
         vpTareas.setOffscreenPageLimit(2);
         vpTareas.setAdapter(fragmentAdapter);
         tabTareas.setupWithViewPager(vpTareas);
-
         presenter.onAttach(this, fragmentTareasCurso,fragmentTareasGenerales);
        // presenter.onViewCreated();
 

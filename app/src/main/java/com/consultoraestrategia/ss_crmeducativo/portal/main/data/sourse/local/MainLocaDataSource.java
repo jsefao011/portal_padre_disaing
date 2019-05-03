@@ -111,7 +111,7 @@ public class MainLocaDataSource implements MainDataSource {
                 hijoUi.setUrl_imagen(hijopersona.getFoto());
                 char etiqueta2 = hijopersona.getNombres() == null || hijopersona.getNombres().length() == 0 ? 'V': hijopersona.getNombres().charAt(0);
                 hijoUi.setEtiqueta(etiqueta2);
-                hijoUi.setSelected(count == 0);
+                hijoUi.setSelected(count == 2);
 
                 Usuario usuarioHijo = SQLite.select()
                         .from(Usuario.class)

@@ -13,9 +13,7 @@ public interface TareasPresenter extends BaseFragmentPresenter<TareaView> {
     void onPageChanged(int position);
     void onAttach(TareasFragment tareasFragment, FragmentTareasCurso fragmentTareasCurso, FragmentTareasGenerales fragmentTareasGenerales);
     void onChildsFragmentViewCreated();
-
     void onDestroyTabTareaCurso();
-
     void onDestroyTabTareaGeneral();
     void onClickRubroInformacion(TareasUi tareasUi);
 }

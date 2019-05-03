@@ -45,12 +45,8 @@ public class TareasPresenterImpl extends BaseFragmentPresenterImpl<TareaView > i
         this.getTareasPorCurso=getTareasPorCurso;
     }
 
-
-
     @Override
     public void onPageChanged(int position) {
-
-
     }
 
     @Override
